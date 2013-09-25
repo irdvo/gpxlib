@@ -25,7 +25,7 @@
 //==============================================================================
 
 #include <strings.h>
-
+#include <cstring>
 
 #include "gpx/GPX.h"
 
@@ -46,7 +46,7 @@ namespace gpx
   {
     attributes().push_back(&_version);
     attributes().push_back(&_creator);
-    
+
     elements().push_back(&_metadata);
     elements().push_back(&_extensions);
   }
@@ -54,6 +54,8 @@ namespace gpx
   GPX::~GPX()
   {
   }
+
+  // Building
 
   Node *GPX::buildElement(const char *name, std::ostream *report)
   {
@@ -165,14 +167,74 @@ namespace gpx
     }
   }
 
+  // Properties
+
   list<Node*> GPX::wpt()
   {
     list<Node*> nodes;
-    
+
     filter("wpt", nodes);
-    
+
     return nodes;
   }
+
+  // Parsing
+
+  bool GPX::startParsing()
+  {
+    if (_parser != 0)
+    {
+      stopExpat();
+    }
+
+    startExpat();
+
+    return true;
+  }
+
+  bool GPX::parse(const char *data, int length, bool isFinal)
+  {
+    bool ok = false;
+
+    if (_parser != 0)
+    {
+      ok = XML_Parse(_parser, data, length, isFinal);
+
+      if (!ok)
+      {
+        parsingError(string(XML_ErrorString(XML_GetErrorCode(_parser))), XML_GetCurrentLineNumber(_parser), XML_GetCurrentColumnNumber(_parser));
+      }
+    }
+
+    return ok;
+  }
+
+  bool GPX::parse(const char *text, bool isFinal)
+  {
+    parse(text, strlen(text), isFinal);
+  }
+
+  bool GPX::parse(const std::string &data, bool isFinal)
+  {
+    parse(data.c_str(), data.length(), isFinal);
+  }
+
+  void parsingError(const std::string &errorText, int lineNumber, int columnNumber)
+  {
+    std::cerr << "Error: " << errorText << " on line " << lineNumber << " and column " << columnNumber << endl;
+  }
+
+  bool GPX::stopParsing()
+  {
+    if (_parser != 0)
+    {
+      stopExpat();
+    }
+
+    return true;
+  }
+
+  // Privates
 
   void GPX::startExpat()
   {
@@ -319,37 +381,5 @@ namespace gpx
   
     //[reader->_handler endNamespace];
   }
-  
-
-#if 0
-  
-    _handler = handler;
-
-    [_characters clear];
-    [_unparsed   clear];
-    
-    ok = YES;
-    
-    while ((!done) && (ok))
-    {
-      DText *text = [source readText :(long) _bufferSize];
-    
-      done = ([text length] < _bufferSize);
-    
-      if (!XML_Parse(_parser, [text cstring], [text length], done))
-      {
-        [_handler error :XML_GetErrorCode(_parser) :name :XML_GetCurrentLineNumber(_parser) :XML_GetCurrentColumnNumber(_parser)];
-      
-        ok = NO;
-      }
-    
-      [text free];
-    }
-    [_handler endDocument];
-
-    XML_ParserFree(_parser); _parser = NULL;
-
-
-#endif
 
 }
