@@ -54,7 +54,7 @@ namespace gpx
   
   class GPX : public Node
   {
-    public:
+  public:
 
     ///
     /// Constructor
@@ -123,7 +123,7 @@ namespace gpx
     ///
     Extensions  &extensions() { return _extensions; };
 
-    // Methods
+    // Building methods
     
     ///
     /// Build an element node
@@ -159,7 +159,65 @@ namespace gpx
     ///
     virtual void value(std::string value);
 
-    private:
+    // Parsing methods
+
+    ///
+    /// Start parsing
+    ///
+    /// @return success
+    ///
+    bool startParsing();
+
+    ///
+    /// Parse data
+    ///
+    /// @param  data    the data to be parsed
+    /// @param  length  the length of the data
+    /// @param  isFinal is this the last data ?
+    ///
+    /// @return success
+    ///
+    bool parse(const char *data, int length, bool isFinal);
+
+    ///
+    /// Start parsing
+    ///
+    /// @param  text    the zero terminated text to be parsed
+    /// @param  isFinal is this the last data ?
+    ///
+    /// @return success
+    ///
+    bool parse(const char *text, bool isFinal);
+
+    ///
+    /// Start parsing
+    ///
+    /// @param  data    the data to be parsed
+    /// @param  isFinal is this the last data ?
+    ///
+    /// @return success
+    ///
+    bool parse(const std::string &data, bool isFinal);
+
+    ///
+    /// Report parsing error
+    ///
+    /// @param  errorText     the text for the error
+    /// @param  lineNumber    the line number of the error
+    /// @param  columnNumber  the column number of the error
+    ///
+    /// @return success
+    ///
+    virtual void parsingError(const std::string &errorText, int lineNumber, int columnNumber);
+
+    ///
+    /// Stop parsing
+    ///
+    /// @return success
+    ///
+    bool stopParsing(); 
+
+  private:
 
     // Start using expat
     void startExpat();
