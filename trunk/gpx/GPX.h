@@ -27,6 +27,8 @@
 //
 //==============================================================================
 
+#include <iostream>
+
 #include "expat.h"
 
 #include "gpx/Node.h" 
@@ -159,7 +161,7 @@ namespace gpx
     ///
     virtual void value(std::string value);
 
-    // Parsing methods
+    // Low level rarsing methods
 
     ///
     /// Start parsing
@@ -216,6 +218,17 @@ namespace gpx
     /// @return success
     ///
     bool stopParsing(); 
+
+    // Stream parsing methods
+
+    ///
+    /// Parse an input stream
+    ///
+    /// @param  stream        the stream to be parsed
+    ///
+    /// @return success
+    ///
+    bool parse(std::istream &stream);
 
   private:
 
