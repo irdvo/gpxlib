@@ -47,6 +47,13 @@ namespace gpx
   Link::~Link()
   {
   }
+
+  bool Link::validate(std::ostream *report) const
+  {
+    /// ToDo: Link::validate
+
+    return true;
+  }
   
 }
 

@@ -28,6 +28,7 @@ set(SRC
     RTE.cpp
     Metadata.cpp
     GPX.cpp
+    Parser.cpp
     )
 
 
