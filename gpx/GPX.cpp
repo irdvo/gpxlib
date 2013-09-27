@@ -80,28 +80,28 @@ namespace gpx
       {
         node = new TRK(this, "trk", false);
       }
-      
+
       if (node != 0)
       {
         list<Node*>::      iterator iter = elements().begin();
         list<Node*>::const_iterator end  = elements().end();
         list<Node*>::      iterator last = elements().end();
-        
+
         while (iter != end)
         {
           if (strcasecmp(name, (*iter)->name().c_str()) == 0)
           {
             last = iter;
           }
-          
+
           ++iter;
         }
-        
+
         if (last != end)
         {
           ++last;
         }
-        
+
         if (last == end)
         {
           elements().push_back(node);
@@ -110,7 +110,7 @@ namespace gpx
         {
           elements().insert(last, node);
         }
-        
+
         _current = node;
       }
       else
@@ -122,7 +122,7 @@ namespace gpx
     {
       _current = _current->buildElement(name, report);
     }
-    
+
     return _current;
   }
 
@@ -132,7 +132,7 @@ namespace gpx
     {
       _current = this;
     }
-    
+
     if (_current == this)
     {
       _current = Node::buildAttribute(name, report);
@@ -141,7 +141,7 @@ namespace gpx
     {
       _current = _current->buildAttribute(name, report);
     }
-    
+
     return _current;
   }
 
@@ -233,6 +233,32 @@ namespace gpx
 
     return true;
   }
+
+  // Parse a stream
+
+  bool GPX::parse(std::istream &stream)
+  {
+    bool ok = false;
+
+    if (stream.good())
+    {
+      char buffer[4096];
+
+      ok = startParsing();
+
+      while ((ok) && (stream.good()))
+      {
+        stream.read(buffer, sizeof(buffer));
+
+        ok = parse(buffer, stream.gcount(), (stream.gcount() < sizeof(buffer)));
+      }
+
+      stopParsing();
+    }
+
+    return ok;
+  }
+
 
   // Privates
 
