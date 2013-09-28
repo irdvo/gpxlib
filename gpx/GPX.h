@@ -92,23 +92,23 @@ namespace gpx
     ///
     /// Get wpt
     ///
-    /// @return the wpt object
+    /// @return the list of wpt objects
+    ///
+    /// @todo Use list as parameter to prevent coping
     ///
     std::list<Node*> wpt();
 
     ///
     /// Get rte
     ///
-    /// @return the rte object
+    /// @return the list of rte objects
     ///
     std::list<Node*> rte();
 
     ///
     /// Get trk
     ///
-    /// @return the trk object
-    ///
-    /// @todo return trk
+    /// @return the list of trk objects
     ///
     std::list<Node*> trk();
 

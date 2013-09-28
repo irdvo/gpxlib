@@ -1,6 +1,6 @@
 //==============================================================================
 //
-//                gpxls - the gpxls example
+//                gpxwpt - the gpxwpt example
 //
 //               Copyright (C) 2013  Dick van Oudheusden
 //--
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 {
   if (argc < 2)
   {
-    cerr << "Usage: gpxls file ..." << endl;
+    cerr << "Usage: gpxwpt file ..." << endl;
     exit(1);
   }
 
@@ -56,13 +56,24 @@ int main(int argc, char *argv[])
       }
       else
       {
-        cout << argv[i] << ":" << endl;
-        cout << "  Version  : " << root->version().value() << endl;
-        cout << "  Creator  : " << root->creator().value() << endl;
-        cout << "  Name     : " << root->metadata().author().name().value() << endl;
-        cout << "  Waypoints: " << root->wpt().size() << endl;
-        cout << "  Routes   : " << root->rte().size() << endl;
-        cout << "  Tracks   : " << root->trk().size() << endl;
+        cout << argv[i] << " waypoints :" << endl;
+        list<gpx::Node*> wpts = root->wpt();
+
+        for (list<gpx::Node*>::iterator node = wpts.begin(); node != wpts.end(); ++node)
+        {
+          gpx::WPT *wpt = dynamic_cast<gpx::WPT*>(*node);
+
+          if (wpt != 0)
+          {
+            cout << "Position: " << wpt->lat().value() << ',' << wpt->lon().value() << endl;
+            if (wpt->ele().used())  cout << "  Elevation: " << wpt->ele().value() << endl;
+            if (wpt->time().used()) cout << "  Time     : " << wpt->time().value() << endl;
+            if (wpt->name().used()) cout << "  Name     : " << wpt->name().value() << endl;
+            if (wpt->cmt().used())  cout << "  Comment  : " << wpt->cmt().value() << endl;
+            if (wpt->sym().used())  cout << "  Symbol   : " << wpt->sym().value() << endl;
+            if (wpt->type().used()) cout << "  Type     : " << wpt->type().value() << endl;
+          }
+        }
         cout << endl;
       }
 
