@@ -6,3 +6,7 @@ target_link_libraries (gpxls gpx expat)
 add_executable (gpxwpt gpxwpt.cpp)
 target_link_libraries (gpxwpt gpx expat)
 
+add_executable (gpxtrk gpxtrk.cpp)
+target_link_libraries (gpxtrk gpx expat)
+
+
