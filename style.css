@@ -69,8 +69,9 @@ BODY {
 }
 
 .modbox {
-	BORDER-TOP: black 1px solid; BORDER-BOTTOM: black 1px solid;
-  MARGIN-TOP: 25px; MARGIN-BOTTOM: 15px
+  BORDER-TOP: black 1px solid; BORDER-BOTTOM: black 1px solid;
+  MARGIN-TOP: 25px; MARGIN-BOTTOM: 15px;
+  MARGIN-LEFT: auto; MARGIN-RIGHT: auto
 }
 
 .moditemtxt {
