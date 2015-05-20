@@ -42,13 +42,28 @@ void show(gpx::Node &node, int width)
 
     if (value.length() > width)
     {
-      value = value.substr(0, width-2);
-      value.append("..");
+      value = value.substr(0, width);
     }
     else if (value.length() < width)
     {
       value.insert(0, width - value.length(), ' ');
     }
+  }
+
+  cout << value << ' ';
+}
+
+void show(const string str, int width)
+{
+  string value = str;;
+
+  if (value.length() > width)
+  {
+    value = value.substr(0, width);
+  }
+  else if (value.length() < width)
+  {
+    value.append(width - value.length(), ' ');
   }
 
   cout << value << ' ';
@@ -106,6 +121,14 @@ int main(int argc, char *argv[])
               if (seg != 0)
               {
                 cout << "  Segment     : " << segnr++ << endl;
+                cout << "    ";
+                show("Latitude",  11);
+                show("Longitude",  11);
+                show("Height",  11);
+                show("Time", 20);
+                show("Name",  8);
+                show("Comment",  10);
+                cout << endl;
 
                 list<gpx::Node*> trkpts = seg->trkpt();
 

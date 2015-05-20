@@ -64,28 +64,28 @@ namespace gpx
     ///
     /// @return the root GPX node (or 0 if not present)
     ///
-    GPX *root() const { return _root; };
+    GPX *root() const { return _root; }
 
     ///
     /// Get the last error text
     ///
     /// @return the last error text
     ///
-    const std::string &errorText() const { return _errorText; };
+    const std::string &errorText() const { return _errorText; }
 
     ///
     /// Get the last error line number
     ///
     /// @return the last error line number
     ///
-    int errorLineNumber() const { return _errorLineNumber; };
+    int errorLineNumber() const { return _errorLineNumber; }
 
     ///
     /// Get the last error column number
     ///
     /// @return the last error column number
     ///
-    int errorColumnNumber() const { return _errorColumnNumber; };
+    int errorColumnNumber() const { return _errorColumnNumber; }
 
   private:
 

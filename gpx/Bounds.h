@@ -66,28 +66,28 @@ namespace gpx
     ///
     /// @return the minlat object
     ///
-    Latitude  &minlat() { return _minlat; };
+    Latitude  &minlat() { return _minlat; }
     
     ///
     /// Get minlon
     ///
     /// @return  the minlon object
     ///
-    Longitude &minlon() { return _minlon; };
+    Longitude &minlon() { return _minlon; }
     
     ///
     /// Get maxlat
     ///
     /// @return  the maxlat object
     ///
-    Latitude  &maxlat() { return _maxlat; };
+    Latitude  &maxlat() { return _maxlat; }
     
     ///
     /// Get maxlon
     ///
     /// @return  the maxlon object
     ///
-    Longitude &maxlon() { return _maxlon; };
+    Longitude &maxlon() { return _maxlon; }
     
     private:
     

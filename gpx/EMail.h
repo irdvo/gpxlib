@@ -62,14 +62,14 @@ namespace gpx
     ///
     /// @return the id object
     ///
-    String  &id() { return _id; };
+    String  &id() { return _id; }
 
     ///
     /// Get domain
     ///
     /// @return the domain object
     ///
-    String  &domain() { return _domain; };
+    String  &domain() { return _domain; }
 
     private:
     

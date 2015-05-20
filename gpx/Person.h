@@ -65,21 +65,21 @@ namespace gpx
     ///
     /// @return the name object
     ///
-    String  &name() { return _name; };
+    String  &name() { return _name; }
     
     ///
     /// Get email
     ///
     /// @return the email object
     ///
-    EMail  &email() { return _email; };
+    EMail  &email() { return _email; }
     
     ///
     /// Get link
     ///
     /// @return the link object
     ///
-    Link  &link() { return _link; };
+    Link  &link() { return _link; }
     
     private:
     

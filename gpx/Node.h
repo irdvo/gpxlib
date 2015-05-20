@@ -65,28 +65,28 @@ namespace gpx
     ///
     /// @return the name of the attribute or element
     ///
-    const std::string &name() const { return _name; };
+    const std::string &name() const { return _name; }
 
     ///
     /// Return the value
     ///
     /// @return the value of the attribute or element
     ///
-    virtual const std::string &value() const { return _value; };
+    virtual const std::string &value() const { return _value; }
 
     ///
     /// Is mandatory
     ///
     /// @return is the attribute or element mandatory
     ///
-    bool        mandatory() const { return _mandatory; };
+    bool        mandatory() const { return _mandatory; }
     
     ///
     /// Is the node used ?  
     ///
     /// @return is it ?
     ///
-    bool        used() const { return _used; };
+    bool        used() const { return _used; }
 
     
     ///
@@ -94,35 +94,35 @@ namespace gpx
     ///
     /// @param  value  is it used ?
     ///
-    void        used(bool value) { _used = value; };
+    void        used(bool value) { _used = value; }
 
     ///
     /// Set the value
     ///
     /// @param value   the value of the attribute or element
     ///
-    virtual void value(std::string value) { _value = value; used(true); };
+    virtual void value(std::string value) { _value = value; used(true); }
     
     ///
     /// Get the parent node of this node
     ///
     /// @return the parent node (or 0)
     ///
-    Node        *parent() const { return _parent; };
+    Node        *parent() const { return _parent; }
 
     ///
     /// Get the attributes list
     ///
     /// @return the parent node (or 0)
     ///
-    std::list<Node*>   &attributes() { return _attributes; };
+    std::list<Node*>   &attributes() { return _attributes; }
     
     ///
     /// Get the elements list
     ///
     /// @return the parent node (or 0)
     ///
-    std::list<Node*>   &elements() { return _elements; };
+    std::list<Node*>   &elements() { return _elements; }
         
     // Methods
     
@@ -151,7 +151,7 @@ namespace gpx
     ///
     /// @return the parent node (or 0 if not found)
     ///
-    virtual Node *built() { return _parent; };
+    virtual Node *built() { return _parent; }
 
     ///
     /// Validate the object

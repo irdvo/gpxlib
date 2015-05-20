@@ -71,7 +71,7 @@ namespace gpx
     ///
     /// @return the extensions object
     ///
-    Extensions  &extensions() { return _extensions; };
+    Extensions  &extensions() { return _extensions; }
 
     // Methods
     

@@ -73,21 +73,21 @@ namespace gpx
     ///
     /// @return the version object
     ///
-    String  &version() { return _version; };
+    String  &version() { return _version; }
 
     ///
     /// Get creator
     ///
     /// @return the creator object
     ///
-    String  &creator() { return _creator; };
+    String  &creator() { return _creator; }
 
     ///
     /// Get metadata
     ///
     /// @return the metadata object
     ///
-    Metadata  &metadata() { return _metadata; };
+    Metadata  &metadata() { return _metadata; }
 
     ///
     /// Get wpt
@@ -117,7 +117,7 @@ namespace gpx
     ///
     /// @return the extensions object
     ///
-    Extensions  &extensions() { return _extensions; };
+    Extensions  &extensions() { return _extensions; }
 
     // Building methods
 

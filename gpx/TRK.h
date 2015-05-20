@@ -68,28 +68,28 @@ namespace gpx
     ///
     /// @return the name object
     ///
-    String  &name() { return _name; };
+    String  &name() { return _name; }
     
     ///
     /// Get cmt
     ///
     /// @return the cmt object
     ///
-    String  &cmt() { return _cmt; };
+    String  &cmt() { return _cmt; }
 
     ///
     /// Get desc
     ///
     /// @return the desc object
     ///
-    String  &desc() { return _desc; };
+    String  &desc() { return _desc; }
 
     ///
     /// Get src
     ///
     /// @return the src object
     ///
-    String  &src() { return _src; };
+    String  &src() { return _src; }
 
     ///
     /// Get link
@@ -103,21 +103,21 @@ namespace gpx
     ///
     /// @return the number object
     ///
-    Unsigned  &number() { return _number; };
+    Unsigned  &number() { return _number; }
 
     ///
     /// Get type
     ///
     /// @return the type object
     ///
-    String  &type() { return _type; };
+    String  &type() { return _type; }
 
     ///
     /// Get extensions
     ///
     /// @return the extensions object
     ///
-    Extensions  &extensions() { return _extensions; };
+    Extensions  &extensions() { return _extensions; }
 
     ///
     /// Get trkseg
