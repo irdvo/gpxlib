@@ -32,7 +32,7 @@
 #include "gpx/String.h"
 #include "gpx/Person.h"
 #include "gpx/Copyright.h"
-#include "gpx/Link.h"
+#include "gpx/LinkList.h"
 #include "gpx/DateTime.h"
 #include "gpx/Bounds.h"
 #include "gpx/Extensions.h"
@@ -98,7 +98,7 @@ namespace gpx
     ///
     /// @todo return link
     ///
-    std::list<Node*> link();
+    std::list<Link*> &link() {_links.list();}
     
     ///
     /// Get time
@@ -128,16 +128,6 @@ namespace gpx
     ///
     Extensions  &extensions() { return _extensions; }
     
-    ///
-    /// Build an element
-    ///
-    /// @param  name    the name of an element
-    /// @param  report  the optional report stream
-    ///
-    /// @return the node (or 0 if not found)
-    ///
-    virtual Node *buildElement(const char *name, std::ostream *report = 0);
-
     private:
     
     // Members
@@ -149,6 +139,7 @@ namespace gpx
     String     _keywords;
     Bounds     _bounds;
     Extensions _extensions;
+    LinkList   _links;
     
     // Disable copy constructors
     Metadata(const Metadata &);

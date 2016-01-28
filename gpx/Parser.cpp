@@ -56,7 +56,7 @@ namespace gpx
 
   // Building
 
-  void Parser::buildElement(const char *name)
+  void Parser::makeElement(const char *name)
   {
     // cout << "BuildElement:" << name << " for " << (_current != 0 ? _current->name().c_str() : "null") << endl;
 
@@ -73,7 +73,7 @@ namespace gpx
     }
     else if (_current != 0)
     {
-      _current = _current->buildElement(name, _report);
+      _current = _current->makeElement(name, _report);
     }
     else if (_report != 0)
     {
@@ -81,13 +81,13 @@ namespace gpx
     }
   }
 
-  void Parser::buildAttribute(const char *name)
+  void Parser::makeAttribute(const char *name)
   {
     // cout << "BuildAttribute:" << name << " for " << (_current != 0 ? _current->name().c_str() : "null") << endl;
 
     if (_current != 0)
     {
-      _current = _current->buildAttribute(name, _report);
+      _current = _current->makeAttribute(name, _report);
     }
     else if (_report != 0)
     {
@@ -95,13 +95,13 @@ namespace gpx
     }
   }
 
-  void Parser::built()
+  void Parser::made()
   {
     // cout << "Built for " << (_current != 0 ? _current->name().c_str() : "null") << endl;
 
     if (_current != 0)
     {
-      _current = _current->built();
+      _current = _current->made();
     }
     else if (_report != 0)
     {
@@ -223,18 +223,18 @@ namespace gpx
   {
     Parser *me = static_cast<Parser*>(userData);
     
-    me->buildElement(name);
+    me->makeElement(name);
     
     //emptyCharacters(reader->_characters, reader->_handler);
     //emptyUnparsed  (reader->_unparsed,   reader->_handler);
   
     for (int i = 0; atts[i] != NULL; i+=2)
     {
-      me->buildAttribute(atts[i]);
+      me->makeAttribute(atts[i]);
       
       me->value(atts[i+1]);
       
-      me->built();
+      me->made();
     }
   }
 
@@ -242,7 +242,7 @@ namespace gpx
   {
     Parser *me = static_cast<Parser*>(userData);
     
-    me->built();
+    me->made();
   }
 
   void Parser::characterDataHandler(void *userData, const XML_Char *s, int len)

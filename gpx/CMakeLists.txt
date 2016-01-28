@@ -31,6 +31,12 @@ set(SRC
     Metadata.cpp
     GPX.cpp
     Parser.cpp
+    WPTList.cpp
+    LinkList.cpp
+    TRKSegList.cpp
+    PTList.cpp
+    TRKList.cpp
+    RTEList.cpp
     )
 
 

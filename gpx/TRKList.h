@@ -1,11 +1,11 @@
-#ifndef TRK_SEG_H
-#define TRK_SEG_H
+#ifndef TRKLIST_H
+#define TRKLIST_H
 
 //==============================================================================
 //
-//             TRKSeg - the track segment class in the GPX library
+//           TRKList - the TRK list class in the GPX library
 //
-//               Copyright (C) 2013  Dick van Oudheusden
+//               Copyright (C) 2016  Dick van Oudheusden
 //  
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -27,21 +27,20 @@
 //
 //==============================================================================
 
-#include "gpx/Node.h"
+#include <list>
 
-#include "gpx/Extensions.h"
-#include "gpx/WPTList.h"
+#include "gpx/TRK.h"
 
 
 namespace gpx
 {
   ///
-  /// @class TRKSeg
+  /// @class TRKList
   ///
-  /// @brief The list of track points class of the gpx library.
+  /// @brief The link list class of the gpx library.
   ///
   
-  class TRKSeg : public Node
+  class TRKList : public Node
   {
     public:
 
@@ -52,39 +51,40 @@ namespace gpx
     /// @param  name       the name of the attribute or element
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
-    TRKSeg(Node *parent, const char *name, bool mandatory = false);
+    TRKList(Node *parent, const char *name, bool mandatory = false);
 
     ///
     /// Deconstructor
     ///
-    virtual ~TRKSeg();
+    virtual ~TRKList();
 
-    ///
-    /// Get trkpt
-    ///
-    /// @return the trkpt objects
-    ///
-    std::list<WPT*>  &trkpt() {return _trkpts.list();}
+    // Properties
 
-    ///
-    /// Get extensions
-    ///
-    /// @return the extensions object
-    ///
-    Extensions  &extensions() { return _extensions; }
+    std::list<TRK*> &list() { return _list;}
 
     // Methods
+    
+    ///
+    /// Make the node
+    ///
+    /// @param  name    the name of the node
+    /// @param  report  the optional report stream
+    ///
+    /// @return the node (or 0 if not found)
+    ///
+    virtual Node *make(const char *name, std::ostream *report);
+
     
     private:
     
     // Members
-    Extensions  _extensions;
-    WPTList     _trkpts;
-
+    std::list<TRK *> _list;
+    
     // Disable copy constructors
-    TRKSeg(const TRKSeg &);
-    TRKSeg& operator=(const TRKSeg &);  
+    TRKList(const TRKList &);
+    TRKList& operator=(const TRKList &);
   };
+  
 }
 
 #endif

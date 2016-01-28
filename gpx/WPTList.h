@@ -1,9 +1,9 @@
-#ifndef TRK_SEG_H
-#define TRK_SEG_H
+#ifndef WPTLIST_H
+#define WPTLIST_H
 
 //==============================================================================
 //
-//             TRKSeg - the track segment class in the GPX library
+//           WPTList - the Waypoint list class in the GPX library
 //
 //               Copyright (C) 2013  Dick van Oudheusden
 //  
@@ -27,21 +27,20 @@
 //
 //==============================================================================
 
-#include "gpx/Node.h"
+#include <list>
 
-#include "gpx/Extensions.h"
-#include "gpx/WPTList.h"
+#include "gpx/WPT.h"
 
 
 namespace gpx
 {
   ///
-  /// @class TRKSeg
+  /// @class WPTList
   ///
-  /// @brief The list of track points class of the gpx library.
+  /// @brief The waypoint list class of the gpx library.
   ///
   
-  class TRKSeg : public Node
+  class WPTList : public Node
   {
     public:
 
@@ -52,39 +51,40 @@ namespace gpx
     /// @param  name       the name of the attribute or element
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
-    TRKSeg(Node *parent, const char *name, bool mandatory = false);
+    WPTList(Node *parent, const char *name, bool mandatory = false);
 
     ///
     /// Deconstructor
     ///
-    virtual ~TRKSeg();
+    virtual ~WPTList();
 
-    ///
-    /// Get trkpt
-    ///
-    /// @return the trkpt objects
-    ///
-    std::list<WPT*>  &trkpt() {return _trkpts.list();}
+    // Properties
 
-    ///
-    /// Get extensions
-    ///
-    /// @return the extensions object
-    ///
-    Extensions  &extensions() { return _extensions; }
+    std::list<WPT*> &list() { return _list;}
 
     // Methods
+    
+    ///
+    /// Build the node
+    ///
+    /// @param  name    the name of the node
+    /// @param  report  the optional report stream
+    ///
+    /// @return the node (or 0 if not found)
+    ///
+    virtual Node *make(const char *name, std::ostream *report);
+
     
     private:
     
     // Members
-    Extensions  _extensions;
-    WPTList     _trkpts;
-
+    std::list<WPT *> _list;
+    
     // Disable copy constructors
-    TRKSeg(const TRKSeg &);
-    TRKSeg& operator=(const TRKSeg &);  
+    WPTList(const WPTList &);
+    WPTList& operator=(const WPTList &);
   };
+  
 }
 
 #endif

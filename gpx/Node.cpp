@@ -46,7 +46,7 @@ namespace gpx
   {
   }
   
-  Node *Node::buildAttribute(const char *name, std::ostream *report)
+  Node *Node::makeAttribute(const char *name, std::ostream *report)
   {
     {
       list<Node*>::const_iterator iter = _attributes.begin();
@@ -75,7 +75,7 @@ namespace gpx
     return node;
   }
   
-  Node *Node::buildElement(const char *name, std::ostream *report)
+  Node *Node::makeElement(const char *name, std::ostream *report)
   {
     {
       list<Node*>::const_iterator iter = _elements.begin();
@@ -85,7 +85,7 @@ namespace gpx
       {
         if (strcasecmp(name, (*iter)->name().c_str()) == 0)
         {
-          return (*iter);
+          return (*iter)->make(name, report);
         }
         
         ++iter;
@@ -103,6 +103,12 @@ namespace gpx
     
     return node;
   }
+
+  Node *Node::make(const char *name, std::ostream *report)
+  {
+    return this;
+  }
+
 
   bool Node::validate(std::ostream *report) const
   {

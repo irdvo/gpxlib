@@ -31,9 +31,9 @@
 
 #include "gpx/String.h"
 #include "gpx/Unsigned.h"
-#include "gpx/Link.h"
+#include "gpx/LinkList.h"
 #include "gpx/Extensions.h"
-#include "gpx/WPT.h"
+#include "gpx/WPTList.h"
 
 
 namespace gpx
@@ -95,7 +95,7 @@ namespace gpx
     ///
     /// @return the link objects
     ///
-    std::list<Node*> link();
+    std::list<Link*> &link() {return _links.list();}
 
     ///
     /// Get number
@@ -123,20 +123,10 @@ namespace gpx
     ///
     /// @return the rtept objects
     ///
-    std::list<Node*> rtept();
+    std::list<WPT*> &rtept() {return _rtepts.list();}
 
     // Methods
     
-    ///
-    /// Build the element
-    ///
-    /// @param  name    the name of the element
-    /// @param  report  the optional report stream
-    ///
-    /// @return the node (or 0 if not found)
-    ///
-    virtual Node *buildElement(const char *name, std::ostream *report = 0);
-
 
     private:
     
@@ -148,6 +138,8 @@ namespace gpx
     Unsigned   _number;
     String     _type;
     Extensions _extensions;
+    WPTList    _rtepts;
+    LinkList   _links;
 
     // Disable copy constructors
     RTE(const RTE &);

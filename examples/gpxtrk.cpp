@@ -93,12 +93,12 @@ int main(int argc, char *argv[])
       }
       else
       {
-        list<gpx::Node*> trks = root->trk();
+        list<gpx::TRK*> trks = root->trk();
 
         int trknr = 1;
-        for (list<gpx::Node*>::iterator node = trks.begin(); node != trks.end(); ++node)
+        for (list<gpx::TRK*>::iterator node = trks.begin(); node != trks.end(); ++node)
         {
-          gpx::TRK *trk = dynamic_cast<gpx::TRK*>(*node);
+          gpx::TRK *trk = (*node);
 
           if (trk != 0)
           {
@@ -111,12 +111,12 @@ int main(int argc, char *argv[])
             if (trk->number().used()) cout << "  Number      : " << trk->number().value() << endl;
                                       cout << "  Segments:   : " << trk->trkseg().size()  << endl << endl;
 
-            list<gpx::Node*> trksegs = trk->trkseg();
+            list<gpx::TRKSeg*> trksegs = trk->trkseg();
 
             int segnr = 1;
-            for (list<gpx::Node*>::iterator iter2 = trksegs.begin(); iter2 != trksegs.end(); ++iter2)
+            for (list<gpx::TRKSeg*>::iterator iter2 = trksegs.begin(); iter2 != trksegs.end(); ++iter2)
             {
-              gpx::TRKSeg *seg = dynamic_cast<gpx::TRKSeg*>(*iter2);
+              gpx::TRKSeg *seg = (*iter2);
 
               if (seg != 0)
               {
@@ -130,11 +130,11 @@ int main(int argc, char *argv[])
                 show("Comment", 10);
                 cout << endl;
 
-                list<gpx::Node*> trkpts = seg->trkpt();
+                list<gpx::WPT*> &trkpts = seg->trkpt();
 
-                for (list<gpx::Node*>::iterator iter3 = trkpts.begin(); iter3 != trkpts.end(); ++iter3)
+                for (list<gpx::WPT*>::iterator iter3 = trkpts.begin(); iter3 != trkpts.end(); ++iter3)
                 {
-                  gpx::WPT *trkpt = dynamic_cast<gpx::WPT*>(*iter3);
+                  gpx::WPT *trkpt = (*iter3);
 
                   if (trkpt != 0)
                   {

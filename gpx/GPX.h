@@ -31,10 +31,10 @@
 
 #include "gpx/String.h"
 #include "gpx/Metadata.h" 
-#include "gpx/WPT.h"
-#include "gpx/RTE.h"
-#include "gpx/TRK.h"
+#include "gpx/RTEList.h"
+#include "gpx/TRKList.h"
 #include "gpx/Extensions.h"
+#include "gpx/WPTList.h"
 
 ///
 /// @namespace gpx
@@ -96,21 +96,21 @@ namespace gpx
     ///
     /// @todo Use list as parameter to prevent coping
     ///
-    std::list<Node*> wpt();
+    std::list<WPT*> &wpt() {_wpts.list();}
 
     ///
     /// Get rte
     ///
     /// @return the list of rte objects
     ///
-    std::list<Node*> rte();
+    std::list<RTE*> &rte() {return _rtes.list();}
 
     ///
     /// Get trk
     ///
     /// @return the list of trk objects
     ///
-    std::list<Node*> trk();
+    std::list<TRK*> &trk() {return _trks.list();}
 
     ///
     /// Get extensions
@@ -118,18 +118,6 @@ namespace gpx
     /// @return the extensions object
     ///
     Extensions  &extensions() { return _extensions; }
-
-    // Building methods
-
-    ///
-    /// Build an element node
-    ///
-    /// @param  name    the name of the element
-    /// @param  report  the optional report stream
-    ///
-    /// @return the node (or 0 if not found)
-    ///
-    virtual Node *buildElement(const char *name, std::ostream *report = 0);
 
   private:
 
@@ -139,6 +127,9 @@ namespace gpx
     String      _creator;
     Metadata    _metadata;
     Extensions  _extensions;
+    WPTList     _wpts;
+    RTEList     _rtes;
+    TRKList     _trks;
 
     // Disable copy constructors
     GPX(const GPX &);

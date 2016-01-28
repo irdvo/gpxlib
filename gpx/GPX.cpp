@@ -40,77 +40,23 @@ namespace gpx
     _version(this, "version", true),
     _creator(this, "creator", true),
     _metadata(this, "metadata", false),
-    _extensions(this, "extensions", false)
+    _extensions(this, "extensions", false),
+    _wpts(this, "wpt", false),
+    _rtes(this, "rte", false),
+    _trks(this, "trk", false)
+
   {
     attributes().push_back(&_version);
     attributes().push_back(&_creator);
 
     elements().push_back(&_metadata);
     elements().push_back(&_extensions);
+    elements().push_back(&_wpts);
+    elements().push_back(&_rtes);
+    elements().push_back(&_trks);
   }
 
   GPX::~GPX()
   {
-  }
-
-  // Building
-
-  Node *GPX::buildElement(const char *name, std::ostream *report)
-  {
-    Node *node = 0;
-
-    if (strcasecmp(name, "wpt") == 0)
-    {
-      node = new WPT(this, name, false);
-    }
-    else if (strcasecmp(name, "rte") == 0)
-    {
-      node = new RTE(this, name, false);
-    }
-    else if (strcasecmp(name, "trk") == 0)
-    {
-      node = new TRK(this, name, false);
-    }
-
-    if (node != 0)
-    {
-      insert(name, node);
-
-    }
-    else
-    {
-      node = Node::buildElement(name, report);
-    }
-
-    return node;
-  }
-
-  // Properties
-
-  list<Node*> GPX::wpt()
-  {
-    list<Node*> nodes;
-
-    filter("wpt", nodes);
-
-    return nodes;
-  }
-
-  list<Node*> GPX::rte()
-  {
-    list<Node*> nodes;
-
-    filter("rte", nodes);
-
-    return nodes;
-  }
-
-  list<Node*> GPX::trk()
-  {
-    list<Node*> nodes;
-
-    filter("trk", nodes);
-
-    return nodes;
   }
 }

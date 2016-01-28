@@ -41,7 +41,9 @@ namespace gpx
     _src(this, "src", false),
     _number(this, "number", false),
     _type(this, "type",   false),
-    _extensions(this, "extensions", false)
+    _extensions(this, "extensions", false),
+    _rtepts(this, "rtept", false),
+    _links(this, "link", false)
   {
     elements().push_back(&_name);
     elements().push_back(&_cmt);
@@ -50,53 +52,12 @@ namespace gpx
     elements().push_back(&_number);
     elements().push_back(&_type);
     elements().push_back(&_extensions);
+    elements().push_back(&_rtepts);
+    elements().push_back(&_links);
   }
   
   RTE::~RTE()
   {
-  }
-
-  Node *RTE::buildElement(const char *name, std::ostream *report)
-  {
-    Node *node = 0;
-
-    if (strcasecmp(name, "link") == 0)
-    {
-      node = new Link(this, "link", false);
-    }
-    else if (strcasecmp(name, "rtept") == 0)
-    {
-      node = new WPT(this, "rtept", false);
-    } 
-    
-    if (node != 0)
-    {
-      insert(name, node);
-    }
-    else
-    {
-      node = Node::buildElement(name, report);
-    }
-    
-    return node;
-  }
-
-  list<Node*> RTE::link()
-  {
-    list<Node*> nodes;
-    
-    filter("link", nodes);
-    
-    return nodes;
-  }
-  
-  list<Node*> RTE::rtept()
-  {
-    list<Node*> nodes;
-    
-    filter("rtept", nodes);
-    
-    return nodes;
   }
 }
 

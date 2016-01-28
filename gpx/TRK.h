@@ -31,9 +31,9 @@
 
 #include "gpx/String.h"
 #include "gpx/Unsigned.h"
-#include "gpx/Link.h"
+#include "gpx/LinkList.h"
 #include "gpx/Extensions.h"
-#include "gpx/TRKSeg.h"
+#include "gpx/TRKSegList.h"
 
 
 
@@ -96,7 +96,7 @@ namespace gpx
     ///
     /// @return the link objects
     ///
-    std::list<Node*> link();
+    std::list<Link*> &link() {return _links.list();}
 
     ///
     /// Get number
@@ -124,20 +124,10 @@ namespace gpx
     ///
     /// @return the trkseg objects
     ///
-    std::list<Node*> trkseg();
+    std::list<TRKSeg*> &trkseg() {_trksegs.list();}
 
     // Methods
     
-    ///
-    /// Build the element node
-    ///
-    /// @param  name    the name of the element
-    /// @param  report  the optional report stream
-    ///
-    /// @return the node (or 0 if not found)
-    ///
-    Node *buildElement(const char *name, std::ostream *report);
-
 
     private:
     
@@ -149,6 +139,8 @@ namespace gpx
     Unsigned   _number;
     String     _type;
     Extensions _extensions;
+    LinkList   _links;
+    TRKSegList _trksegs;
     
     // Disable copy constructors
     TRK(const TRK &);

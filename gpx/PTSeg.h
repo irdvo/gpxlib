@@ -30,7 +30,7 @@
 #include <list>
 
 #include "gpx/Node.h"
-#include "gpx/PT.h"
+#include "gpx/PTList.h"
 
 
 namespace gpx
@@ -67,23 +67,14 @@ namespace gpx
     ///
     /// @return the list
     ///
-    std::list<Node*> pt();
+    std::list<PT*> &pt() {_pts.list();}
 
     // Methods
-    
-    ///
-    /// Build an element
-    ///
-    /// @param  name    the name of the element
-    /// @param  report  the optional report stream
-    ///
-    /// @return the node (or 0 if not found)
-    ///
-    virtual Node *buildElement(const char *name, std::ostream *report = 0);
     
     private:
     
     // Members
+    PTList  _pts;
         
     // Disable copy constructors
     PTSeg(const PTSeg &);

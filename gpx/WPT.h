@@ -36,7 +36,7 @@
 #include "gpx/Latitude.h"
 #include "gpx/Longitude.h"
 #include "gpx/Degrees.h"
-#include "gpx/Link.h"
+#include "gpx/LinkList.h"
 #include "gpx/Fix.h"
 #include "gpx/DGPSStation.h"
 #include "gpx/Extensions.h"
@@ -187,7 +187,7 @@ namespace gpx
     ///
     /// @return the pdop object
     ///
-    Decimal  &pdop() { return _pdop; };
+    Decimal  &pdop() { return _pdop; }
 
     ///
     /// Get ageofdgpsdata
@@ -208,20 +208,9 @@ namespace gpx
     ///
     /// @return the link objects
     ///
-    std::list<Node*> link();
+    std::list<Link*> &link() {return _links.list();}
 
     // Methods
-    
-    ///
-    /// Build the node
-    ///
-    /// @param  name    the name of the node
-    /// @param  report  the optional report stream
-    ///
-    /// @return the node (or 0 if not found)
-    ///
-    virtual Node *buildElement(const char *name, std::ostream *report);
-
     
     private:
     
@@ -245,6 +234,7 @@ namespace gpx
     Decimal       _pdop;
     Decimal       _ageofdgpsdata;
     DGPSStation   _dgpsid;
+    LinkList      _links;
     
     // Disable copy constructors
     WPT(const WPT &);

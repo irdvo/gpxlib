@@ -57,11 +57,11 @@ int main(int argc, char *argv[])
       else
       {
         cout << argv[i] << " waypoints :" << endl;
-        list<gpx::Node*> wpts = root->wpt();
+        list<gpx::WPT*> &wpts = root->wpt();
 
-        for (list<gpx::Node*>::iterator node = wpts.begin(); node != wpts.end(); ++node)
+        for (list<gpx::WPT*>::iterator node = wpts.begin(); node != wpts.end(); ++node)
         {
-          gpx::WPT *wpt = dynamic_cast<gpx::WPT*>(*node);
+          gpx::WPT *wpt = (*node);
 
           if (wpt != 0)
           {

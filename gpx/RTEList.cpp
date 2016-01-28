@@ -1,8 +1,8 @@
 //==============================================================================
 //
-//               TRK - the track class in the GPX library
+//           RTEList - the TRK list class in the GPX library
 //
-//               Copyright (C) 2013  Dick van Oudheusden
+//               Copyright (C) 2016  Dick van Oudheusden
 //  
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -26,37 +26,31 @@
 
 #include <strings.h>
 
-#include "gpx/TRK.h"
+#include "gpx/RTEList.h"
+
 
 using namespace std;
 
 namespace gpx
 {
-  TRK::TRK(Node *parent, const char *name, bool mandatory) :
+  RTEList::RTEList(Node *parent, const char *name, bool mandatory) :
     Node(parent, name, mandatory),
-    _name(this, "name", false),
-    _cmt(this, "cmt",  false),
-    _desc(this, "desc", false),
-    _src(this, "src",  false),
-    _number(this, "number", false),
-    _type(this, "type",   false),
-    _extensions(this, "extensions", false),
-    _trksegs(this, "trkseg", false),
-    _links(this, "link", false)
+    _list()
   {
-    elements().push_back(&_name);
-    elements().push_back(&_cmt);
-    elements().push_back(&_desc);
-    elements().push_back(&_src);
-    elements().push_back(&_number);
-    elements().push_back(&_type);
-    elements().push_back(&_extensions);
-    elements().push_back(&_trksegs);
-    elements().push_back(&_links);
+  }
+  
+  RTEList::~RTEList()
+  {
+    ///@todo delete _list
   }
 
-  TRK::~TRK()
+  Node *RTEList::make(const char *name, std::ostream *report)
   {
+    RTE *node = new RTE(parent(), name, mandatory());
+
+    _list.push_back(node);
+
+    return node;
   }
 }
 

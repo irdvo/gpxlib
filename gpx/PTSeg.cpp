@@ -33,43 +33,13 @@ using namespace std;
 namespace gpx
 {
   PTSeg::PTSeg(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory)
+    Node(parent, name, mandatory),
+    _pts(this, "pt", false)
   {
   }
   
   PTSeg::~PTSeg()
   {
   }
-    
-  Node *PTSeg::buildElement(const char *name, std::ostream *report)
-  {
-    Node *node = 0;
-
-    if (strcasecmp(name, "pt") == 0)
-    {
-      node = new PT(this, "pt", false);
-    }
-    
-    if (node != 0)
-    {
-      insert(name, node);
-    }
-    else
-    {
-      node = Node::buildElement(name, report);
-    }
-    
-    return node;
-  }
-
-  list<Node*> PTSeg::pt()
-  {
-    list<Node*> nodes;
-    
-    filter("pt", nodes);
-    
-    return nodes;
-  }
-  
 }
 

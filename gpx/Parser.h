@@ -96,19 +96,19 @@ namespace gpx
     ///
     /// @param  name    the name of the element
     ///
-    virtual void buildElement(const char *name);
+    virtual void makeElement(const char *name);
 
     ///
     /// Build an attribute node
     ///
     /// @param  name    the name of the attribute
     ///
-    virtual void buildAttribute(const char *name);
+    virtual void makeAttribute(const char *name);
 
     ///
     /// Done building the node
     ///
-    virtual void built();
+    virtual void made();
 
     ///
     /// Set the value

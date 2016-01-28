@@ -46,13 +46,13 @@ int main(int argc, char *argv[])
   gpx::Node *root = new gpx::GPX(0, "gpx", true);
 
   gpx::Node *current = root;
-  current = current->buildAttribute("version", &cerr);
+  current = current->makeAttribute("version", &cerr);
   current->value("1.1");
-  current = current->built();
+  current = current->made();
 
-  current = current->buildAttribute("creator", &cerr);
+  current = current->makeAttribute("creator", &cerr);
   current->value("gpxi");
-  current = current->built();
+  current = current->made();
 
   char choice = ' ';
 
@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
     while ((choice != 'q') && ((choice < 'a') || (choice >= menu)));
   }
 
-  root->built();
+  root->made();
 
 
   if (argc == 1)

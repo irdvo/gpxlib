@@ -134,7 +134,7 @@ namespace gpx
     ///
     /// @return the node (or 0 if not found)
     ///
-    virtual Node *buildAttribute(const char *name, std::ostream *report = 0);
+    virtual Node *makeAttribute(const char *name, std::ostream *report = 0);
 
     ///
     /// Build an element node 
@@ -144,14 +144,24 @@ namespace gpx
     ///
     /// @return the node (or 0 if not found)
     ///
-    virtual Node *buildElement(const char *name, std::ostream *report = 0);
+    virtual Node *makeElement(const char *name, std::ostream *report = 0);
+
+    ///
+    /// Make the node
+    ///
+    /// @param  name    the name of the element
+    /// @param  report  the optional report stream
+    ///
+    /// @return the node (or 0 if not found)
+    ///
+    virtual Node *make(const char *name, std::ostream *report = 0);
 
     ///
     /// Done building the node
     ///
     /// @return the parent node (or 0 if not found)
     ///
-    virtual Node *built() { return _parent; }
+    virtual Node *made() { return _parent; }
 
     ///
     /// Validate the object

@@ -42,7 +42,8 @@ namespace gpx
     _time(this, "time", false),
     _keywords(this, "keywords", false),
     _bounds(this, "bounds", false),
-    _extensions(this, "extensions", false)
+    _extensions(this, "extensions", false),
+    _links(this, "link", false)
   {
     elements().push_back(&_name);
     elements().push_back(&_desc);
@@ -52,41 +53,10 @@ namespace gpx
     elements().push_back(&_keywords);
     elements().push_back(&_bounds);
     elements().push_back(&_extensions);
+    elements().push_back(&_links);
   }
 
   Metadata::~Metadata()
   {
   }
-    
-  Node *Metadata::buildElement(const char *name, std::ostream *report)
-  {
-    Node *node = 0;
-
-    if (strcasecmp(name, "link") == 0)
-    {
-      node = new Link(this, "link", false);
-    }
-    
-    if (node != 0)
-    {
-      insert(name, node);
-    }
-    else
-    {
-      node = Node::buildElement(name, report);
-    }
-    
-    return node;
-  }
-  
-  list<Node*> Metadata::link()
-  {
-    list<Node*> nodes;
-    
-    filter("link", nodes);
-    
-    return nodes;
-  }
-
-
 }

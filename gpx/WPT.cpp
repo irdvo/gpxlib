@@ -53,7 +53,8 @@ namespace gpx
     _vdop(this, "vdop", false),
     _pdop(this, "pdop", false),
     _ageofdgpsdata(this, "ageofdgpsdata", false),
-    _dgpsid(this, "dgpsid", false)
+    _dgpsid(this, "dgpsid", false),
+    _links(this, "link", false)
   {
     attributes().push_back(&_lat);
     attributes().push_back(&_lon);
@@ -75,40 +76,11 @@ namespace gpx
     elements().push_back(&_pdop);
     elements().push_back(&_ageofdgpsdata);
     elements().push_back(&_dgpsid);
+    elements().push_back(&_links);
   }
   
   WPT::~WPT()
   {
-  }
-
-  Node *WPT::buildElement(const char *name, std::ostream *report)
-  {
-    Node *node = 0;
-
-    if (strcasecmp(name, "link") == 0)
-    {
-      node = new Link(this, "link", false);
-    }
-    
-    if (node != 0)
-    {
-      insert(name, node);
-    }
-    else
-    {
-      node = Node::buildElement(name, report);
-    }
-    
-    return node;
-  }
-  
-  std::list<Node*> WPT::link()
-  {
-    list<Node*> nodes;
-    
-    filter("link", nodes);
-    
-    return nodes;
   }
 }
 

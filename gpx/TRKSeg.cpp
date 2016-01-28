@@ -34,43 +34,15 @@ namespace gpx
 {
   TRKSeg::TRKSeg(Node *parent, const char *name, bool mandatory) :
     Node(parent, name, mandatory),
-    _extensions(this, "extensions", false)
+    _extensions(this, "extensions", false),
+    _trkpts(this, "trkpt", false)
   {
     elements().push_back(&_extensions);
+    elements().push_back(&_trkpts);
   }
   
   TRKSeg::~TRKSeg()
   {
-  }
-
-  Node *TRKSeg::buildElement(const char *name, std::ostream *report)
-  {
-    Node *node = 0;
-
-    if (strcasecmp(name, "trkpt") == 0)
-    {
-      node = new WPT(this, "trkpt", false);
-    }
-    
-    if (node != 0)
-    {
-      insert(name, node);
-    }
-    else
-    {
-      node = Node::buildElement(name, report);
-    }
-    
-    return node;
-  }
-  
-  std::list<Node*>  TRKSeg::trkpt()
-  {
-    list<Node*> nodes;
-    
-    filter("trkpt", nodes);
-    
-    return nodes;
   }
 
 }
