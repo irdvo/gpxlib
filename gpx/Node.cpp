@@ -146,56 +146,63 @@ namespace gpx
 
   bool Node::write(ostream &output, int level) const
   {
-    if (!_attributes.empty())
+    indent(output, level);
+
+    // Start of tag
+    output << '<' << name();
+
+    // attributes
+    list<Node*>::const_iterator iter  = _attributes.begin();
+    list<Node*>::const_iterator end   = _attributes.end();
+
+    while (iter != end)
     {
-      list<Node*>::const_iterator iter  = _attributes.begin();
-      list<Node*>::const_iterator end   = _attributes.end();
-      
-      while (iter != end)
+      if ((*iter)->used())
       {
-        if ((*iter)->used())
-        {
-          output << ' ' << (*iter)->name() << "=\"" << (*iter)->write(output, level) << '"';
-        }
-        
-        ++iter;
+        output << ' ' << (*iter)->name() << "=\"" << (*iter)->value() << '"';
       }
-      
-      output << '>';
-      
-      if (!_elements.empty())
-      {
-        output << endl;
-      }
+
+      ++iter;
+    }
+
+    // End of tag
+    output << '>';
+
+    if ((hasUsedElements()) && (level >= 0))
+    {
+      output << endl;
     }
     
-    if (level >= 0)
-    {
-      level++;
-    }
+    // child tags
+    int next = (level >= 0 ? level+1 : level);
 
-    {
-      list<Node*>::const_iterator iter = _elements.begin();
-      list<Node*>::const_iterator end  = _elements.end();
+    iter = _elements.begin();
+    end  = _elements.end();
 
-      while (iter != end)
+    while (iter != end)
+    {
+      if ((*iter)->used())
       {
-        if ((*iter)->used())
-        {
-          indent(output, level);
-
-          output << '<' << (*iter)->name() << '>'; 
-          (*iter)->write(output, level);
-          output << "</" << (*iter)->name() << '>' << endl;
-        }
-
-        ++iter;
+        (*iter)->write(output, next);
       }
+
+      ++iter;
     }
-    
+
+    // Value
     if (used())
     {
       output << value();
+    }
+
+    // Close tag
+    indent(output, level);
+
+    output << "</" << name() << '>';
+
+    if (level >= 0)
+    {
+      cout << endl;
     }
 
     return true;
@@ -203,9 +210,11 @@ namespace gpx
 
   void Node::indent(std::ostream &output, int level) const
   {
-    while (level-- > 0)
+    while (level > 0)
     {
       output << ' ';
+
+      level--;
     }
   }
   
@@ -290,5 +299,22 @@ namespace gpx
     return false;
   }
 
+  bool Node::hasUsedElements() const
+  {
+    list<Node*>::const_iterator iter = _elements.begin();
+    list<Node*>::const_iterator end  = _elements.end();
+
+    while (iter != end)
+    {
+      if ((*iter)->used())
+      {
+        return true;
+      }
+
+      ++iter;
+    }
+
+    return false;
+  }
 }
 

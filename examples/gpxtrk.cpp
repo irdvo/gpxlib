@@ -122,12 +122,12 @@ int main(int argc, char *argv[])
               {
                 cout << "  Segment     : " << segnr++ << endl;
                 cout << "    ";
-                show("Latitude",  11);
-                show("Longitude",  11);
-                show("Height",  11);
+                show("Latitude", 11);
+                show("Longitude", 11);
+                show("Elevation", 11);
                 show("Time", 20);
-                show("Name",  8);
-                show("Comment",  10);
+                show("Name", 8);
+                show("Comment", 10);
                 cout << endl;
 
                 list<gpx::Node*> trkpts = seg->trkpt();

@@ -9,4 +9,8 @@ target_link_libraries (gpxwpt gpx expat)
 add_executable (gpxtrk gpxtrk.cpp)
 target_link_libraries (gpxtrk gpx expat)
 
+# SET(CMAKE_BUILD_TYPE Debug)
+add_executable (gpxi gpxi.cpp)
+target_link_libraries (gpxi gpx expat)
+
 

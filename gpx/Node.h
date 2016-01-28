@@ -207,7 +207,16 @@ namespace gpx
     
     bool isExtension();
 
-    
+  private:
+
+    ///
+    /// Check if this node has at least one used element
+    ///
+    /// @return has it ?
+    ///
+
+    bool hasUsedElements() const;
+
     private:
     
     std::string        _name;
@@ -220,7 +229,7 @@ namespace gpx
     
     // Do not implement
     Node(const Node &);
-    Node& operator=(const Node &);  
+    Node& operator=(const Node &);
   };
   
 }

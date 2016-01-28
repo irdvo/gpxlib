@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.6.0)
 
 include_directories (. ..)
 
+# SET(CMAKE_BUILD_TYPE Debug)
+
 set(SRC
     Node.cpp
     Decimal.cpp
