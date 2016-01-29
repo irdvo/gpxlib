@@ -101,7 +101,7 @@ namespace gpx
     ///
     /// @param value   the value of the attribute or element
     ///
-    virtual void value(std::string value) { _value = value; used(true); }
+    virtual void value(std::string value) { _value = value; }
     
     ///
     /// Get the parent node of this node

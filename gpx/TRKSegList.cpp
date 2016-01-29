@@ -48,6 +48,8 @@ namespace gpx
   {
     TRKSeg *node = new TRKSeg(parent(), name, mandatory());
 
+    node->used(true);
+
     _list.push_back(node);
 
     return node;

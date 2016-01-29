@@ -47,6 +47,8 @@ namespace gpx
   {
     PT *node = new PT(parent(), name, mandatory());
 
+    node->used(true);
+
     _list.push_back(node);
 
     return node;

@@ -48,6 +48,8 @@ namespace gpx
   {
     RTE *node = new RTE(parent(), name, mandatory());
 
+    node->used(true);
+
     _list.push_back(node);
 
     return node;

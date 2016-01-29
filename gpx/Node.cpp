@@ -56,7 +56,7 @@ namespace gpx
       {
         if (strcasecmp(name, (*iter)->name().c_str()) == 0)
         {
-          return (*iter);
+          return (*iter)->make(name, report);
         }
         
         ++iter;
@@ -69,6 +69,8 @@ namespace gpx
     }
     
     Node *node = new Node(this, name, false);
+
+    node->used(true);
     
     _attributes.push_back(node);
     
@@ -98,6 +100,8 @@ namespace gpx
     }
 
     Node *node = new Node(this, name, false);
+
+    node->used(true);
     
     _elements.push_back(node);
     
@@ -106,6 +110,8 @@ namespace gpx
 
   Node *Node::make(const char *name, std::ostream *report)
   {
+    used(true);
+
     return this;
   }
 

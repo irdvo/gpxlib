@@ -48,6 +48,8 @@ namespace gpx
   {
     Link *node = new Link(parent(), name, mandatory());
 
+    node->used(true);
+
     _list.push_back(node);
 
     return node;

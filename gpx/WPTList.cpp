@@ -48,6 +48,8 @@ namespace gpx
   {
     WPT *node = new WPT(parent(), name, mandatory());
 
+    node->used(true);
+
     _list.push_back(node);
 
     return node;
