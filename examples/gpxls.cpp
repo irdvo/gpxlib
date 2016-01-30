@@ -60,9 +60,9 @@ int main(int argc, char *argv[])
         cout << "  Version  : " << root->version().value() << endl;
         cout << "  Creator  : " << root->creator().value() << endl;
         cout << "  Name     : " << root->metadata().author().name().value() << endl;
-        cout << "  Waypoints: " << root->wpt().size() << endl;
-        cout << "  Routes   : " << root->rte().size() << endl;
-        cout << "  Tracks   : " << root->trk().size() << endl;
+        cout << "  Waypoints: " << root->wpts().list().size() << endl;
+        cout << "  Routes   : " << root->rtes().list().size() << endl;
+        cout << "  Tracks   : " << root->trks().list().size() << endl;
         cout << endl;
       }
 

@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
       else
       {
         cout << argv[i] << " waypoints :" << endl;
-        list<gpx::WPT*> &wpts = root->wpt();
+        list<gpx::WPT*> &wpts = root->wpts().list();
 
         for (list<gpx::WPT*>::iterator node = wpts.begin(); node != wpts.end(); ++node)
         {
@@ -66,12 +66,12 @@ int main(int argc, char *argv[])
           if (wpt != 0)
           {
             cout << "Position: " << wpt->lat().value() << ',' << wpt->lon().value() << endl;
-            if (wpt->ele().used())  cout << "  Elevation: " << wpt->ele().value() << endl;
-            if (wpt->time().used()) cout << "  Time     : " << wpt->time().value() << endl;
-            if (wpt->name().used()) cout << "  Name     : " << wpt->name().value() << endl;
-            if (wpt->cmt().used())  cout << "  Comment  : " << wpt->cmt().value() << endl;
-            if (wpt->sym().used())  cout << "  Symbol   : " << wpt->sym().value() << endl;
-            if (wpt->type().used()) cout << "  Type     : " << wpt->type().value() << endl;
+            cout << "  Elevation: " << wpt->ele().value() << endl;
+            cout << "  Time     : " << wpt->time().value() << endl;
+            cout << "  Name     : " << wpt->name().value() << endl;
+            cout << "  Comment  : " << wpt->cmt().value() << endl;
+            cout << "  Symbol   : " << wpt->sym().value() << endl;
+            cout << "  Type     : " << wpt->type().value() << endl;
           }
         }
         cout << endl;

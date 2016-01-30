@@ -32,27 +32,27 @@ using namespace std;
 
 namespace gpx
 {
-  TRK::TRK(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory),
-    _name(this, "name", false),
-    _cmt(this, "cmt",  false),
-    _desc(this, "desc", false),
-    _src(this, "src",  false),
-    _number(this, "number", false),
-    _type(this, "type",   false),
-    _extensions(this, "extensions", false),
-    _trksegs(this, "trkseg", false),
-    _links(this, "link", false)
+  TRK::TRK(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory),
+    _name(this, "name", Node::ELEMENT, false),
+    _cmt(this, "cmt",  Node::ELEMENT, false),
+    _desc(this, "desc", Node::ELEMENT, false),
+    _src(this, "src",  Node::ELEMENT, false),
+    _number(this, "number", Node::ELEMENT, false),
+    _type(this, "type",   Node::ELEMENT, false),
+    _extensions(this, "extensions", Node::ELEMENT, false),
+    _trksegs(this, "trkseg", Node::ELEMENT, false),
+    _links(this, "link", Node::ELEMENT, false)
   {
-    elements().push_back(&_name);
-    elements().push_back(&_cmt);
-    elements().push_back(&_desc);
-    elements().push_back(&_src);
-    elements().push_back(&_number);
-    elements().push_back(&_type);
-    elements().push_back(&_extensions);
-    elements().push_back(&_trksegs);
-    elements().push_back(&_links);
+    interfaces().push_back(&_name);
+    interfaces().push_back(&_cmt);
+    interfaces().push_back(&_desc);
+    interfaces().push_back(&_src);
+    interfaces().push_back(&_number);
+    interfaces().push_back(&_type);
+    interfaces().push_back(&_extensions);
+    interfaces().push_back(&_trksegs);
+    interfaces().push_back(&_links);
   }
 
   TRK::~TRK()

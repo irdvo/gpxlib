@@ -32,16 +32,16 @@ using namespace std;
 
 namespace gpx
 {
-  Copyright::Copyright(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory),
-    _author (this, "author",  true),
-    _year   (this, "year",    false),
-    _license(this, "license", false)
+  Copyright::Copyright(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory),
+    _author (this, "author",  Node::ATTRIBUTE, true),
+    _year   (this, "year",    Node::ELEMENT,   false),
+    _license(this, "license", Node::ELEMENT,   false)
   {
-    attributes().push_back(&_author);
+    interfaces().push_back(&_author);
     
-    elements()  .push_back(&_year);
-    elements()  .push_back(&_license);
+    interfaces()  .push_back(&_year);
+    interfaces()  .push_back(&_license);
   }
   
   Copyright::~Copyright()

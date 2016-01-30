@@ -31,15 +31,15 @@ using namespace std;
 
 namespace gpx
 {
-  Person::Person(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory),
-    _name(this, "name",  false),
-    _email(this, "email", false),
-    _link(this, "link",  false)
+  Person::Person(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory),
+    _name(this, "name",  Node::ELEMENT, false),
+    _email(this, "email", Node::ELEMENT, false),
+    _link(this, "link",  Node::ELEMENT, false)
   {
-    elements().push_back(&_name);
-    elements().push_back(&_email);
-    elements().push_back(&_link);
+    interfaces().push_back(&_name);
+    interfaces().push_back(&_email);
+    interfaces().push_back(&_link);
   }
   
   Person::~Person()

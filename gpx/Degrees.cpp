@@ -32,8 +32,8 @@ using namespace std;
 
 namespace gpx
 {
-  Degrees::Degrees(Node *parent, const char *name, bool mandatory) :
-    Decimal(parent, name, mandatory)
+  Degrees::Degrees(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Decimal(parent, name, type, mandatory)
   {
   }
 
@@ -45,18 +45,15 @@ namespace gpx
   {
     bool ok = Decimal::validate(report);
     
-    if (used())
-    {
-      float val = atof(value().c_str());
+    float val = atof(value().c_str());
       
-      if ((val < 0.0) || (val > 360.0))
+    if ((val < 0.0) || (val > 360.0))
+    {
+      if (report != 0)
       {
-        if (report != 0)
-        {
-          *report << "Degrees: " << value() << " invalid." << endl;
-        }
-        ok = false;
+        *report << "Degrees: " << value() << " invalid." << endl;
       }
+      ok = false;
     }
     return ok;
   }

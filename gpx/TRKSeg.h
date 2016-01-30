@@ -30,7 +30,8 @@
 #include "gpx/Node.h"
 
 #include "gpx/Extensions.h"
-#include "gpx/WPTList.h"
+#include "gpx/List.h"
+#include "gpx/WPT.h"
 
 
 namespace gpx
@@ -52,7 +53,7 @@ namespace gpx
     /// @param  name       the name of the attribute or element
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
-    TRKSeg(Node *parent, const char *name, bool mandatory = false);
+    TRKSeg(Node *parent, const char *name, Node::Type type, bool mandatory = false);
 
     ///
     /// Deconstructor
@@ -64,7 +65,7 @@ namespace gpx
     ///
     /// @return the trkpt objects
     ///
-    std::list<WPT*>  &trkpt() {return _trkpts.list();}
+    List<WPT>  &trkpts() {return _trkpts;}
 
     ///
     /// Get extensions
@@ -79,7 +80,7 @@ namespace gpx
     
     // Members
     Extensions  _extensions;
-    WPTList     _trkpts;
+    List<WPT>   _trkpts;
 
     // Disable copy constructors
     TRKSeg(const TRKSeg &);

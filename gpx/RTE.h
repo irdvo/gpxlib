@@ -31,9 +31,10 @@
 
 #include "gpx/String.h"
 #include "gpx/Unsigned.h"
-#include "gpx/LinkList.h"
+#include "gpx/Link.h"
 #include "gpx/Extensions.h"
-#include "gpx/WPTList.h"
+#include "gpx/List.h"
+#include "gpx/WPT.h"
 
 
 namespace gpx
@@ -55,7 +56,7 @@ namespace gpx
     /// @param  name       the name of the attribute or element
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
-    RTE(Node *parent, const char *name, bool mandatory = false);
+    RTE(Node *parent, const char *name, Node::Type type, bool mandatory = false);
 
     ///
     /// Deconstructor
@@ -95,7 +96,7 @@ namespace gpx
     ///
     /// @return the link objects
     ///
-    std::list<Link*> &link() {return _links.list();}
+    List<Link> &links() {return _links;}
 
     ///
     /// Get number
@@ -123,7 +124,7 @@ namespace gpx
     ///
     /// @return the rtept objects
     ///
-    std::list<WPT*> &rtept() {return _rtepts.list();}
+    List<WPT> &rtepts() {return _rtepts;}
 
     // Methods
     
@@ -138,8 +139,8 @@ namespace gpx
     Unsigned   _number;
     String     _type;
     Extensions _extensions;
-    WPTList    _rtepts;
-    LinkList   _links;
+    List<WPT>  _rtepts;
+    List<Link> _links;
 
     // Disable copy constructors
     RTE(const RTE &);

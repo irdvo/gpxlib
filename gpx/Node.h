@@ -42,6 +42,12 @@ namespace gpx
   class Node
   {
     public:
+
+    enum Type
+    {
+      ATTRIBUTE,
+      ELEMENT
+    };
     
     ///
     /// Constructor
@@ -50,7 +56,7 @@ namespace gpx
     /// @param  name       the name of the attribute or element
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
-    Node(Node *parent, const char *name, bool mandatory);
+    Node(Node *parent, const char *name, Type type, bool mandatory);
 
     ///
     /// Deconstructor
@@ -68,6 +74,13 @@ namespace gpx
     const std::string &name() const { return _name; }
 
     ///
+    /// Return the type
+    ///
+    /// @return the name of the attribute or element
+    ///
+    Node::Type type() const { return _type; }
+
+    ///
     /// Return the value
     ///
     /// @return the value of the attribute or element
@@ -82,21 +95,6 @@ namespace gpx
     bool        mandatory() const { return _mandatory; }
     
     ///
-    /// Is the node used ?  
-    ///
-    /// @return is it ?
-    ///
-    bool        used() const { return _used; }
-
-    
-    ///
-    /// Set the attribute or element used
-    ///
-    /// @param  value  is it used ?
-    ///
-    void        used(bool value) { _used = value; }
-
-    ///
     /// Set the value
     ///
     /// @param value   the value of the attribute or element
@@ -110,6 +108,13 @@ namespace gpx
     ///
     Node        *parent() const { return _parent; }
 
+    ///
+    /// Get the interfaces list
+    ///
+    /// @return the parent node (or 0)
+    ///
+    ///
+    std::list<Node*>   &interfaces() { return _interfaces; }
     ///
     /// Get the attributes list
     ///
@@ -127,41 +132,29 @@ namespace gpx
     // Methods
     
     ///
-    /// Build an attribute node 
-    ///
-    /// @param  name    the name of the attribute
-    /// @param  report  the optional report stream
+    /// Add this node
     ///
     /// @return the node (or 0 if not found)
     ///
-    virtual Node *makeAttribute(const char *name, std::ostream *report = 0);
+
+    virtual Node *add(std::ostream *report = 0);
 
     ///
-    /// Build an element node 
+    /// Add a node by name
     ///
-    /// @param  name    the name of the element
-    /// @param  report  the optional report stream
-    ///
-    /// @return the node (or 0 if not found)
-    ///
-    virtual Node *makeElement(const char *name, std::ostream *report = 0);
-
-    ///
-    /// Make the node
-    ///
-    /// @param  name    the name of the element
-    /// @param  report  the optional report stream
+    /// @param  name    the name of the node
+    /// @param  type    the type of the node
     ///
     /// @return the node (or 0 if not found)
     ///
-    virtual Node *make(const char *name, std::ostream *report = 0);
+    virtual Node *add(const char *name, Type type, std::ostream *report = 0);
 
     ///
     /// Done building the node
     ///
     /// @return the parent node (or 0 if not found)
     ///
-    virtual Node *made() { return _parent; }
+    virtual Node *added() { return _parent; }
 
     ///
     /// Validate the object
@@ -210,6 +203,20 @@ namespace gpx
     void filter(const char *name, std::list<Node*> &nodes);
     
     ///
+    /// Count the number of occurences of this node in its parent
+    ///
+    /// @return the number of occurences
+    ///
+    int count() const;
+
+    ///
+    /// Check if this node is used by its parent
+    ///
+    /// @return the number of occurences
+    ///
+    bool used() const;
+
+    ///
     /// Check if this node or one of its parents is an extension node
     ///
     /// @return is it ?
@@ -220,21 +227,22 @@ namespace gpx
   private:
 
     ///
-    /// Check if this node has at least one used element
+    /// Check if this node has at least one element
     ///
     /// @return has it ?
     ///
 
-    bool hasUsedElements() const;
+    bool hasElements() const;
 
     private:
     
     std::string        _name;
+    Type               _type;
     std::string        _value;
+    std::list<Node*>   _interfaces;
     std::list<Node*>   _attributes;
     std::list<Node*>   _elements;
     bool               _mandatory;
-    bool               _used;
     Node              *_parent;
     
     // Do not implement

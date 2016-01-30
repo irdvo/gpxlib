@@ -30,8 +30,8 @@ using namespace std;
 
 namespace gpx
 {
-  Decimal::Decimal(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory)
+  Decimal::Decimal(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory)
   {
   }
 
@@ -43,7 +43,7 @@ namespace gpx
   {
     bool ok = Node::validate(report);
     
-    if ((ok) && (used()))
+    if (ok)
     {
       int length = value().length();
       int i      = 0;

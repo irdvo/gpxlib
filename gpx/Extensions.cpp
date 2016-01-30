@@ -30,8 +30,8 @@ using namespace std;
 
 namespace gpx
 {
-  Extensions::Extensions(Node *parent, const char *name, bool mandatory) :
-    String(parent, name, mandatory)
+  Extensions::Extensions(Node *parent, const char *name, gpx::Node::Type type, bool mandatory) :
+    String(parent, name, type, mandatory)
   {
   }
   

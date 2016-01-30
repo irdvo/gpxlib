@@ -32,95 +32,82 @@ using namespace std;
 
 namespace gpx
 {
-  Node::Node(Node *parent, const char *name, bool mandatory) :
+  Node::Node(Node *parent, const char *name, gpx::Node::Type type, bool mandatory) :
+    _parent(parent),
     _name(name),
+    _type(type),
     _mandatory(mandatory),
-    _used(false),
+    _interfaces(),
     _attributes(),
-    _elements(),
-    _parent(parent)
+    _elements()
   {
   }
 
   Node::~Node()
   {
   }
-  
-  Node *Node::makeAttribute(const char *name, std::ostream *report)
+
+  Node *Node::add(std::ostream *report)
   {
+    if (_parent != 0)
     {
-      list<Node*>::const_iterator iter = _attributes.begin();
-      list<Node*>::const_iterator end  = _attributes.end();
-      
-      while (iter != end)
+      if (used())
       {
-        if (strcasecmp(name, (*iter)->name().c_str()) == 0)
+        if (report != 0)
         {
-          return (*iter)->make(name, report);
+          *report << "Warning: " << _name << " is already present, skipped." << std::endl;
         }
-        
-        ++iter;
+      }
+      else
+      {
+        if (_type == ATTRIBUTE)
+        {
+          _parent->attributes().push_back(this);
+        }
+        else if (_type == ELEMENT)
+        {
+          _parent->elements().push_back(this);
+        }
       }
     }
-    
-    if ((report != 0) && (!isExtension()))
-    {
-      *report << "Unexpected attribute " << name << " for " << this->name() << endl;
-    }
-    
-    Node *node = new Node(this, name, false);
-
-    node->used(true);
-    
-    _attributes.push_back(node);
-    
-    return node;
-  }
-  
-  Node *Node::makeElement(const char *name, std::ostream *report)
-  {
-    {
-      list<Node*>::const_iterator iter = _elements.begin();
-      list<Node*>::const_iterator end  = _elements.end();
-      
-      while (iter != end)
-      {
-        if (strcasecmp(name, (*iter)->name().c_str()) == 0)
-        {
-          return (*iter)->make(name, report);
-        }
-        
-        ++iter;
-      }
-    }
-
-    if (report != 0)
-    {
-      *report << "Unexpected element " << name << " for " << this->name() << endl;
-    }
-
-    Node *node = new Node(this, name, false);
-
-    node->used(true);
-    
-    _elements.push_back(node);
-    
-    return node;
-  }
-
-  Node *Node::make(const char *name, std::ostream *report)
-  {
-    used(true);
 
     return this;
   }
 
+  Node *Node::add(const char *name, Type type, std::ostream *report)
+  {
+    for (list<Node*>::iterator iter = _interfaces.begin(); iter != _interfaces.end(); ++iter)
+    {
+      if (strcasecmp(name, (*iter)->name().c_str()) == 0)
+      {
+        return (*iter)->add();
+      }
+    }
 
+    if ((report != 0) && (!isExtension()))
+    {
+      *report << "Warning: Unknown attribute " << name << " for " << _name << ", added." << endl;
+    }
+
+    Node *node = new Node(this, name, type, false);
+
+    if (type == ATTRIBUTE)
+    {
+      _attributes.push_back(node);
+    }
+    else if (type == ELEMENT)
+    {
+      _elements.push_back(node);
+    }
+
+    return node;
+  }
+  
   bool Node::validate(std::ostream *report) const
   {
     bool ok = true;
     
-    if ((_mandatory) && (_used))
+    if (_mandatory)
     {
       if (*report != 0)
       {
@@ -164,15 +151,9 @@ namespace gpx
     output << '<' << name();
 
     // attributes
-    list<Node*>::const_iterator iter  = _attributes.begin();
-    list<Node*>::const_iterator end   = _attributes.end();
-
-    while (iter != end)
+    for (list<Node*>::const_iterator iter = _attributes.begin(); iter != _attributes.end(); ++iter)
     {
-      if ((*iter)->used())
-      {
-        output << ' ' << (*iter)->name() << "=\"" << (*iter)->value() << '"';
-      }
+      output << ' ' << (*iter)->name() << "=\"" << (*iter)->value() << '"';
 
       ++iter;
     }
@@ -180,7 +161,7 @@ namespace gpx
     // End of tag
     output << '>';
 
-    if ((hasUsedElements()) && (level >= 0))
+    if ((hasElements()) && (level >= 0))
     {
       output << endl;
     }
@@ -188,24 +169,13 @@ namespace gpx
     // child tags
     int next = (level >= 0 ? level+1 : level);
 
-    iter = _elements.begin();
-    end  = _elements.end();
-
-    while (iter != end)
+    for (list<Node*>::const_iterator iter = _elements.begin(); iter != _elements.end(); ++iter)
     {
-      if ((*iter)->used())
-      {
-        (*iter)->write(output, next);
-      }
-
-      ++iter;
+      (*iter)->write(output, next);
     }
 
     // Value
-    if (used())
-    {
-      output << value();
-    }
+    output << value();
 
     // Close tag
     indent(output, level);
@@ -293,6 +263,45 @@ namespace gpx
       }
     }
   }
+
+  int Node::count() const
+  {
+    int count = 0;
+
+    if (_parent != 0)
+    {
+      list<Node*> &nodes = (_type == ATTRIBUTE ? _parent->attributes() : _parent->elements());
+
+      for (list<Node*>::const_iterator iter = nodes.begin(); iter != nodes.end(); ++iter)
+      {
+        if (strcasecmp(_name.c_str(), (*iter)->name().c_str()) == 0)
+        {
+          count++;
+        }
+      }
+    }
+
+    return count;
+  }
+
+  bool Node::used() const
+  {
+    if (_parent != 0)
+    {
+      list<Node*> &nodes = (_type == ATTRIBUTE ? _parent->attributes() : _parent->elements());
+
+      for (list<Node*>::const_iterator iter = nodes.begin(); iter != nodes.end(); ++iter)
+      {
+        if (strcasecmp(_name.c_str(), (*iter)->name().c_str()) == 0)
+        {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
   
   bool Node::isExtension()
   {
@@ -311,22 +320,9 @@ namespace gpx
     return false;
   }
 
-  bool Node::hasUsedElements() const
+  bool Node::hasElements() const
   {
-    list<Node*>::const_iterator iter = _elements.begin();
-    list<Node*>::const_iterator end  = _elements.end();
-
-    while (iter != end)
-    {
-      if ((*iter)->used())
-      {
-        return true;
-      }
-
-      ++iter;
-    }
-
-    return false;
+    return (!_elements.empty());
   }
 }
 

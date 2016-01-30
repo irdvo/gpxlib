@@ -52,7 +52,7 @@ namespace gpx
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
 
-    Bounds(Node *parent, const char *name, bool mandatory = false);
+    Bounds(Node *parent, const char *name, Type type, bool mandatory = false);
 
     ///
     /// Deconstructor

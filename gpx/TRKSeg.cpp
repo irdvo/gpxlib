@@ -32,13 +32,13 @@ using namespace std;
 
 namespace gpx
 {
-  TRKSeg::TRKSeg(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory),
-    _extensions(this, "extensions", false),
-    _trkpts(this, "trkpt", false)
+  TRKSeg::TRKSeg(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory),
+    _extensions(this, "extensions", Node::ELEMENT, false),
+    _trkpts(this, "trkpt", Node::ELEMENT, false)
   {
-    elements().push_back(&_extensions);
-    elements().push_back(&_trkpts);
+    interfaces().push_back(&_extensions);
+    interfaces().push_back(&_trkpts);
   }
   
   TRKSeg::~TRKSeg()

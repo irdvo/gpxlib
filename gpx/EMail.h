@@ -50,7 +50,7 @@ namespace gpx
     /// @param  name       the name of the attribute or element
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
-    EMail(Node *parent, const char *name, bool mandatory = false);
+    EMail(Node *parent, const char *name, Type type, bool mandatory = false);
 
     ///
     /// Deconstructor

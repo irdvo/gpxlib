@@ -36,10 +36,11 @@
 #include "gpx/Latitude.h"
 #include "gpx/Longitude.h"
 #include "gpx/Degrees.h"
-#include "gpx/LinkList.h"
 #include "gpx/Fix.h"
+#include "gpx/Link.h"
 #include "gpx/DGPSStation.h"
 #include "gpx/Extensions.h"
+#include "gpx/List.h"
 
 
 namespace gpx
@@ -61,7 +62,7 @@ namespace gpx
     /// @param  name       the name of the attribute or element
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
-    WPT(Node *parent, const char *name, bool mandatory = false);
+    WPT(Node *parent, const char *name, Node::Type type, bool mandatory = false);
 
     ///
     /// Deconstructor
@@ -208,7 +209,7 @@ namespace gpx
     ///
     /// @return the link objects
     ///
-    std::list<Link*> &link() {return _links.list();}
+    List<Link> &links() {return _links;}
 
     // Methods
     
@@ -234,14 +235,12 @@ namespace gpx
     Decimal       _pdop;
     Decimal       _ageofdgpsdata;
     DGPSStation   _dgpsid;
-    LinkList      _links;
+    List<Link>    _links;
     
     // Disable copy constructors
     WPT(const WPT &);
     WPT& operator=(const WPT &);  
-
   };
-  
 }
 
 #endif

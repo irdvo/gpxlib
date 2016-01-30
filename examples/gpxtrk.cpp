@@ -36,18 +36,15 @@ void show(gpx::Node &node, int width)
 {
   string value(width, ' ');
 
-  if (node.used())
-  {
-    value = node.value();
+  value = node.value();
 
-    if (value.length() > width)
-    {
-      value = value.substr(0, width);
-    }
-    else if (value.length() < width)
-    {
-      value.insert(0, width - value.length(), ' ');
-    }
+  if (value.length() > width)
+  {
+    value = value.substr(0, width);
+  }
+  else if (value.length() < width)
+  {
+    value.insert(0, width - value.length(), ' ');
   }
 
   cout << value << ' ';
@@ -93,7 +90,7 @@ int main(int argc, char *argv[])
       }
       else
       {
-        list<gpx::TRK*> trks = root->trk();
+        list<gpx::TRK*> &trks = root->trks().list();
 
         int trknr = 1;
         for (list<gpx::TRK*>::iterator node = trks.begin(); node != trks.end(); ++node)
@@ -103,15 +100,15 @@ int main(int argc, char *argv[])
           if (trk != 0)
           {
             cout << "Track:" << trknr++ << endl;
-            if (trk->name()  .used()) cout << "  Name        : " << trk->name()  .value() << endl;
-            if (trk->cmt()   .used()) cout << "  Comment     : " << trk->cmt()   .value() << endl;
-            if (trk->desc()  .used()) cout << "  Description : " << trk->desc()  .value() << endl;
-            if (trk->src()   .used()) cout << "  Source      : " << trk->src()   .value() << endl;
-            if (trk->type()  .used()) cout << "  Type        : " << trk->type()  .value() << endl;
-            if (trk->number().used()) cout << "  Number      : " << trk->number().value() << endl;
-                                      cout << "  Segments:   : " << trk->trkseg().size()  << endl << endl;
+            cout << "  Name        : " << trk->name()  .value() << endl;
+            cout << "  Comment     : " << trk->cmt()   .value() << endl;
+            cout << "  Description : " << trk->desc()  .value() << endl;
+            cout << "  Source      : " << trk->src()   .value() << endl;
+            cout << "  Type        : " << trk->type()  .value() << endl;
+            cout << "  Number      : " << trk->number().value() << endl;
+            cout << "  Segments:   : " << trk->trksegs().list().size()  << endl << endl;
 
-            list<gpx::TRKSeg*> trksegs = trk->trkseg();
+            list<gpx::TRKSeg*> &trksegs = trk->trksegs().list();
 
             int segnr = 1;
             for (list<gpx::TRKSeg*>::iterator iter2 = trksegs.begin(); iter2 != trksegs.end(); ++iter2)
@@ -130,7 +127,7 @@ int main(int argc, char *argv[])
                 show("Comment", 10);
                 cout << endl;
 
-                list<gpx::WPT*> &trkpts = seg->trkpt();
+                list<gpx::WPT*> &trkpts = seg->trkpts().list();
 
                 for (list<gpx::WPT*>::iterator iter3 = trkpts.begin(); iter3 != trkpts.end(); ++iter3)
                 {

@@ -33,50 +33,50 @@ using namespace std;
 
 namespace gpx
 {
-  WPT::WPT(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory),
-    _lat(this, "lat", true),
-    _lon(this, "lon", true),
-    _ele(this, "ele", false),
-    _time(this, "time", false),
-    _magvar(this, "magvar", false),
-    _geoidheight(this, "geoidheight", false),
-    _name(this, "name", false),
-    _cmt(this, "cmt", false),
-    _desc(this, "desc", false),
-    _src(this, "src", false),
-    _sym(this, "sym", false),
-    _type(this, "type", false),
-    _fix(this, "fix", false),
-    _sat(this, "sat", false),
-    _hdop(this, "hdop", false),
-    _vdop(this, "vdop", false),
-    _pdop(this, "pdop", false),
-    _ageofdgpsdata(this, "ageofdgpsdata", false),
-    _dgpsid(this, "dgpsid", false),
-    _links(this, "link", false)
+  WPT::WPT(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory),
+    _lat(this, "lat", Node::ATTRIBUTE, true),
+    _lon(this, "lon", Node::ATTRIBUTE, true),
+    _ele(this, "ele", Node::ELEMENT, false),
+    _time(this, "time", Node::ELEMENT, false),
+    _magvar(this, "magvar", Node::ELEMENT, false),
+    _geoidheight(this, "geoidheight", Node::ELEMENT, false),
+    _name(this, "name", Node::ELEMENT, false),
+    _cmt(this, "cmt", Node::ELEMENT, false),
+    _desc(this, "desc", Node::ELEMENT, false),
+    _src(this, "src", Node::ELEMENT, false),
+    _sym(this, "sym", Node::ELEMENT, false),
+    _type(this, "type", Node::ELEMENT, false),
+    _fix(this, "fix", Node::ELEMENT, false),
+    _sat(this, "sat", Node::ELEMENT, false),
+    _hdop(this, "hdop", Node::ELEMENT, false),
+    _vdop(this, "vdop", Node::ELEMENT, false),
+    _pdop(this, "pdop", Node::ELEMENT, false),
+    _ageofdgpsdata(this, "ageofdgpsdata", Node::ELEMENT, false),
+    _dgpsid(this, "dgpsid", Node::ELEMENT, false),
+    _links(this, "link", Node::ELEMENT, false)
   {
-    attributes().push_back(&_lat);
-    attributes().push_back(&_lon);
+    interfaces().push_back(&_lat);
+    interfaces().push_back(&_lon);
     
-    elements().push_back(&_ele);
-    elements().push_back(&_time);
-    elements().push_back(&_magvar);
-    elements().push_back(&_geoidheight);
-    elements().push_back(&_name);
-    elements().push_back(&_cmt);
-    elements().push_back(&_desc);
-    elements().push_back(&_src);
-    elements().push_back(&_sym);
-    elements().push_back(&_type);
-    elements().push_back(&_fix);
-    elements().push_back(&_sat);
-    elements().push_back(&_hdop);
-    elements().push_back(&_vdop);
-    elements().push_back(&_pdop);
-    elements().push_back(&_ageofdgpsdata);
-    elements().push_back(&_dgpsid);
-    elements().push_back(&_links);
+    interfaces().push_back(&_ele);
+    interfaces().push_back(&_time);
+    interfaces().push_back(&_magvar);
+    interfaces().push_back(&_geoidheight);
+    interfaces().push_back(&_name);
+    interfaces().push_back(&_cmt);
+    interfaces().push_back(&_desc);
+    interfaces().push_back(&_src);
+    interfaces().push_back(&_sym);
+    interfaces().push_back(&_type);
+    interfaces().push_back(&_fix);
+    interfaces().push_back(&_sat);
+    interfaces().push_back(&_hdop);
+    interfaces().push_back(&_vdop);
+    interfaces().push_back(&_pdop);
+    interfaces().push_back(&_ageofdgpsdata);
+    interfaces().push_back(&_dgpsid);
+    interfaces().push_back(&_links);
   }
   
   WPT::~WPT()

@@ -31,10 +31,10 @@
 
 #include "gpx/String.h"
 #include "gpx/Unsigned.h"
-#include "gpx/LinkList.h"
+#include "gpx/Link.h"
 #include "gpx/Extensions.h"
 #include "gpx/TRKSegList.h"
-
+#include "gpx/List.h"
 
 
 namespace gpx
@@ -56,7 +56,7 @@ namespace gpx
     /// @param  name       the name of the attribute or element
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
-    TRK(Node *parent, const char *name, bool mandatory = false);
+    TRK(Node *parent, const char *name, Type type, bool mandatory = false);
 
     ///
     /// Deconstructor
@@ -96,7 +96,7 @@ namespace gpx
     ///
     /// @return the link objects
     ///
-    std::list<Link*> &link() {return _links.list();}
+    List<Link> &links() {return _links;}
 
     ///
     /// Get number
@@ -124,7 +124,7 @@ namespace gpx
     ///
     /// @return the trkseg objects
     ///
-    std::list<TRKSeg*> &trkseg() {_trksegs.list();}
+    List<TRKSeg> &trksegs() {return _trksegs;}
 
     // Methods
     
@@ -132,22 +132,20 @@ namespace gpx
     private:
     
     // Members
-    String     _name;
-    String     _cmt;
-    String     _desc;
-    String     _src;
-    Unsigned   _number;
-    String     _type;
-    Extensions _extensions;
-    LinkList   _links;
-    TRKSegList _trksegs;
+    String       _name;
+    String       _cmt;
+    String       _desc;
+    String       _src;
+    Unsigned     _number;
+    String       _type;
+    Extensions   _extensions;
+    List<Link>   _links;
+    List<TRKSeg> _trksegs;
     
     // Disable copy constructors
     TRK(const TRK &);
     TRK& operator=(const TRK &);  
-
   };
-  
 }
 
 #endif

@@ -33,27 +33,27 @@ using namespace std;
 
 namespace gpx
 {
-  Metadata::Metadata(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory),
-    _name(this, "name", false),
-    _desc(this, "desc", false),
-    _author(this, "author", false),
-    _copyright(this, "copyright", false),
-    _time(this, "time", false),
-    _keywords(this, "keywords", false),
-    _bounds(this, "bounds", false),
-    _extensions(this, "extensions", false),
-    _links(this, "link", false)
+  Metadata::Metadata(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory),
+    _name(this, "name", Node::ELEMENT, false),
+    _desc(this, "desc", Node::ELEMENT, false),
+    _author(this, "author", Node::ELEMENT, false),
+    _copyright(this, "copyright", Node::ELEMENT, false),
+    _time(this, "time", Node::ELEMENT, false),
+    _keywords(this, "keywords", Node::ELEMENT, false),
+    _bounds(this, "bounds", Node::ELEMENT, false),
+    _extensions(this, "extensions", Node::ELEMENT, false),
+    _links(this, "link", Node::ELEMENT, false)
   {
-    elements().push_back(&_name);
-    elements().push_back(&_desc);
-    elements().push_back(&_author);
-    elements().push_back(&_copyright);
-    elements().push_back(&_time);
-    elements().push_back(&_keywords);
-    elements().push_back(&_bounds);
-    elements().push_back(&_extensions);
-    elements().push_back(&_links);
+    interfaces().push_back(&_name);
+    interfaces().push_back(&_desc);
+    interfaces().push_back(&_author);
+    interfaces().push_back(&_copyright);
+    interfaces().push_back(&_time);
+    interfaces().push_back(&_keywords);
+    interfaces().push_back(&_bounds);
+    interfaces().push_back(&_extensions);
+    interfaces().push_back(&_links);
   }
 
   Metadata::~Metadata()

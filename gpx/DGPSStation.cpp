@@ -33,8 +33,8 @@ using namespace std;
 namespace gpx
 {
   
-  DGPSStation::DGPSStation(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory)
+  DGPSStation::DGPSStation(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory)
   {
   }
 
@@ -46,7 +46,7 @@ namespace gpx
   {
     bool ok = Node::validate(report);
     
-    if ((ok) && (used()))
+    if (ok)
     {
       int val = atoi(value().c_str());
       

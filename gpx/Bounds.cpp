@@ -31,18 +31,18 @@ using namespace std;
 
 namespace gpx
 {
-  Bounds::Bounds(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory),
-    _minlat(this, "minlat", true),
-    _minlon(this, "minlon", true),
-    _maxlat(this, "maxlat", true),
-    _maxlon(this, "maxlon", true)
+  Bounds::Bounds(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory),
+    _minlat(this, "minlat", Node::ATTRIBUTE, true),
+    _minlon(this, "minlon", Node::ATTRIBUTE, true),
+    _maxlat(this, "maxlat", Node::ATTRIBUTE, true),
+    _maxlon(this, "maxlon", Node::ATTRIBUTE, true)
 
   {
-    attributes().push_back(&_minlat);
-    attributes().push_back(&_minlon);
-    attributes().push_back(&_maxlat);
-    attributes().push_back(&_maxlon);
+    interfaces().push_back(&_minlat);
+    interfaces().push_back(&_minlon);
+    interfaces().push_back(&_maxlat);
+    interfaces().push_back(&_maxlon);
   }
 
   Bounds::~Bounds()

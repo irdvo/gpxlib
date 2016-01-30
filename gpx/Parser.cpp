@@ -64,7 +64,7 @@ namespace gpx
     {
       if (_root == 0)
       {
-        _current = _root = new GPX(0, name, true);
+        _current = _root = new GPX();
       }
       else if (_report != 0)
       {
@@ -73,7 +73,7 @@ namespace gpx
     }
     else if (_current != 0)
     {
-      _current = _current->makeElement(name, _report);
+      _current = _current->add(name, Node::ELEMENT, _report);
     }
     else if (_report != 0)
     {
@@ -87,7 +87,7 @@ namespace gpx
 
     if (_current != 0)
     {
-      _current = _current->makeAttribute(name, _report);
+      _current = _current->add(name, Node::ATTRIBUTE, _report);
     }
     else if (_report != 0)
     {
@@ -101,7 +101,7 @@ namespace gpx
 
     if (_current != 0)
     {
-      _current = _current->made();
+      _current = _current->added();
     }
     else if (_report != 0)
     {

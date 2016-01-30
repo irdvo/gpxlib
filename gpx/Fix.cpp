@@ -30,8 +30,8 @@ using namespace std;
 
 namespace gpx
 {
-  Fix::Fix(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory)
+  Fix::Fix(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory)
   {
   }
   
@@ -43,7 +43,7 @@ namespace gpx
   {
     bool ok = Node::validate(report);
     
-    if ((ok) && (used()))
+    if (ok)
     {
       if ((value().compare("2d") != 0) &&
           (value().compare("3d") != 0) &&

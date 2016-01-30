@@ -32,13 +32,13 @@ using namespace std;
 
 namespace gpx
 {
-  EMail::EMail(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory),
-    _id(this, "id", true),
-    _domain(this, "domain", true)
+  EMail::EMail(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory),
+    _id(this, "id", Node::ATTRIBUTE, true),
+    _domain(this, "domain", Node::ATTRIBUTE, true)
   {
-    attributes().push_back(&_id);
-    attributes().push_back(&_domain);
+    interfaces().push_back(&_id);
+    interfaces().push_back(&_domain);
   }
   
   EMail::~EMail()

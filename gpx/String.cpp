@@ -30,8 +30,8 @@ using namespace std;
 
 namespace gpx
 {
-  String::String(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory)
+  String::String(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory)
   {
   }
 

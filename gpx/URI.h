@@ -49,7 +49,7 @@ namespace gpx
     /// @param  name       the name of the attribute or element
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
-    URI(Node *parent, const char *name, bool mandatory = false);
+    URI(Node *parent, const char *name, Node::Type type, bool mandatory = false);
 
     ///
     /// Deconstructor

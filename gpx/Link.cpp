@@ -32,16 +32,15 @@ using namespace std;
 
 namespace gpx
 {
-  Link::Link(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory),
-    _href(this, "href", true),
-    _text(this, "text", false),
-    _type(this, "type", false)
+  Link::Link(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory),
+    _href(this, "href", Node::ATTRIBUTE, true),
+    _text(this, "text", Node::ELEMENT, false),
+    _type(this, "type", Node::ELEMENT, false)
   {
-    attributes().push_back(&_href);
-    
-    elements()  .push_back(&_text);
-    elements()  .push_back(&_type);
+    interfaces().push_back(&_href);
+    interfaces().push_back(&_text);
+    interfaces().push_back(&_type);
   }
   
   Link::~Link()

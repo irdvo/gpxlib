@@ -1,8 +1,8 @@
 //==============================================================================
 //
-//                GPX - the main class in the GPX library
+//                GPX - the root node in the GPX library
 //
-//               Copyright (C) 2013  Dick van Oudheusden
+//          Copyright (C) 2013-2016 Dick van Oudheusden
 //  
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -35,25 +35,25 @@ using namespace std;
 namespace gpx
 {
 
-  GPX::GPX(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory),
-    _version(this, "version", true),
-    _creator(this, "creator", true),
-    _metadata(this, "metadata", false),
-    _extensions(this, "extensions", false),
-    _wpts(this, "wpt", false),
-    _rtes(this, "rte", false),
-    _trks(this, "trk", false)
+  GPX::GPX() :
+    Node(0, "gpx", Node::ELEMENT, true),
+    _version(this, "version", Node::ATTRIBUTE, true),
+    _creator(this, "creator", Node::ATTRIBUTE, true),
+    _metadata(this, "metadata", Node::ELEMENT, false),
+    _extensions(this, "extensions", Node::ELEMENT, false),
+    _wpts(this, "wpt", Node::ELEMENT, false),
+    _rtes(this, "rte", Node::ELEMENT, false),
+    _trks(this, "trk", Node::ELEMENT, false)
 
   {
-    attributes().push_back(&_version);
-    attributes().push_back(&_creator);
+    interfaces().push_back(&_version);
+    interfaces().push_back(&_creator);
 
-    elements().push_back(&_metadata);
-    elements().push_back(&_extensions);
-    elements().push_back(&_wpts);
-    elements().push_back(&_rtes);
-    elements().push_back(&_trks);
+    interfaces().push_back(&_metadata);
+    interfaces().push_back(&_extensions);
+    interfaces().push_back(&_wpts);
+    interfaces().push_back(&_rtes);
+    interfaces().push_back(&_trks);
   }
 
   GPX::~GPX()

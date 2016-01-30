@@ -32,10 +32,11 @@
 #include "gpx/String.h"
 #include "gpx/Person.h"
 #include "gpx/Copyright.h"
-#include "gpx/LinkList.h"
+#include "gpx/Link.h"
 #include "gpx/DateTime.h"
 #include "gpx/Bounds.h"
 #include "gpx/Extensions.h"
+#include "gpx/List.h"
 
 namespace gpx
 {
@@ -56,7 +57,7 @@ namespace gpx
     /// @param  name       the name of the attribute or element
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
-    Metadata(Node *parent, const char *name, bool mandatory = false);
+    Metadata(Node *parent, const char *name, Type type, bool mandatory = false);
 
     ///
     /// Deconstructor
@@ -98,7 +99,7 @@ namespace gpx
     ///
     /// @todo return link
     ///
-    std::list<Link*> &link() {_links.list();}
+    List<Link> &links() {return _links;}
     
     ///
     /// Get time
@@ -139,7 +140,7 @@ namespace gpx
     String     _keywords;
     Bounds     _bounds;
     Extensions _extensions;
-    LinkList   _links;
+    List<Link> _links;
     
     // Disable copy constructors
     Metadata(const Metadata &);

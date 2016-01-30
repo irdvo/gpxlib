@@ -1,9 +1,9 @@
-#ifndef TRKLIST_H
-#define TRKLIST_H
+#ifndef LIST_H
+#define LIST_H
 
 //==============================================================================
 //
-//           TRKList - the TRK list class in the GPX library
+//             List - the template list class in the GPX library
 //
 //               Copyright (C) 2016  Dick van Oudheusden
 //  
@@ -29,18 +29,19 @@
 
 #include <list>
 
-#include "gpx/TRK.h"
+#include "gpx/Node.h"
 
 
 namespace gpx
 {
   ///
-  /// @class TRKList
+  /// @template LinkList
   ///
-  /// @brief The link list class of the gpx library.
+  /// @brief The list template of the gpx library.
   ///
   
-  class TRKList : public Node
+  template<class T>
+  class List : public Node
   {
     public:
 
@@ -51,38 +52,63 @@ namespace gpx
     /// @param  name       the name of the attribute or element
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
-    TRKList(Node *parent, const char *name, bool mandatory = false);
+    List(Node *parent, const char *name, Node::Type type, bool mandatory = false) :
+      Node(parent, name, type, mandatory)
+    {
+
+    }
 
     ///
     /// Deconstructor
     ///
-    virtual ~TRKList();
+    virtual ~List()
+    {
+      ///@todo Delete list
+    }
 
     // Properties
 
-    std::list<TRK*> &list() { return _list;}
+    std::list<T*> &list() { return _list;}
+
 
     // Methods
     
     ///
-    /// Make the node
+    /// Add the node
     ///
-    /// @param  name    the name of the node
     /// @param  report  the optional report stream
     ///
-    /// @return the node (or 0 if not found)
+    /// @return the node
     ///
-    virtual Node *make(const char *name, std::ostream *report);
+    virtual Node *add(std::ostream *report)
+    {
+      T *node = new T(parent(), name().c_str(), type(), mandatory());
 
-    
+      if (parent() != 0)
+      {
+        if (type() == ATTRIBUTE)
+        {
+          parent()->attributes().push_back(this);
+        }
+        else if (type() == ELEMENT)
+        {
+          parent()->elements().push_back(this);
+        }
+      }
+
+      _list.push_back(node);
+
+      return node;
+    }
+
     private:
     
     // Members
-    std::list<TRK *> _list;
+    std::list<T*> _list;
     
     // Disable copy constructors
-    TRKList(const TRKList &);
-    TRKList& operator=(const TRKList &);
+    List(const List &);
+    List& operator=(const List &);
   };
   
 }

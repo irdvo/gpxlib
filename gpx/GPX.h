@@ -31,10 +31,11 @@
 
 #include "gpx/String.h"
 #include "gpx/Metadata.h" 
-#include "gpx/RTEList.h"
-#include "gpx/TRKList.h"
 #include "gpx/Extensions.h"
-#include "gpx/WPTList.h"
+#include "gpx/List.h"
+#include "gpx/RTE.h"
+#include "gpx/TRK.h"
+#include "gpx/WPT.h"
 
 ///
 /// @namespace gpx
@@ -47,7 +48,7 @@ namespace gpx
   ///
   /// @class GPX
   ///
-  /// @brief The main class of the gpx library.
+  /// @brief The root node of a GPX document
   ///
 
   class GPX : public Node
@@ -57,11 +58,7 @@ namespace gpx
     ///
     /// Constructor
     ///
-    /// @param  parent     the parent node
-    /// @param  name       the name of the attribute or element
-    /// @param  mandatory  is the attribute or element mandatory ?
-    ///
-    GPX(Node *parent, const char *name, bool mandatory = false);
+    GPX();
 
     ///
     /// Deconstructor
@@ -96,21 +93,21 @@ namespace gpx
     ///
     /// @todo Use list as parameter to prevent coping
     ///
-    std::list<WPT*> &wpt() {_wpts.list();}
+    List<WPT> &wpts() { return _wpts;}
 
     ///
     /// Get rte
     ///
     /// @return the list of rte objects
     ///
-    std::list<RTE*> &rte() {return _rtes.list();}
+    List<RTE> &rtes() {return _rtes;}
 
     ///
     /// Get trk
     ///
     /// @return the list of trk objects
     ///
-    std::list<TRK*> &trk() {return _trks.list();}
+    List<TRK> &trks() {return _trks;}
 
     ///
     /// Get extensions
@@ -127,9 +124,9 @@ namespace gpx
     String      _creator;
     Metadata    _metadata;
     Extensions  _extensions;
-    WPTList     _wpts;
-    RTEList     _rtes;
-    TRKList     _trks;
+    List<WPT>   _wpts;
+    List<RTE>   _rtes;
+    List<TRK>   _trks;
 
     // Disable copy constructors
     GPX(const GPX &);

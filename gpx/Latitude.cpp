@@ -33,8 +33,8 @@ using namespace std;
 
 namespace gpx
 {
-  Latitude::Latitude(Node *parent, const char *name, bool mandatory) :
-    Decimal(parent, name, mandatory)
+  Latitude::Latitude(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Decimal(parent, name, type, mandatory)
   {
   }
 
@@ -46,7 +46,7 @@ namespace gpx
   {
     bool ok = Decimal::validate(report);
     
-    if ((ok) && (used()))
+    if (ok)
     {
       double val = atof(value().c_str());
         

@@ -31,18 +31,17 @@ using namespace std;
 
 namespace gpx
 {
-  PT::PT(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory),
-    _lat(this, "lat", true),
-    _lon(this, "lon", true),
-    _ele(this, "ele",  false),
-    _time(this, "time", false)
+  PT::PT(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory),
+    _lat(this, "lat",   Node::ATTRIBUTE, true),
+    _lon(this, "lon",   Node::ATTRIBUTE, true),
+    _ele(this, "ele",   Node::ELEMENT,   false),
+    _time(this, "time", Node::ELEMENT,   false)
   {
-    attributes().push_back(&_lat);
-    attributes().push_back(&_lon);
-    
-    elements()  .push_back(&_ele);
-    elements()  .push_back(&_time);
+    interfaces().push_back(&_lat);
+    interfaces().push_back(&_lon);
+    interfaces().push_back(&_ele);
+    interfaces().push_back(&_time);
   }
 
   PT::~PT()

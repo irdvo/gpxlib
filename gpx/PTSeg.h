@@ -30,7 +30,8 @@
 #include <list>
 
 #include "gpx/Node.h"
-#include "gpx/PTList.h"
+#include "gpx/PT.h"
+#include "gpx/List.h"
 
 
 namespace gpx
@@ -53,7 +54,7 @@ namespace gpx
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
 
-    PTSeg(Node *parent, const char *name, bool mandatory = false);
+    PTSeg(Node *parent, const char *name, Type type, bool mandatory = false);
 
     ///
     /// Deconstructor
@@ -67,14 +68,14 @@ namespace gpx
     ///
     /// @return the list
     ///
-    std::list<PT*> &pt() {_pts.list();}
+    List<PT> &pts() {return _pts;}
 
     // Methods
     
     private:
     
     // Members
-    PTList  _pts;
+    List<PT>  _pts;
         
     // Disable copy constructors
     PTSeg(const PTSeg &);

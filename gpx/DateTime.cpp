@@ -30,8 +30,8 @@ using namespace std;
 
 namespace gpx
 {
-  DateTime::DateTime(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory)
+  DateTime::DateTime(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory)
   {
   }
 

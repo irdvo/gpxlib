@@ -32,10 +32,11 @@ using namespace std;
 
 namespace gpx
 {
-  PTSeg::PTSeg(Node *parent, const char *name, bool mandatory) :
-    Node(parent, name, mandatory),
-    _pts(this, "pt", false)
+  PTSeg::PTSeg(Node *parent, const char *name, Node::Type type, bool mandatory) :
+    Node(parent, name, type, mandatory),
+    _pts(this, "pt", Node::ELEMENT, false)
   {
+    interfaces().push_back(&_pts);
   }
   
   PTSeg::~PTSeg()
