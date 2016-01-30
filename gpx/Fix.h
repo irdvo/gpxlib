@@ -58,6 +58,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     Fix(Node *parent, const char *name, Type type, bool mandatory = false);
@@ -76,7 +77,6 @@ namespace gpx
     ///
     
     virtual bool validate(std::ostream *report = 0) const;
-    
   
     private:
     
@@ -85,9 +85,7 @@ namespace gpx
     // Disable copy constructors
     Fix(const Fix &);
     Fix& operator=(const Fix &);  
-
   };
-
 }
 
 #endif

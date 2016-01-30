@@ -35,7 +35,7 @@ namespace gpx
   ///
   /// @class String
   ///
-  /// @brief The string simple type.
+  /// @brief The string class.
   ///
   
   class String : public Node
@@ -47,6 +47,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     String(Node *parent, const char *name, Type type, bool mandatory = false);
@@ -66,7 +67,6 @@ namespace gpx
     
     virtual bool validate(std::ostream *report = 0) const;
     
-    
     private:
     
     // Members
@@ -75,7 +75,6 @@ namespace gpx
     String(const String &);
     String& operator=(const String &);  
   };
-
 }
 
 #endif

@@ -35,7 +35,7 @@ namespace gpx
   ///
   /// @class Extensions
   ///
-  /// The extensions class of the gpx library.
+  /// @brief The extensions class.
   ///
   
   class Extensions : public String
@@ -47,6 +47,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     Extensions(Node *parent, const char *name, Node::Type type, bool mandatory = false);
@@ -56,7 +57,6 @@ namespace gpx
     ///
     virtual ~Extensions();
     
-    
     private:
     
     // Members
@@ -64,9 +64,7 @@ namespace gpx
     // Disable copy constructors
     Extensions(const Extensions &);
     Extensions& operator=(const Extensions &);  
-
   };
-  
 }
 
 #endif

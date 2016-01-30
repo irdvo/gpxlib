@@ -51,6 +51,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     Person(Node *parent, const char *name, Type type, bool mandatory = false);
@@ -92,7 +93,6 @@ namespace gpx
     Person(const Person &);
     Person& operator=(const Person &);  
   };
-  
 }
 
 #endif

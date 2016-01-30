@@ -38,7 +38,7 @@ namespace gpx
   ///
   /// @class Parser
   ///
-  /// @brief The xml parser class of the gpx library.
+  /// @brief The xml parser class.
   ///
   
   class Parser
@@ -48,7 +48,7 @@ namespace gpx
     ///
     /// Constructor
     ///
-    /// @param  report  the report stream or 0 for not used
+    /// @param  report  the report stream for warnings and errors (or 0 for not used)
     ///
     Parser(std::ostream *report);
 

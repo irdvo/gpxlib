@@ -38,6 +38,20 @@
 #include "gpx/WPT.h"
 
 ///
+/// @mainpage
+///
+/// This is the documentation of the gpxlib library.
+///
+/// See Related Pages for the ToDo list.
+///
+/// See Namespaces for the gpx namespace documentation.
+///
+/// See Classes for the Class list, Class Index, Class Hierarchy and Class Members documentation.
+///
+/// Enjoy.
+///
+
+///
 /// @namespace gpx
 ///
 /// @brief The namespace of the gpx library

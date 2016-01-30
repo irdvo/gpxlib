@@ -42,7 +42,7 @@ namespace gpx
   ///
   /// @class RTE
   ///
-  /// @brief The route class of the gpx library.
+  /// @brief The route class.
   ///
   
   class RTE : public Node
@@ -54,6 +54,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     RTE(Node *parent, const char *name, Node::Type type, bool mandatory = false);
@@ -127,7 +128,6 @@ namespace gpx
     List<WPT> &rtepts() {return _rtepts;}
 
     // Methods
-    
 
     private:
     
@@ -146,7 +146,6 @@ namespace gpx
     RTE(const RTE &);
     RTE& operator=(const RTE &);  
   };
-  
 }
 
 #endif

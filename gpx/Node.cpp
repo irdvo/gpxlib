@@ -199,70 +199,6 @@ namespace gpx
       level--;
     }
   }
-  
-  void Node::insert(const char *name, Node *node)
-  {
-    list<Node*>::      iterator iter = elements().begin();
-    list<Node*>::const_iterator end  = elements().end();
-    list<Node*>::      iterator last = elements().end();
-      
-    while (iter != end)
-    {
-      if (strcasecmp(name, (*iter)->name().c_str()) == 0)
-      {
-        last = iter;
-      }
-        
-      ++iter;
-    }
-      
-    if (last != end)
-    {
-      ++last;
-    }
-      
-    if (last == end)
-    {
-      elements().push_back(node);
-    }
-    else
-    {
-      elements().insert(last, node);
-    }
-  }
-
-  void Node::filter(const char *name, list<Node*> &nodes)
-  {
-    {
-      list<Node*>::const_iterator iter = _attributes.begin();
-      list<Node*>::const_iterator end  = _attributes.end();
-      
-      while (iter != end)
-      {
-        if (strcasecmp(name, (*iter)->name().c_str()) == 0)
-        {
-          nodes.push_back(*iter);
-        }
-        
-        ++iter;
-      }
-    }
-
-    {
-      list<Node*>::const_iterator iter = _elements.begin();
-      list<Node*>::const_iterator end  = _elements.end();
-      
-      while (iter != end)
-      {
-        if (strcasecmp(name, (*iter)->name().c_str()) == 0)
-        {
-          nodes.push_back(*iter);
-        }
-        
-        ++iter;
-      }
-    }
-  }
 
   int Node::count() const
   {
@@ -303,9 +239,9 @@ namespace gpx
   }
 
   
-  bool Node::isExtension()
+  bool Node::isExtension() const
   {
-    Node *node = this;
+    const Node *node = this;
     
     while (node != 0)
     {

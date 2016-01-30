@@ -37,7 +37,7 @@ namespace gpx
   ///
   /// @class Bounds
   ///
-  /// @brief The extent of an element class.
+  /// @brief The bounds defining the extent of an element class.
   ///
   
   class Bounds : public Node
@@ -49,9 +49,9 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
-
     Bounds(Node *parent, const char *name, Type type, bool mandatory = false);
 
     ///
@@ -101,9 +101,7 @@ namespace gpx
     // Disable copy constructors
     Bounds(const Bounds &);
     Bounds& operator=(const Bounds &);  
-
   };
-  
 }
 
 #endif

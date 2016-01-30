@@ -40,7 +40,7 @@ namespace gpx
   ///
   /// @class PT
   ///
-  /// @brief The geographic point class with optional elevation and time class.
+  /// @brief The geographic point class with optional elevation and time.
   ///
   
   class PT : public Node
@@ -52,6 +52,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     PT(Node *parent, const char *name, Type type, bool mandatory = false);
@@ -100,9 +101,7 @@ namespace gpx
     // Disable copy constructors
     PT(const PT &);
     PT& operator=(const PT &);  
-
   };
-  
 }
 
 #endif

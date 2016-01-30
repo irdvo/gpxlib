@@ -35,7 +35,7 @@ namespace gpx
   ///
   /// @class Latitude
   ///
-  /// @brief The latitude of a point class, decimal degrees.
+  /// @brief The latitude of a point class in decimal degrees.
   ///
   
   class Latitude : public Decimal
@@ -47,6 +47,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     Latitude(Node *parent, const char *name, Type type, bool mandatory = false);
@@ -72,9 +73,7 @@ namespace gpx
     // Disable copy constructors
     Latitude(const Latitude &);
     Latitude& operator=(const Latitude &);  
-
   };
-
 }
 
 #endif

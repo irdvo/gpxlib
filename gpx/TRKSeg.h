@@ -39,7 +39,7 @@ namespace gpx
   ///
   /// @class TRKSeg
   ///
-  /// @brief The list of track points class of the gpx library.
+  /// @brief The track segment class.
   ///
   
   class TRKSeg : public Node
@@ -51,6 +51,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     TRKSeg(Node *parent, const char *name, Node::Type type, bool mandatory = false);

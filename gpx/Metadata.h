@@ -55,6 +55,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     Metadata(Node *parent, const char *name, Type type, bool mandatory = false);
@@ -146,7 +147,6 @@ namespace gpx
     Metadata(const Metadata &);
     Metadata& operator=(const Metadata &);  
   };
-  
 }
 
 #endif

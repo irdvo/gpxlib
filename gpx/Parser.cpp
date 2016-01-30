@@ -214,125 +214,73 @@ namespace gpx
 
   void Parser::xmlDeclHandler(void *userData, const XML_Char *version, const XML_Char *encoding, int standalone)
   {
-    Parser *me = static_cast<Parser*>(userData);
-  
-    //[reader->_handler startDocument :version :encoding :standalone];
+    Parser *self = static_cast<Parser*>(userData);
   }
 
   void Parser::startElementHandler(void *userData, const XML_Char *name, const XML_Char **atts)
   {
-    Parser *me = static_cast<Parser*>(userData);
+    Parser *self = static_cast<Parser*>(userData);
     
-    me->makeElement(name);
+    self->makeElement(name);
     
-    //emptyCharacters(reader->_characters, reader->_handler);
-    //emptyUnparsed  (reader->_unparsed,   reader->_handler);
-  
     for (int i = 0; atts[i] != NULL; i+=2)
     {
-      me->makeAttribute(atts[i]);
+      self->makeAttribute(atts[i]);
       
-      me->value(atts[i+1]);
+      self->value(atts[i+1]);
       
-      me->made();
+      self->made();
     }
   }
 
   void Parser::endElementHandler(void *userData, const XML_Char *name)
   {
-    Parser *me = static_cast<Parser*>(userData);
+    Parser *self = static_cast<Parser*>(userData);
     
-    me->made();
+    self->made();
   }
 
   void Parser::characterDataHandler(void *userData, const XML_Char *s, int len)
   {
-    Parser *me = static_cast<Parser*>(userData);
+    Parser *self = static_cast<Parser*>(userData);
     
     string data(s, len);
     
-    me->value(data);
+    self->value(data);
   }
 
   void Parser::commentHandler(void *userData, const XML_Char *data)
   {
-    Parser *me = static_cast<Parser*>(userData);
-
-    //DXMLReader *reader = (DXMLReader *) userData;
-
-    //emptyCharacters(reader->_characters, reader->_handler);
-    //emptyUnparsed  (reader->_unparsed,   reader->_handler);
-
-    //[reader->_handler comment :data];
+    Parser *self = static_cast<Parser*>(userData);
   }
 
   void Parser::processingInstructionHandler(void *userData, const XML_Char *target, const XML_Char *data)
   {
-    Parser *me = static_cast<Parser*>(userData);
-
-    //DXMLReader *reader = (DXMLReader *) userData;
-
-    //emptyCharacters(reader->_characters, reader->_handler);
-    //emptyUnparsed  (reader->_unparsed,   reader->_handler);
-  
-    //[reader->_handler processingInstruction :target :data];
+    Parser *self = static_cast<Parser*>(userData);
   }
 
   void Parser::startCdataSectionHandler(void *userData)
   {
-    Parser *me = static_cast<Parser*>(userData);
-
-    //DXMLReader *reader = (DXMLReader *) userData;
-
-    //emptyCharacters(reader->_characters, reader->_handler);
-    //emptyUnparsed  (reader->_unparsed,   reader->_handler);
-
-    //[reader->_handler startCDATA];
+    Parser *self = static_cast<Parser*>(userData);
   }
 
   void Parser::endCdataSectionHandler(void *userData)
   {
-    Parser *me = static_cast<Parser*>(userData);
-
-    //DXMLReader *reader = (DXMLReader *) userData;
-
-    //emptyCharacters(reader->_characters, reader->_handler);
-  
-    //[reader->_handler endCDATA];
+    Parser *self = static_cast<Parser*>(userData);
   }
 
   void Parser::defaultHandler(void *userData, const XML_Char *s, int len)
   {
-    Parser *me = static_cast<Parser*>(userData);
-
-    //int i;
-  
-    //DXMLReader *reader = (DXMLReader *) userData;
-  
-    //emptyCharacters(reader->_characters, reader->_handler);
-  
-    //for (i = 0; i < len; i++)
-    //{
-      //[reader->_unparsed push :s[i]];
-    //}
+    Parser *self = static_cast<Parser*>(userData);
   }
 
   void Parser::startNamespaceDeclHandler(void *userData, const XML_Char *prefix, const XML_Char *uri)
   {
-    Parser *me = static_cast<Parser*>(userData);
-
-    //DXMLReader *reader = (DXMLReader *) userData;
-  
-    //[reader->_handler startNamespace :prefix :uri];
+    Parser *self = static_cast<Parser*>(userData);
   }
 
   void Parser::endNamespaceDeclHandler(void *userData, const XML_Char *prefix)
   {
-    Parser *me = static_cast<Parser*>(userData);
-
-    //DXMLReader *reader = (DXMLReader *) userData;
-  
-    //[reader->_handler endNamespace];
+    Parser *self = static_cast<Parser*>(userData);
   }
-
 }

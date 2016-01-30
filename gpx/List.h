@@ -35,9 +35,9 @@
 namespace gpx
 {
   ///
-  /// @template LinkList
+  /// @class List
   ///
-  /// @brief The list template of the gpx library.
+  /// @brief The list of nodes template.
   ///
   
   template<class T>
@@ -50,6 +50,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     List(Node *parent, const char *name, Node::Type type, bool mandatory = false) :
@@ -63,11 +64,21 @@ namespace gpx
     ///
     virtual ~List()
     {
-      ///@todo Delete list
+      while (!_list.empty())
+      {
+        delete _list.back();
+
+        _list.pop_back();
+      }
     }
 
     // Properties
 
+    ///
+    /// Return the node list
+    ///
+    /// @return the list
+    ///
     std::list<T*> &list() { return _list;}
 
 
@@ -110,7 +121,6 @@ namespace gpx
     List(const List &);
     List& operator=(const List &);
   };
-  
 }
 
 #endif

@@ -35,7 +35,7 @@ namespace gpx
   ///
   /// @class Longitude
   ///
-  /// @brief The longitude of a point class, decimal degrees.
+  /// @brief The longitude of a point class in decimal degrees.
   ///
   
   class Longitude : public Decimal
@@ -47,6 +47,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     Longitude(Node *parent, const char *name, Type type, bool mandatory = false);
@@ -66,7 +67,6 @@ namespace gpx
     
     virtual bool validate(std::ostream *report = 0) const;
     
-    
     private:
     
     // Members
@@ -74,9 +74,7 @@ namespace gpx
     // Disable copy constructors
     Longitude(const Longitude &);
     Longitude& operator=(const Longitude &);  
-
   };
-
 }
 
 #endif

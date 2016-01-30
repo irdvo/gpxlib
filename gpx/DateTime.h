@@ -35,7 +35,7 @@ namespace gpx
   ///
   /// @class DateTime
   ///
-  /// @brief The date time simple type.
+  /// @brief The date time class.
   ///
   
   class DateTime : public Node
@@ -47,6 +47,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     DateTime(Node *parent, const char *name, Type type, bool mandatory = false);
@@ -75,7 +76,6 @@ namespace gpx
     DateTime(const DateTime &);
     DateTime& operator=(const DateTime &);  
   };
-
 }
 
 #endif

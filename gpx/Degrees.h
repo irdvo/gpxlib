@@ -35,7 +35,7 @@ namespace gpx
   ///
   /// @class Degrees
   ///
-  /// @brief Decimal degrees.
+  /// @brief The decimal degrees class for bearing, heading, course.
   ///
   
   class Degrees : public Decimal
@@ -47,6 +47,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     Degrees(Node *parent, const char *name, Type type, bool mandatory = false);
@@ -74,7 +75,6 @@ namespace gpx
     Degrees(const Degrees &);
     Degrees& operator=(const Degrees &);  
   };
-
 }
 
 #endif

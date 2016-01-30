@@ -36,7 +36,7 @@ namespace gpx
   ///
   /// @class EMail
   ///
-  /// @brief The email address class of the gpx library.
+  /// @brief The email address class.
   ///
   
   class EMail : public Node
@@ -48,6 +48,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     EMail(Node *parent, const char *name, Type type, bool mandatory = false);
@@ -80,9 +81,7 @@ namespace gpx
     // Disable copy constructors
     EMail(const EMail &);
     EMail& operator=(const EMail &);  
-
   };
-  
 }
 
 

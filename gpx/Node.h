@@ -36,13 +36,16 @@ namespace gpx
   ///
   /// @class Node
   ///
-  /// @brief The base class.
+  /// @brief The base node class.
   ///
   
   class Node
   {
     public:
 
+    ///
+    /// Node type
+    ///
     enum Type
     {
       ATTRIBUTE,
@@ -54,6 +57,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     Node(Node *parent, const char *name, Type type, bool mandatory);
@@ -92,7 +96,7 @@ namespace gpx
     ///
     /// @return is the attribute or element mandatory
     ///
-    bool        mandatory() const { return _mandatory; }
+    bool mandatory() const { return _mandatory; }
     
     ///
     /// Set the value
@@ -106,7 +110,7 @@ namespace gpx
     ///
     /// @return the parent node (or 0)
     ///
-    Node        *parent() const { return _parent; }
+    Node *parent() const { return _parent; }
 
     ///
     /// Get the interfaces list
@@ -114,25 +118,28 @@ namespace gpx
     /// @return the parent node (or 0)
     ///
     ///
-    std::list<Node*>   &interfaces() { return _interfaces; }
+    std::list<Node*> &interfaces() { return _interfaces; }
+
     ///
     /// Get the attributes list
     ///
     /// @return the parent node (or 0)
     ///
-    std::list<Node*>   &attributes() { return _attributes; }
+    std::list<Node*> &attributes() { return _attributes; }
     
     ///
     /// Get the elements list
     ///
     /// @return the parent node (or 0)
     ///
-    std::list<Node*>   &elements() { return _elements; }
+    std::list<Node*> &elements() { return _elements; }
         
     // Methods
     
     ///
     /// Add this node
+    ///
+    /// @param  report  the optional report stream
     ///
     /// @return the node (or 0 if not found)
     ///
@@ -144,6 +151,7 @@ namespace gpx
     ///
     /// @param  name    the name of the node
     /// @param  type    the type of the node
+    /// @param  report  the optional report stream
     ///
     /// @return the node (or 0 if not found)
     ///
@@ -183,25 +191,7 @@ namespace gpx
     ///
     
     void indent(std::ostream &output, int level) const;
-   
-    protected:
       
-    ///
-    /// Insert a repeating node
-    ///
-    /// @param  name    the name of the node
-    /// @param  node    the node to be inserted
-    ///
-    void insert(const char *name, Node *node);
-
-    ///
-    /// Filter the attributes and elements for a node name
-    ///
-    /// @param  name    the name of the node
-    /// @param  nodes   the destination list for the nodes
-    ///
-    void filter(const char *name, std::list<Node*> &nodes);
-    
     ///
     /// Count the number of occurences of this node in its parent
     ///
@@ -216,13 +206,15 @@ namespace gpx
     ///
     bool used() const;
 
+  protected:
+
     ///
     /// Check if this node or one of its parents is an extension node
     ///
     /// @return is it ?
     ///
     
-    bool isExtension();
+    bool isExtension() const;
 
   private:
 
@@ -249,7 +241,6 @@ namespace gpx
     Node(const Node &);
     Node& operator=(const Node &);
   };
-  
 }
 
 

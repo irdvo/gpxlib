@@ -33,7 +33,7 @@
 #include "gpx/Unsigned.h"
 #include "gpx/Link.h"
 #include "gpx/Extensions.h"
-#include "gpx/TRKSegList.h"
+#include "gpx/TRKSeg.h"
 #include "gpx/List.h"
 
 
@@ -42,7 +42,7 @@ namespace gpx
   ///
   /// @class TRK
   ///
-  /// @brief The track class of the gpx library.
+  /// @brief The track class.
   ///
   
   class TRK : public Node
@@ -54,6 +54,7 @@ namespace gpx
     ///
     /// @param  parent     the parent node
     /// @param  name       the name of the attribute or element
+    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
     /// @param  mandatory  is the attribute or element mandatory ?
     ///
     TRK(Node *parent, const char *name, Type type, bool mandatory = false);
@@ -127,7 +128,6 @@ namespace gpx
     List<TRKSeg> &trksegs() {return _trksegs;}
 
     // Methods
-    
 
     private:
     
