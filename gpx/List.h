@@ -27,6 +27,8 @@
 //
 //==============================================================================
 
+#include <iostream>
+
 #include <list>
 
 #include "gpx/Node.h"
@@ -93,17 +95,17 @@ namespace gpx
     ///
     virtual Node *add(std::ostream *report)
     {
-      T *node = new T(parent(), name().c_str(), type(), mandatory());
+      T *node = new T(getParent(), getName().c_str(), getType(), isMandatory());
 
-      if (parent() != 0)
+      if (node->getParent() != 0)
       {
-        if (type() == ATTRIBUTE)
+        if (node->getType() == ATTRIBUTE)
         {
-          parent()->attributes().push_back(this);
+          node->getParent()->getAttributes().push_back(node);
         }
-        else if (type() == ELEMENT)
+        else if (node->getType() == ELEMENT)
         {
-          parent()->elements().push_back(this);
+          node->getParent()->getElements().push_back(node);
         }
       }
 

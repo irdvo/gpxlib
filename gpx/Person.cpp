@@ -37,9 +37,9 @@ namespace gpx
     _email(this, "email", Node::ELEMENT, false),
     _link(this, "link",  Node::ELEMENT, false)
   {
-    interfaces().push_back(&_name);
-    interfaces().push_back(&_email);
-    interfaces().push_back(&_link);
+    getInterfaces().push_back(&_name);
+    getInterfaces().push_back(&_email);
+    getInterfaces().push_back(&_link);
   }
   
   Person::~Person()

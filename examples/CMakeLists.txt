@@ -13,4 +13,7 @@ target_link_libraries (gpxtrk gpx expat)
 add_executable (gpxi gpxi.cpp)
 target_link_libraries (gpxi gpx expat)
 
+add_executable (gpxcsvtrk gpxcsvtrk.cpp)
+target_link_libraries (gpxcsvtrk gpx expat)
+
 

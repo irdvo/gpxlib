@@ -65,13 +65,13 @@ int main(int argc, char *argv[])
 
           if (wpt != 0)
           {
-            cout << "Position: " << wpt->lat().value() << ',' << wpt->lon().value() << endl;
-            cout << "  Elevation: " << wpt->ele().value() << endl;
-            cout << "  Time     : " << wpt->time().value() << endl;
-            cout << "  Name     : " << wpt->name().value() << endl;
-            cout << "  Comment  : " << wpt->cmt().value() << endl;
-            cout << "  Symbol   : " << wpt->sym().value() << endl;
-            cout << "  Type     : " << wpt->type().value() << endl;
+            cout << "Position: " << wpt->lat().getValue() << ',' << wpt->lon().getValue() << endl;
+            cout << "  Elevation: " << wpt->ele().getValue() << endl;
+            cout << "  Time     : " << wpt->time().getValue() << endl;
+            cout << "  Name     : " << wpt->name().getValue() << endl;
+            cout << "  Comment  : " << wpt->cmt().getValue() << endl;
+            cout << "  Symbol   : " << wpt->sym().getValue() << endl;
+            cout << "  Type     : " << wpt->type().getValue() << endl;
           }
         }
         cout << endl;

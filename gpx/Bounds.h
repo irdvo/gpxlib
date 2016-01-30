@@ -64,28 +64,28 @@ namespace gpx
     ///
     /// Get minlat
     ///
-    /// @return the minlat object
+    /// @return the minlat attribute
     ///
     Latitude  &minlat() { return _minlat; }
     
     ///
     /// Get minlon
     ///
-    /// @return  the minlon object
+    /// @return  the minlon attribute
     ///
     Longitude &minlon() { return _minlon; }
     
     ///
     /// Get maxlat
     ///
-    /// @return  the maxlat object
+    /// @return  the maxlat attribute
     ///
     Latitude  &maxlat() { return _maxlat; }
     
     ///
     /// Get maxlon
     ///
-    /// @return  the maxlon object
+    /// @return  the maxlon attribute
     ///
     Longitude &maxlon() { return _maxlon; }
     

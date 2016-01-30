@@ -45,35 +45,35 @@ namespace gpx
     
     if (ok)
     {
-      int length = value().length();
+      int length = getValue().length();
       int i      = 0;
       
-      while ((i < length) && (isspace(value().at(i))))
+      while ((i < length) && (isspace(getValue().at(i))))
       {
         i++;
       }
       
-      if ((i < length) && ((value().at(i) == '+') || (value().at(i) == '-')))
+      if ((i < length) && ((getValue().at(i) == '+') || (getValue().at(i) == '-')))
       {
         i++;
       }
       
-      while ((i < length) && (isdigit(value().at(i))))
+      while ((i < length) && (isdigit(getValue().at(i))))
       {
         i++;
       }
       
-      if ((i < length) && (value().at(i) == '.'))
+      if ((i < length) && (getValue().at(i) == '.'))
       {
         i++;
       }
       
-      while ((i < length) && (isdigit(value().at(i))))
+      while ((i < length) && (isdigit(getValue().at(i))))
       {
         i++;
       }
 
-      while ((i < length) && (isspace(value().at(i))))
+      while ((i < length) && (isspace(getValue().at(i))))
       {
         i++;
       }
@@ -82,7 +82,7 @@ namespace gpx
       {
         if (report != 0)
         {
-          *report << "Decimal:" << name() << " is invalid." << endl;
+          *report << "Decimal:" << getName() << " is invalid." << endl;
         }
         ok = false;
       }

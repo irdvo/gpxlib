@@ -48,13 +48,13 @@ namespace gpx
     
     if (ok)
     {
-      double val = atof(value().c_str());
+      double val = atof(getValue().c_str());
         
       if ((val < -90.0) || (val > 90.0))
       {
         if (report != 0)
         {
-          *report << "Latitude: " << value() << " invalid." << endl;
+          *report << "Latitude: " << getValue() << " invalid." << endl;
         }
         return false;
       }

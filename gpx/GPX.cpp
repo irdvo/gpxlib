@@ -46,14 +46,14 @@ namespace gpx
     _trks(this, "trk", Node::ELEMENT, false)
 
   {
-    interfaces().push_back(&_version);
-    interfaces().push_back(&_creator);
+    getInterfaces().push_back(&_version);
+    getInterfaces().push_back(&_creator);
 
-    interfaces().push_back(&_metadata);
-    interfaces().push_back(&_extensions);
-    interfaces().push_back(&_wpts);
-    interfaces().push_back(&_rtes);
-    interfaces().push_back(&_trks);
+    getInterfaces().push_back(&_metadata);
+    getInterfaces().push_back(&_extensions);
+    getInterfaces().push_back(&_wpts);
+    getInterfaces().push_back(&_rtes);
+    getInterfaces().push_back(&_trks);
   }
 
   GPX::~GPX()

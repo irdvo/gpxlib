@@ -75,140 +75,140 @@ namespace gpx
     ///
     /// Get lat
     ///
-    /// @return the lat object
+    /// @return the lat attribute
     ///
     Latitude  &lat() { return _lat; }
 
     ///
     /// Get lon
     ///
-    /// @return the lon object
+    /// @return the lon attribute
     ///
     Longitude  &lon() { return _lon; }
 
     ///
     /// Get ele
     ///
-    /// @return the ele object
+    /// @return the ele element
     ///
     Decimal  &ele() { return _ele; }
 
     ///
     /// Get time
     ///
-    /// @return the time object
+    /// @return the time element
     ///
     DateTime  &time() { return _time; }
 
     ///
     /// Get magvar
     ///
-    /// @return the magvar object
+    /// @return the magvar element
     ///
     Degrees  &magvar() { return _magvar; }
 
     ///
     /// Get geoidheight
     ///
-    /// @return the geoidheight object
+    /// @return the geoidheight element
     ///
     Decimal  &geoidheight() { return _geoidheight; }
 
     ///
     /// Get name
     ///
-    /// @return the name object
+    /// @return the name element
     ///
     String  &name() { return _name; }
 
     ///
     /// Get &cmt
     ///
-    /// @return the &cmt object
+    /// @return the &cmt element
     ///
     String  &cmt() { return _cmt; }
 
     ///
     /// Get desc
     ///
-    /// @return the desc object
+    /// @return the desc element
     ///
     String  &desc() { return _desc; }
 
     ///
     /// Get src
     ///
-    /// @return the src object
+    /// @return the src element
     ///
     String  &src() { return _src; }
 
     ///
     /// Get sym
     ///
-    /// @return the sym object
+    /// @return the sym element
     ///
     String  &sym() { return _sym; }
 
     ///
     /// Get type
     ///
-    /// @return the type object
+    /// @return the type element
     ///
     String  &type() { return _type; }
 
     ///
     /// Get fix
     ///
-    /// @return the fix object
+    /// @return the fix element
     ///
     Fix  &fix() { return _fix; }
 
     ///
     /// Get sat
     ///
-    /// @return the sat object
+    /// @return the sat element
     ///
     Unsigned  &sat() { return _sat; }
 
     ///
     /// Get hdop
     ///
-    /// @return the hdop object
+    /// @return the hdop element
     ///
     Decimal  &hdop() { return _hdop; }
 
     ///
     /// Get vdop
     ///
-    /// @return the vdop object
+    /// @return the vdop element
     ///
     Decimal  &vdop() { return _vdop; }
 
     ///
     /// Get pdop
     ///
-    /// @return the pdop object
+    /// @return the pdop element
     ///
     Decimal  &pdop() { return _pdop; }
 
     ///
     /// Get ageofdgpsdata
     ///
-    /// @return the ageofdgpsdata object
+    /// @return the ageofdgpsdata element
     ///
     Decimal  &ageofdgpsdata() { return _ageofdgpsdata; }
 
     ///
     /// Get dgpsid
     ///
-    /// @return the dgpsid object
+    /// @return the dgpsid element
     ///
     DGPSStation  &dgpsid() { return _dgpsid; }
 
     ///
     /// Get link
     ///
-    /// @return the link objects
+    /// @return the link elements
     ///
     List<Link> &links() {return _links;}
 

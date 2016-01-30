@@ -45,15 +45,15 @@ namespace gpx
     
     if (ok)
     {
-      if ((value().compare("2d") != 0) &&
-          (value().compare("3d") != 0) &&
-          (value().compare("dgps") != 0) &&
-          (value().compare("pps") != 0) &&
-          (value().compare("none") != 0))
+      if ((getValue().compare("2d") != 0) &&
+          (getValue().compare("3d") != 0) &&
+          (getValue().compare("dgps") != 0) &&
+          (getValue().compare("pps") != 0) &&
+          (getValue().compare("none") != 0))
       {
         if (report != 0)
         {
-          *report << "Fix: " << value() << " invalid." << endl;
+          *report << "Fix: " << getValue() << " invalid." << endl;
         }
         ok = false;
       }

@@ -36,7 +36,7 @@ namespace gpx
     Node(parent, name, type, mandatory),
     _pts(this, "pt", Node::ELEMENT, false)
   {
-    interfaces().push_back(&_pts);
+    getInterfaces().push_back(&_pts);
   }
   
   PTSeg::~PTSeg()

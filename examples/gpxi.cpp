@@ -45,8 +45,8 @@ int main(int argc, char *argv[])
   // Create the root node
   gpx::GPX *root = new gpx::GPX();
 
-  root->version().add(&cerr)->value("1.1");
-  root->creator().add(&cerr)->value("gpxi");
+  root->version().add(&cerr)->setValue("1.1");
+  root->creator().add(&cerr)->setValue("gpxi");
 
   gpx::Node *current = root;
 
@@ -60,17 +60,17 @@ int main(int argc, char *argv[])
     {
       menu = 'a';
 
-      cout << endl << "Menu:" << current->name() << endl;
+      cout << endl << "Menu:" << current->getName() << endl;
 
-      for (list<gpx::Node*>::const_iterator iter = current->interfaces().begin(); iter != current->interfaces().end(); ++iter)
+      for (list<gpx::Node*>::const_iterator iter = current->getInterfaces().begin(); iter != current->getInterfaces().end(); ++iter)
       {
         string str;
 
-        if ((*iter)->type() == gpx::Node::ATTRIBUTE)
+        if ((*iter)->getType() == gpx::Node::ATTRIBUTE)
         {
           str = " attribute:";
         }
-        else if ((*iter)->type() == gpx::Node::ELEMENT)
+        else if ((*iter)->getType() == gpx::Node::ELEMENT)
         {
           str = " element:";
         }
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
         {
           str = " unknown:";
         }
-        cout << menu++ << str << (*iter)->name() << endl;
+        cout << menu++ << str << (*iter)->getName() << endl;
       }
 
       cout << "q exit" << endl;

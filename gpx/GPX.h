@@ -82,28 +82,28 @@ namespace gpx
     ///
     /// Get version
     ///
-    /// @return the version object
+    /// @return the version attribute
     ///
     String  &version() { return _version; }
 
     ///
     /// Get creator
     ///
-    /// @return the creator object
+    /// @return the creator attribute
     ///
     String  &creator() { return _creator; }
 
     ///
     /// Get metadata
     ///
-    /// @return the metadata object
+    /// @return the metadata element
     ///
     Metadata  &metadata() { return _metadata; }
 
     ///
     /// Get wpt
     ///
-    /// @return the list of wpt objects
+    /// @return the list of wpt elements
     ///
     /// @todo Use list as parameter to prevent coping
     ///
@@ -112,21 +112,21 @@ namespace gpx
     ///
     /// Get rte
     ///
-    /// @return the list of rte objects
+    /// @return the list of rte elements
     ///
     List<RTE> &rtes() {return _rtes;}
 
     ///
     /// Get trk
     ///
-    /// @return the list of trk objects
+    /// @return the list of trk elements
     ///
     List<TRK> &trks() {return _trks;}
 
     ///
     /// Get extensions
     ///
-    /// @return the extensions object
+    /// @return the extensions element
     ///
     Extensions  &extensions() { return _extensions; }
 

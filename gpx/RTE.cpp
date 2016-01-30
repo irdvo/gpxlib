@@ -45,15 +45,15 @@ namespace gpx
     _rtepts(this, "rtept", Node::ELEMENT, false),
     _links(this, "link", Node::ELEMENT, false)
   {
-    interfaces().push_back(&_name);
-    interfaces().push_back(&_cmt);
-    interfaces().push_back(&_desc);
-    interfaces().push_back(&_src);
-    interfaces().push_back(&_number);
-    interfaces().push_back(&_type);
-    interfaces().push_back(&_extensions);
-    interfaces().push_back(&_rtepts);
-    interfaces().push_back(&_links);
+    getInterfaces().push_back(&_name);
+    getInterfaces().push_back(&_cmt);
+    getInterfaces().push_back(&_desc);
+    getInterfaces().push_back(&_src);
+    getInterfaces().push_back(&_number);
+    getInterfaces().push_back(&_type);
+    getInterfaces().push_back(&_extensions);
+    getInterfaces().push_back(&_rtepts);
+    getInterfaces().push_back(&_links);
   }
   
   RTE::~RTE()

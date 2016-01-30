@@ -39,10 +39,10 @@ namespace gpx
     _maxlon(this, "maxlon", Node::ATTRIBUTE, true)
 
   {
-    interfaces().push_back(&_minlat);
-    interfaces().push_back(&_minlon);
-    interfaces().push_back(&_maxlat);
-    interfaces().push_back(&_maxlon);
+    getInterfaces().push_back(&_minlat);
+    getInterfaces().push_back(&_minlon);
+    getInterfaces().push_back(&_maxlat);
+    getInterfaces().push_back(&_maxlon);
   }
 
   Bounds::~Bounds()

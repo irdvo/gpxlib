@@ -64,14 +64,14 @@ namespace gpx
     ///
     /// Get trkpt
     ///
-    /// @return the trkpt objects
+    /// @return the trkpt elements
     ///
     List<WPT>  &trkpts() {return _trkpts;}
 
     ///
     /// Get extensions
     ///
-    /// @return the extensions object
+    /// @return the extensions element
     ///
     Extensions  &extensions() { return _extensions; }
 

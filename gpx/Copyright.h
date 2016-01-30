@@ -64,21 +64,21 @@ namespace gpx
     ///
     /// Get author
     ///
-    /// @return the author object
+    /// @return the author attribute
     ///
     String  &author() { return _author; }
 
     ///
     /// Get year
     ///
-    /// @return the year object
+    /// @return the year element
     ///
     Unsigned  &year() { return _year; }
 
     ///
     /// Get license
     ///
-    /// @return the license object
+    /// @return the license element
     ///
     URI  &license() { return _license; }
 

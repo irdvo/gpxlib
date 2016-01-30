@@ -113,7 +113,7 @@ namespace gpx
   {
     if (_current != 0)
     {
-      _current->value(value);
+      _current->setValue(value);
     }
     else if (_report != 0)
     {

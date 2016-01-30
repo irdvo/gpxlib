@@ -62,11 +62,11 @@ namespace gpx
       {
         if (_type == ATTRIBUTE)
         {
-          _parent->attributes().push_back(this);
+          _parent->getAttributes().push_back(this);
         }
         else if (_type == ELEMENT)
         {
-          _parent->elements().push_back(this);
+          _parent->getElements().push_back(this);
         }
       }
     }
@@ -78,7 +78,7 @@ namespace gpx
   {
     for (list<Node*>::iterator iter = _interfaces.begin(); iter != _interfaces.end(); ++iter)
     {
-      if (strcasecmp(name, (*iter)->name().c_str()) == 0)
+      if (strcasecmp(name, (*iter)->getName().c_str()) == 0)
       {
         return (*iter)->add();
       }
@@ -148,14 +148,12 @@ namespace gpx
     indent(output, level);
 
     // Start of tag
-    output << '<' << name();
+    output << '<' << getName();
 
     // attributes
     for (list<Node*>::const_iterator iter = _attributes.begin(); iter != _attributes.end(); ++iter)
     {
-      output << ' ' << (*iter)->name() << "=\"" << (*iter)->value() << '"';
-
-      ++iter;
+      output << ' ' << (*iter)->getName() << "=\"" << (*iter)->getValue() << '"';
     }
 
     // End of tag
@@ -175,12 +173,15 @@ namespace gpx
     }
 
     // Value
-    output << value();
+    output << getValue();
 
     // Close tag
-    indent(output, level);
+    if ((hasElements()) && (level >= 0))
+    {
+      indent(output, level);
+    }
 
-    output << "</" << name() << '>';
+    output << "</" << getName() << '>';
 
     if (level >= 0)
     {
@@ -206,11 +207,11 @@ namespace gpx
 
     if (_parent != 0)
     {
-      list<Node*> &nodes = (_type == ATTRIBUTE ? _parent->attributes() : _parent->elements());
+      list<Node*> &nodes = (_type == ATTRIBUTE ? _parent->getAttributes() : _parent->getElements());
 
       for (list<Node*>::const_iterator iter = nodes.begin(); iter != nodes.end(); ++iter)
       {
-        if (strcasecmp(_name.c_str(), (*iter)->name().c_str()) == 0)
+        if (strcasecmp(_name.c_str(), (*iter)->getName().c_str()) == 0)
         {
           count++;
         }
@@ -224,11 +225,11 @@ namespace gpx
   {
     if (_parent != 0)
     {
-      list<Node*> &nodes = (_type == ATTRIBUTE ? _parent->attributes() : _parent->elements());
+      list<Node*> &nodes = (_type == ATTRIBUTE ? _parent->getAttributes() : _parent->getElements());
 
       for (list<Node*>::const_iterator iter = nodes.begin(); iter != nodes.end(); ++iter)
       {
-        if (strcasecmp(_name.c_str(), (*iter)->name().c_str()) == 0)
+        if (strcasecmp(_name.c_str(), (*iter)->getName().c_str()) == 0)
         {
           return true;
         }
@@ -245,12 +246,12 @@ namespace gpx
     
     while (node != 0)
     {
-      if (strcasecmp(node->name().c_str(), "extensions") == 0)
+      if (strcasecmp(node->getName().c_str(), "extensions") == 0)
       {
         return true;
       }
       
-      node = node->parent();
+      node = node->getParent();
     }
     
     return false;

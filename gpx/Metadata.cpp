@@ -45,15 +45,15 @@ namespace gpx
     _extensions(this, "extensions", Node::ELEMENT, false),
     _links(this, "link", Node::ELEMENT, false)
   {
-    interfaces().push_back(&_name);
-    interfaces().push_back(&_desc);
-    interfaces().push_back(&_author);
-    interfaces().push_back(&_copyright);
-    interfaces().push_back(&_time);
-    interfaces().push_back(&_keywords);
-    interfaces().push_back(&_bounds);
-    interfaces().push_back(&_extensions);
-    interfaces().push_back(&_links);
+    getInterfaces().push_back(&_name);
+    getInterfaces().push_back(&_desc);
+    getInterfaces().push_back(&_author);
+    getInterfaces().push_back(&_copyright);
+    getInterfaces().push_back(&_time);
+    getInterfaces().push_back(&_keywords);
+    getInterfaces().push_back(&_bounds);
+    getInterfaces().push_back(&_extensions);
+    getInterfaces().push_back(&_links);
   }
 
   Metadata::~Metadata()

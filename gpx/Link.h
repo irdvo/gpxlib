@@ -72,21 +72,21 @@ namespace gpx
     ///
     /// Get href
     ///
-    /// @return the href object
+    /// @return the href attribute
     ///
     URI  &href() { return _href; }
   
     ///
     /// Get text
     ///
-    /// @return the text object
+    /// @return the text element
     ///
     String  &text() { return _text; }
   
     ///
     /// Get type
     ///
-    /// @return the type object
+    /// @return the type element
     ///
     String  &type() { return _type; }
   

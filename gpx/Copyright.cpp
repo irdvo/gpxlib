@@ -38,10 +38,10 @@ namespace gpx
     _year   (this, "year",    Node::ELEMENT,   false),
     _license(this, "license", Node::ELEMENT,   false)
   {
-    interfaces().push_back(&_author);
+    getInterfaces().push_back(&_author);
     
-    interfaces()  .push_back(&_year);
-    interfaces()  .push_back(&_license);
+    getInterfaces().push_back(&_year);
+    getInterfaces().push_back(&_license);
   }
   
   Copyright::~Copyright()

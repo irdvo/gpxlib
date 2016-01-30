@@ -48,13 +48,13 @@ namespace gpx
     
     if (ok)
     {
-      int val = atoi(value().c_str());
+      int val = atoi(getValue().c_str());
       
       if ((val < 0) || (val > 1023))
       {
         if (report != 0)
         {
-          *report << "DGPSStation: " << value() << " invalid." << endl;
+          *report << "DGPSStation: " << getValue() << " invalid." << endl;
         }
         ok = false;
       }

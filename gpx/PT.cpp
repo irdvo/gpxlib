@@ -38,10 +38,10 @@ namespace gpx
     _ele(this, "ele",   Node::ELEMENT,   false),
     _time(this, "time", Node::ELEMENT,   false)
   {
-    interfaces().push_back(&_lat);
-    interfaces().push_back(&_lon);
-    interfaces().push_back(&_ele);
-    interfaces().push_back(&_time);
+    getInterfaces().push_back(&_lat);
+    getInterfaces().push_back(&_lon);
+    getInterfaces().push_back(&_ele);
+    getInterfaces().push_back(&_time);
   }
 
   PT::~PT()

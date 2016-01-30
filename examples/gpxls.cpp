@@ -57,9 +57,9 @@ int main(int argc, char *argv[])
       else
       {
         cout << argv[i] << ":" << endl;
-        cout << "  Version  : " << root->version().value() << endl;
-        cout << "  Creator  : " << root->creator().value() << endl;
-        cout << "  Name     : " << root->metadata().author().name().value() << endl;
+        cout << "  Version  : " << root->version().getValue() << endl;
+        cout << "  Creator  : " << root->creator().getValue() << endl;
+        cout << "  Name     : " << root->metadata().author().name().getValue() << endl;
         cout << "  Waypoints: " << root->wpts().list().size() << endl;
         cout << "  Routes   : " << root->rtes().list().size() << endl;
         cout << "  Tracks   : " << root->trks().list().size() << endl;

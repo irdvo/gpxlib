@@ -38,9 +38,9 @@ namespace gpx
     _text(this, "text", Node::ELEMENT, false),
     _type(this, "type", Node::ELEMENT, false)
   {
-    interfaces().push_back(&_href);
-    interfaces().push_back(&_text);
-    interfaces().push_back(&_type);
+    getInterfaces().push_back(&_href);
+    getInterfaces().push_back(&_text);
+    getInterfaces().push_back(&_type);
   }
   
   Link::~Link()

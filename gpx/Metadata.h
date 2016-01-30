@@ -68,35 +68,35 @@ namespace gpx
     ///
     /// Get name
     ///
-    /// @return the name object
+    /// @return the name element
     ///
     String  &name() { return _name; }
     
     ///
     /// Get desc
     ///
-    /// @return the desc object
+    /// @return the desc element
     ///
     String  &desc() { return _desc; }
     
     ///
     /// Get author
     ///
-    /// @return the author object
+    /// @return the author element
     ///
     Person  &author() { return _author; }
     
     ///
     /// Get copyright
     ///
-    /// @return the copyright object
+    /// @return the copyright element
     ///
     Copyright  &copyright() { return _copyright; }
     
     ///
     /// Get link
     ///
-    /// @return the link object
+    /// @return the link element
     ///
     /// @todo return link
     ///
@@ -105,28 +105,28 @@ namespace gpx
     ///
     /// Get time
     ///
-    /// @return the time object
+    /// @return the time element
     ///
     DateTime  &time() { return _time; }
     
     ///
     /// Get keywords
     ///
-    /// @return the keywords object
+    /// @return the keywords element
     ///
     String  &keywords() { return _keywords; }
     
     ///
     /// Get bounds
     ///
-    /// @return the bounds object
+    /// @return the bounds element
     ///
     Bounds  &bounds() { return _bounds; }
     
     ///
     /// Get extensions
     ///
-    /// @return the extensions object
+    /// @return the extensions element
     ///
     Extensions  &extensions() { return _extensions; }
     

@@ -65,9 +65,9 @@ namespace gpx
     // Properties
     
     ///
-    /// Get a list of PTs
+    /// Get PTs
     ///
-    /// @return the list
+    /// @return the PT elements
     ///
     List<PT> &pts() {return _pts;}
 

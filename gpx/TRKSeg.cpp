@@ -37,8 +37,8 @@ namespace gpx
     _extensions(this, "extensions", Node::ELEMENT, false),
     _trkpts(this, "trkpt", Node::ELEMENT, false)
   {
-    interfaces().push_back(&_extensions);
-    interfaces().push_back(&_trkpts);
+    getInterfaces().push_back(&_extensions);
+    getInterfaces().push_back(&_trkpts);
   }
   
   TRKSeg::~TRKSeg()

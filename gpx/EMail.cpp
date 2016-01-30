@@ -37,8 +37,8 @@ namespace gpx
     _id(this, "id", Node::ATTRIBUTE, true),
     _domain(this, "domain", Node::ATTRIBUTE, true)
   {
-    interfaces().push_back(&_id);
-    interfaces().push_back(&_domain);
+    getInterfaces().push_back(&_id);
+    getInterfaces().push_back(&_domain);
   }
   
   EMail::~EMail()

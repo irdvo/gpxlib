@@ -47,13 +47,13 @@ namespace gpx
     
     if (ok)
     {
-      double val = atof(value().c_str());
+      double val = atof(getValue().c_str());
         
       if ((val < -180.0) || (val > 180.0))
       {
         if (report != 0)
         {
-          *report << "Longitude: " << value() << " invalid." << endl;
+          *report << "Longitude: " << getValue() << " invalid." << endl;
         }
         return false;
       }

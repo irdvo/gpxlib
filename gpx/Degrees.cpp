@@ -45,13 +45,13 @@ namespace gpx
   {
     bool ok = Decimal::validate(report);
     
-    float val = atof(value().c_str());
+    float val = atof(getValue().c_str());
       
     if ((val < 0.0) || (val > 360.0))
     {
       if (report != 0)
       {
-        *report << "Degrees: " << value() << " invalid." << endl;
+        *report << "Degrees: " << getValue() << " invalid." << endl;
       }
       ok = false;
     }

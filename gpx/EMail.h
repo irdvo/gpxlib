@@ -61,14 +61,14 @@ namespace gpx
     ///
     /// Get id
     ///
-    /// @return the id object
+    /// @return the id attribute
     ///
     String  &id() { return _id; }
 
     ///
     /// Get domain
     ///
-    /// @return the domain object
+    /// @return the domain attribute
     ///
     String  &domain() { return _domain; }
 

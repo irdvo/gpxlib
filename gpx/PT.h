@@ -65,28 +65,28 @@ namespace gpx
     ///
     /// Get lat
     ///
-    /// @return the lat object
+    /// @return the lat attribute
     ///
     Latitude  &lat() { return _lat; }
 
     ///
     /// Get lon
     ///
-    /// @return the lon object
+    /// @return the lon attribute
     ///
     Longitude  &lon() { return _lon; }
 
     ///
     /// Get ele
     ///
-    /// @return the ele object
+    /// @return the ele element
     ///
     Decimal  &ele() { return _ele; }
 
     ///
     /// Get time
     ///
-    /// @return the time object
+    /// @return the time element
     ///
     DateTime  &time() { return _time; }
 

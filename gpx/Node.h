@@ -75,42 +75,42 @@ namespace gpx
     ///
     /// @return the name of the attribute or element
     ///
-    const std::string &name() const { return _name; }
+    const std::string &getName() const { return _name; }
 
     ///
     /// Return the type
     ///
     /// @return the name of the attribute or element
     ///
-    Node::Type type() const { return _type; }
+    Node::Type getType() const { return _type; }
 
     ///
     /// Return the value
     ///
     /// @return the value of the attribute or element
     ///
-    virtual const std::string &value() const { return _value; }
+    virtual const std::string &getValue() const { return _value; }
 
     ///
     /// Is mandatory
     ///
     /// @return is the attribute or element mandatory
     ///
-    bool mandatory() const { return _mandatory; }
+    bool isMandatory() const { return _mandatory; }
     
     ///
     /// Set the value
     ///
     /// @param value   the value of the attribute or element
     ///
-    virtual void value(std::string value) { _value = value; }
+    virtual void setValue(std::string value) { _value = value; }
     
     ///
     /// Get the parent node of this node
     ///
     /// @return the parent node (or 0)
     ///
-    Node *parent() const { return _parent; }
+    Node *getParent() const { return _parent; }
 
     ///
     /// Get the interfaces list
@@ -118,21 +118,21 @@ namespace gpx
     /// @return the parent node (or 0)
     ///
     ///
-    std::list<Node*> &interfaces() { return _interfaces; }
+    std::list<Node*> &getInterfaces() { return _interfaces; }
 
     ///
     /// Get the attributes list
     ///
     /// @return the parent node (or 0)
     ///
-    std::list<Node*> &attributes() { return _attributes; }
+    std::list<Node*> &getAttributes() { return _attributes; }
     
     ///
     /// Get the elements list
     ///
     /// @return the parent node (or 0)
     ///
-    std::list<Node*> &elements() { return _elements; }
+    std::list<Node*> &getElements() { return _elements; }
         
     // Methods
     

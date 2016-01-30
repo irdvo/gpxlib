@@ -67,63 +67,63 @@ namespace gpx
     ///
     /// Get name
     ///
-    /// @return the name object
+    /// @return the name element
     ///
     String  &name() { return _name; }
     
     ///
     /// Get cmt
     ///
-    /// @return the cmt object
+    /// @return the cmt element
     ///
     String  &cmt() { return _cmt; }
 
     ///
     /// Get desc
     ///
-    /// @return the desc object
+    /// @return the desc element
     ///
     String  &desc() { return _desc; }
 
     ///
     /// Get src
     ///
-    /// @return the src object
+    /// @return the src element
     ///
     String  &src() { return _src; }
 
     ///
     /// Get link
     ///
-    /// @return the link objects
+    /// @return the link elements
     ///
     List<Link> &links() {return _links;}
 
     ///
     /// Get number
     ///
-    /// @return the number object
+    /// @return the number element
     ///
     Unsigned  &number() { return _number; }
 
     ///
     /// Get type
     ///
-    /// @return the type object
+    /// @return the type element
     ///
     String  &type() { return _type; }
 
     ///
     /// Get extensions
     ///
-    /// @return the extensions object
+    /// @return the extensions element
     ///
     Extensions  &extensions() { return _extensions; }
 
     ///
     /// Get trkseg
     ///
-    /// @return the trkseg objects
+    /// @return the trkseg elements
     ///
     List<TRKSeg> &trksegs() {return _trksegs;}
 

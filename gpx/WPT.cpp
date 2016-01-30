@@ -56,27 +56,27 @@ namespace gpx
     _dgpsid(this, "dgpsid", Node::ELEMENT, false),
     _links(this, "link", Node::ELEMENT, false)
   {
-    interfaces().push_back(&_lat);
-    interfaces().push_back(&_lon);
+    getInterfaces().push_back(&_lat);
+    getInterfaces().push_back(&_lon);
     
-    interfaces().push_back(&_ele);
-    interfaces().push_back(&_time);
-    interfaces().push_back(&_magvar);
-    interfaces().push_back(&_geoidheight);
-    interfaces().push_back(&_name);
-    interfaces().push_back(&_cmt);
-    interfaces().push_back(&_desc);
-    interfaces().push_back(&_src);
-    interfaces().push_back(&_sym);
-    interfaces().push_back(&_type);
-    interfaces().push_back(&_fix);
-    interfaces().push_back(&_sat);
-    interfaces().push_back(&_hdop);
-    interfaces().push_back(&_vdop);
-    interfaces().push_back(&_pdop);
-    interfaces().push_back(&_ageofdgpsdata);
-    interfaces().push_back(&_dgpsid);
-    interfaces().push_back(&_links);
+    getInterfaces().push_back(&_ele);
+    getInterfaces().push_back(&_time);
+    getInterfaces().push_back(&_magvar);
+    getInterfaces().push_back(&_geoidheight);
+    getInterfaces().push_back(&_name);
+    getInterfaces().push_back(&_cmt);
+    getInterfaces().push_back(&_desc);
+    getInterfaces().push_back(&_src);
+    getInterfaces().push_back(&_sym);
+    getInterfaces().push_back(&_type);
+    getInterfaces().push_back(&_fix);
+    getInterfaces().push_back(&_sat);
+    getInterfaces().push_back(&_hdop);
+    getInterfaces().push_back(&_vdop);
+    getInterfaces().push_back(&_pdop);
+    getInterfaces().push_back(&_ageofdgpsdata);
+    getInterfaces().push_back(&_dgpsid);
+    getInterfaces().push_back(&_links);
   }
   
   WPT::~WPT()

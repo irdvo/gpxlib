@@ -36,7 +36,7 @@ void show(gpx::Node &node, int width)
 {
   string value(width, ' ');
 
-  value = node.value();
+  value = node.getValue();
 
   if (value.length() > width)
   {
@@ -100,12 +100,12 @@ int main(int argc, char *argv[])
           if (trk != 0)
           {
             cout << "Track:" << trknr++ << endl;
-            cout << "  Name        : " << trk->name()  .value() << endl;
-            cout << "  Comment     : " << trk->cmt()   .value() << endl;
-            cout << "  Description : " << trk->desc()  .value() << endl;
-            cout << "  Source      : " << trk->src()   .value() << endl;
-            cout << "  Type        : " << trk->type()  .value() << endl;
-            cout << "  Number      : " << trk->number().value() << endl;
+            cout << "  Name        : " << trk->name()  .getValue() << endl;
+            cout << "  Comment     : " << trk->cmt()   .getValue() << endl;
+            cout << "  Description : " << trk->desc()  .getValue() << endl;
+            cout << "  Source      : " << trk->src()   .getValue() << endl;
+            cout << "  Type        : " << trk->type()  .getValue() << endl;
+            cout << "  Number      : " << trk->number().getValue() << endl;
             cout << "  Segments:   : " << trk->trksegs().list().size()  << endl << endl;
 
             list<gpx::TRKSeg*> &trksegs = trk->trksegs().list();
@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
                     show(trkpt->lon(),  11);
                     show(trkpt->ele(),  11);
                     show(trkpt->time(), 20);
-                    show(trkpt->name(),  8);
+                    show(trkpt->getName(),  8);
                     show(trkpt->cmt(),  10);
                     cout << endl;
                   }
