@@ -45,6 +45,5 @@ namespace gpx
   Person::~Person()
   {
   }
-  
 }
 

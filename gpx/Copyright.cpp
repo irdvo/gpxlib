@@ -47,6 +47,5 @@ namespace gpx
   Copyright::~Copyright()
   {
   }
-  
 }
 

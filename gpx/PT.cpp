@@ -47,6 +47,5 @@ namespace gpx
   PT::~PT()
   {
   }
-  
 }
 

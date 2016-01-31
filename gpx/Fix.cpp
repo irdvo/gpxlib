@@ -61,6 +61,5 @@ namespace gpx
     
     return ok;
   }
-
 }
 

@@ -48,5 +48,4 @@ namespace gpx
   Bounds::~Bounds()
   {
   }
-    
 }

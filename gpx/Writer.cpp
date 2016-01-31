@@ -42,7 +42,7 @@ namespace gpx
 
   // Writing
 
-  bool Writer::write(std::ostream &stream, Node *node, bool withLayout)
+  bool Writer::write(std::ostream &stream, Node *node, bool prettyPrinted)
   {
     bool ok = stream.good();
 
@@ -58,7 +58,7 @@ namespace gpx
           stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
         }
 
-        write(node, stream, (withLayout ? 0 : -1));
+        write(node, stream, (prettyPrinted ? 0 : -1));
       }
     }
 

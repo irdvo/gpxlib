@@ -1,8 +1,8 @@
 project(gpx)
-cmake_minimum_required(VERSION 2.6.0)
+cmake_minimum_required(VERSION 2.8.0)
 set (gpx_VERSION_MAJOR 0)
-set (gpx_VERSION_MINOR 0)
-set (gpx_VERSION_MICRO 1)
+set (gpx_VERSION_MINOR 1)
+set (gpx_VERSION_MICRO 0)
 add_subdirectory(gpx)
 add_subdirectory(examples)
 

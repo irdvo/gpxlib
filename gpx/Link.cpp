@@ -53,7 +53,6 @@ namespace gpx
 
     return true;
   }
-  
 }
 
 

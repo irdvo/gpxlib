@@ -44,6 +44,5 @@ namespace gpx
   TRKSeg::~TRKSeg()
   {
   }
-
 }
 

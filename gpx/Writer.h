@@ -61,13 +61,13 @@ namespace gpx
     ///
     /// Write a node to output stream
     ///
-    /// @param  stream     the output stream
-    /// @param  node       the node to be written
-    /// @param  withLayout should the output with layout ?
+    /// @param  stream        the output stream
+    /// @param  node          the node to be written
+    /// @param  prettyPrinted should the output be pretty printed ?
     ///
     /// @return success
     ///
-    bool write(std::ostream &stream, Node *node, bool withLayout);
+    bool write(std::ostream &stream, Node *node, bool prettyPrinted);
 
   private:
 

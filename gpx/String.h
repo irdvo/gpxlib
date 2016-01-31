@@ -57,16 +57,6 @@ namespace gpx
     ///
     virtual ~String();
     
-    ///
-    /// Validate the DateTime object
-    ///
-    /// @param  report  the optional report stream
-    ///
-    /// @return is validation succesfull
-    ///
-    
-    virtual bool validate(std::ostream *report = 0) const;
-    
     private:
     
     // Members

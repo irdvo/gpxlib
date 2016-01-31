@@ -38,11 +38,5 @@ namespace gpx
   String::~String()
   {
   }
-  
-  bool String::validate(std::ostream *report) const
-  {
-    return Node::validate(report);
-  }
-
 }
 

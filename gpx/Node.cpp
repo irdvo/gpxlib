@@ -106,38 +106,27 @@ namespace gpx
   bool Node::validate(std::ostream *report) const
   {
     bool ok = true;
+
+    for (list<Node*>::const_iterator iter = _interfaces.begin(); iter != _interfaces.end(); ++iter)
+    {
+      if (((*iter)->isMandatory()) && (!(*iter)->used()))
+      {
+        if (*report != 0)
+        {
+          *report << "Missing: " << _name << endl;
+        }
+        ok = false;
+      }
+    }
     
-    if (_mandatory)
+    for (list<Node*>::const_iterator iter = _attributes.begin(); iter != _attributes.end(); ++iter)
     {
-      if (*report != 0)
-      {
-        *report << "Missing: " << _name << endl;
-      }
-      ok = false;
+      ok &= (*iter)->validate(report);
     }
 
+    for (list<Node*>::const_iterator iter = _elements.begin(); iter != _elements.end(); ++iter)
     {
-      list<Node*>::const_iterator iter = _attributes.begin();
-      list<Node*>::const_iterator end  = _attributes.end();
-      
-      while (iter != end)
-      {
-        ok &= (*iter)->validate(report);
-        
-        ++iter;
-      }
-    }
-
-    {
-      list<Node*>::const_iterator iter = _elements.begin();
-      list<Node*>::const_iterator end  = _elements.end();
-      
-      while (iter != end)
-      {
-        ok &= (*iter)->validate(report);
-        
-        ++iter;
-      }
+      ok &= (*iter)->validate(report);
     }
     
     return ok;

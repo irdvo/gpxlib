@@ -76,6 +76,5 @@ namespace gpx
     
     return ok;
   }
-
 }
 

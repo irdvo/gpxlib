@@ -1,6 +1,8 @@
-cmake_minimum_required(VERSION 2.6.0)
+cmake_minimum_required(VERSION 2.8.0)
 
-include_directories (. ..)
+find_package(EXPAT)
+
+include_directories (. .. ${EXPAT_INCLUDE_DIRS})
 
 # SET(CMAKE_BUILD_TYPE Debug)
 

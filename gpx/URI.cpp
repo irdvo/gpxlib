@@ -44,6 +44,5 @@ namespace gpx
     /// @todo Validate function for URI
     return Node::validate(report);
   }
-    
 }
 
