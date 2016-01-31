@@ -31,6 +31,7 @@ set(SRC
     Metadata.cpp
     GPX.cpp
     Parser.cpp
+    Writer.cpp
     )
 
 

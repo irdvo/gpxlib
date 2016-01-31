@@ -32,6 +32,7 @@
 
 #include "gpx/Node.h"
 #include "gpx/GPX.h"
+#include "gpx/Writer.h"
 
 using namespace std;
 
@@ -104,6 +105,8 @@ int main(int argc, char *argv[])
   // Create the root node
   gpx::GPX *root = new gpx::GPX();
 
+  root->add("xmlns", gpx::Node::ATTRIBUTE)->setValue("http://www.topografix.com/GPX/1/1"); // Some tools need this
+
   root->version().add(&cerr)->setValue("1.1");
 
   root->creator().add(&cerr)->setValue("gpxcsvtrk");
@@ -150,9 +153,11 @@ int main(int argc, char *argv[])
   }
   input.close();
 
+  gpx::Writer writer;
+
   if (argc == 3)
   {
-    root->write(cout, 0);
+    writer.write(cout, root, true);
   }
   else
   {
@@ -160,7 +165,7 @@ int main(int argc, char *argv[])
 
     if (stream.is_open())
     {
-      root->write(stream, 0);
+      writer.write(stream, root, true);
 
       stream.close();
     }

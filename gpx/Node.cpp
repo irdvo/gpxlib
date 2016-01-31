@@ -143,64 +143,6 @@ namespace gpx
     return ok;
   }
 
-  bool Node::write(ostream &output, int level) const
-  {
-    indent(output, level);
-
-    // Start of tag
-    output << '<' << getName();
-
-    // attributes
-    for (list<Node*>::const_iterator iter = _attributes.begin(); iter != _attributes.end(); ++iter)
-    {
-      output << ' ' << (*iter)->getName() << "=\"" << (*iter)->getValue() << '"';
-    }
-
-    // End of tag
-    output << '>';
-
-    if ((hasElements()) && (level >= 0))
-    {
-      output << endl;
-    }
-    
-    // child tags
-    int next = (level >= 0 ? level+1 : level);
-
-    for (list<Node*>::const_iterator iter = _elements.begin(); iter != _elements.end(); ++iter)
-    {
-      (*iter)->write(output, next);
-    }
-
-    // Value
-    output << getValue();
-
-    // Close tag
-    if ((hasElements()) && (level >= 0))
-    {
-      indent(output, level);
-    }
-
-    output << "</" << getName() << '>';
-
-    if (level >= 0)
-    {
-      cout << endl;
-    }
-
-    return true;
-  }
-
-  void Node::indent(std::ostream &output, int level) const
-  {
-    while (level > 0)
-    {
-      output << ' ';
-
-      level--;
-    }
-  }
-
   int Node::count() const
   {
     int count = 0;

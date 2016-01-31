@@ -31,6 +31,7 @@
 
 #include "gpx/Node.h"
 #include "gpx/GPX.h"
+#include "gpx/Writer.h"
 
 using namespace std;
 
@@ -93,9 +94,11 @@ int main(int argc, char *argv[])
   root->added();
 
 
+  gpx::Writer writer;
+
   if (argc == 1)
   {
-    root->write(cout, 0);
+    writer.write(cout, root, true);
   }
   else
   {
@@ -103,7 +106,7 @@ int main(int argc, char *argv[])
 
     if (stream.is_open())
     {
-      root->write(stream, 0);
+      writer.write(stream, root, true);
 
       stream.close();
     }

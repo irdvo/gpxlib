@@ -172,26 +172,7 @@ namespace gpx
     /// @return is validation succesfull
     ///
     virtual bool validate(std::ostream *report = 0) const;
-    
-    ///
-    /// Write the gpx object to a stream
-    ///
-    /// @param  output  the output stream
-    /// @param  level   the indent level (or <0 for disabled)
-    ///
-    /// @return is the writting succesfull
-    ///
-    virtual bool write(std::ostream &output, int level) const;
-    
-    ///
-    /// Indent the current output
-    ///
-    /// @param  output  the output stream
-    /// @param  level  the indent level
-    ///
-    
-    void indent(std::ostream &output, int level) const;
-      
+          
     ///
     /// Count the number of occurences of this node in its parent
     ///
@@ -206,7 +187,13 @@ namespace gpx
     ///
     bool used() const;
 
-  protected:
+    ///
+    /// Check if this node has at least one element
+    ///
+    /// @return has it ?
+    ///
+
+    bool hasElements() const;
 
     ///
     /// Check if this node or one of its parents is an extension node
@@ -217,16 +204,6 @@ namespace gpx
     bool isExtension() const;
 
   private:
-
-    ///
-    /// Check if this node has at least one element
-    ///
-    /// @return has it ?
-    ///
-
-    bool hasElements() const;
-
-    private:
     
     std::string        _name;
     Type               _type;
