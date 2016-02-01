@@ -28,92 +28,209 @@
 #include <fstream>
 #include <iostream>
 #include <cstdlib>
+#include <iomanip>
 
-#include "gpx/Node.h"
 #include "gpx/GPX.h"
+#include "gpx/Parser.h"
 #include "gpx/Writer.h"
 
 using namespace std;
+
+void createGPX(ostream &stream)
+{
+  gpx::GPX *root = new gpx::GPX();
+
+  gpx::Node *current = root;
+
+  int choice = -1;
+
+  while (choice != 0)
+  {
+    int menu = 1;
+
+    // Show the menu with reflection
+
+    cout << endl << "Menu:" << current->getName() << endl << endl;
+
+    for (list<gpx::Node*>::const_iterator iter = current->getInterfaces().begin(); iter != current->getInterfaces().end(); ++iter)
+    {
+      cout << left << setw(4) << menu++ << ((*iter)->getType() == gpx::Node::ATTRIBUTE ? "attribute:" : "element:") << (*iter)->getName() << endl;
+    }
+
+    cout << left << setw(4) << menu << "value" << endl;
+    cout << left << setw(4) << 0 << (current == root ? "exit" : "back") << endl;
+    cout << endl;
+
+    string value;
+
+    cout << "Choice:";
+    getline(cin, value);
+
+    choice = atoi(value.c_str());
+
+    // Process the choice made
+    if (choice == menu)
+    {
+      cout << "Value for " << current->getName() << ":";
+      getline(cin, value);
+
+      current->setValue(value);
+    }
+    else if (choice == 0) // Go to the parent in the gpx document
+    {
+      if (current != root)
+      {
+        current = current->getParent();
+
+        choice = -1;
+      }
+    }
+    else // Add the menu choice to the gpx document
+    {
+      menu = 1;
+
+      for (list<gpx::Node*>::const_iterator iter = current->getInterfaces().begin(); iter != current->getInterfaces().end(); ++iter)
+      {
+        if (menu == choice)
+        {
+          current = (*iter)->add(&cerr);
+          break;
+        }
+
+        menu++;
+      }
+    }
+  }
+
+  gpx::Writer writer;
+
+  writer.write(stream, root, true);
+}
+
+
+void iterateGPX(istream &stream)
+{
+  gpx::Parser parser(&cerr);
+
+  gpx::GPX *root = parser.parse(stream);
+
+  if (root == 0)
+  {
+    cerr << "Parsing failed due to " << parser.errorText() << " on line " << parser.errorLineNumber() << " and column " << parser.errorColumnNumber() << endl;
+  }
+  else
+  {
+    gpx::Node *current = root;
+
+    int choice = -1;
+
+    while (choice != 0)
+    {
+      int menu = 1;
+
+      // Show the menu with reflection
+
+      cout << endl << "Menu:" << current->getName() << endl << endl;
+
+      for (list<gpx::Node*>::const_iterator iter = current->getAttributes().begin(); iter != current->getAttributes().end(); ++iter)
+      {
+        cout << left << setw(4) << menu++ << "attribute:" << (*iter)->getName() << " (" << (*iter)->getValue() << ")" << endl;
+      }
+
+      for (list<gpx::Node*>::const_iterator iter = current->getElements().begin(); iter != current->getElements().end(); ++iter)
+      {
+        cout << left << setw(4) << menu++ << "element:" << (*iter)->getName() << " (" << (*iter)->getValue() << ")" << endl;
+      }
+
+      cout << left << setw(4) << 0 << (current == root ? "exit" : "back") << endl;
+      cout << endl;
+
+      string value;
+
+      cout << "Choice:";
+      getline(cin, value);
+
+      choice = atoi(value.c_str());
+
+      // Process the choice made
+      if (choice == 0) // Go to the parent in the gpx document
+      {
+        if (current != root)
+        {
+          current = current->getParent();
+
+          choice = -1;
+        }
+      }
+      else // Add the menu choice to the gpx document
+      {
+        menu = 1;
+
+        for (list<gpx::Node*>::const_iterator iter = current->getAttributes().begin(); iter != current->getAttributes().end(); ++iter)
+        {
+          if (menu == choice)
+          {
+            current = (*iter);
+            break;
+          }
+
+          menu++;
+        }
+
+        for (list<gpx::Node*>::const_iterator iter = current->getElements().begin(); iter != current->getElements().end(); ++iter)
+        {
+          if (menu == choice)
+          {
+            current = (*iter);
+            break;
+          }
+
+          menu++;
+        }
+      }
+    }
+  }
+}
 
 int main(int argc, char *argv[])
 {
   if (argc > 2)
   {
-    cerr << "Usage: gpxi file" << endl;
+    cerr << "Usage: gpxi [file]" << endl;
     exit(1);
   }
 
-  // Create the root node
-  gpx::GPX *root = new gpx::GPX();
+  fstream stream;
 
-  root->version().add(&cerr)->setValue("1.1");
-  root->creator().add(&cerr)->setValue("gpxi");
-
-  gpx::Node *current = root;
-
-  char choice = ' ';
-
-  while (choice != 'q')
+  if (argc == 2)
   {
-    char menu = 'a';
-
-    do
-    {
-      menu = 'a';
-
-      cout << endl << "Menu:" << current->getName() << endl;
-
-      for (list<gpx::Node*>::const_iterator iter = current->getInterfaces().begin(); iter != current->getInterfaces().end(); ++iter)
-      {
-        string str;
-
-        if ((*iter)->getType() == gpx::Node::ATTRIBUTE)
-        {
-          str = " attribute:";
-        }
-        else if ((*iter)->getType() == gpx::Node::ELEMENT)
-        {
-          str = " element:";
-        }
-        else
-        {
-          str = " unknown:";
-        }
-        cout << menu++ << str << (*iter)->getName() << endl;
-      }
-
-      cout << "q exit" << endl;
-      cout << endl;
-
-      cout << "Choice:";
-      cin >> choice;
-    }
-    while ((choice != 'q') && ((choice < 'a') || (choice >= menu)));
-  }
-
-  root->added();
-
-
-  gpx::Writer writer;
-
-  if (argc == 1)
-  {
-    writer.write(cout, root, true);
-  }
-  else
-  {
-    ofstream stream(argv[1]);
+    stream.open(argv[1], ios_base::in);
 
     if (stream.is_open())
     {
-      writer.write(stream, root, true);
+      iterateGPX(stream);
 
       stream.close();
     }
     else
     {
-      cerr << "File: " << argv[1] << " could not be created." << endl;
+      stream.open(argv[1], ios_base::out);
+
+      if (stream.is_open())
+      {
+        createGPX(stream);
+
+        stream.close();
+      }
+      else
+      {
+        createGPX(cout);
+      }
     }
+  }
+  else
+  {
+    createGPX(cout);
   }
 
   exit(0);
