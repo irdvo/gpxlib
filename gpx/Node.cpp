@@ -132,6 +132,50 @@ namespace gpx
     return ok;
   }
 
+  bool Node::remove(Node *child, std::ostream *report)
+  {
+    bool removed = false;
+
+    if (child != 0)
+    {
+      list<Node*> &nodes = (child->getType() == ATTRIBUTE ? _attributes : _elements);
+
+      for (list<Node*>::iterator iter = nodes.begin(); iter != nodes.end(); ++iter)
+      {
+        if (child == (*iter))
+        {
+          nodes.erase(iter);
+
+          removed = true;
+
+          break;
+        }
+      }
+
+      if (removed)
+      {
+        for (list<Node*>::iterator iter = _interfaces.begin(); iter != _interfaces.end(); ++iter)
+        {
+          if ((*iter)->removeAsChild(child))
+          {
+            // Child is deleted
+
+            break;
+          }
+        }
+      }
+      else
+      {
+        if (report != 0)
+        {
+          *report << "Warning: " << child->getName() << " is not used in " << _name << "." << endl;
+        }
+      }
+    }
+
+    return removed;
+  }
+
   int Node::count() const
   {
     int count = 0;
@@ -191,6 +235,11 @@ namespace gpx
   bool Node::hasElements() const
   {
     return (!_elements.empty());
+  }
+
+  bool Node::removeAsChild(Node *node)
+  {
+    return false;
   }
 }
 

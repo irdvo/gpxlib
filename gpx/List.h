@@ -114,7 +114,32 @@ namespace gpx
       return node;
     }
 
-    private:
+  private:
+
+    ///
+    /// Remove the node as child
+    ///
+    /// @param  node    the child node to be removed
+    ///
+    /// @return is it removed ?
+    ///
+    virtual bool removeAsChild(Node *node)
+    {
+      for (typename std::list<T*>::iterator iter = _list.begin(); iter != _list.end(); ++iter)
+      {
+        if ((*iter) == node)
+        {
+          _list.erase(iter);
+
+          delete node;
+
+          return true;
+        }
+      }
+
+      return false;
+    }
+
     
     // Members
     std::list<T*> _list;

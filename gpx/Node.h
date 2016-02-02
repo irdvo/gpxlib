@@ -115,7 +115,7 @@ namespace gpx
     ///
     /// Get the interfaces list
     ///
-    /// @return the parent node (or 0)
+    /// @return the interface list
     ///
     ///
     std::list<Node*> &getInterfaces() { return _interfaces; }
@@ -123,14 +123,14 @@ namespace gpx
     ///
     /// Get the attributes list
     ///
-    /// @return the parent node (or 0)
+    /// @return the attributes list
     ///
     std::list<Node*> &getAttributes() { return _attributes; }
     
     ///
     /// Get the elements list
     ///
-    /// @return the parent node (or 0)
+    /// @return the elements list
     ///
     std::list<Node*> &getElements() { return _elements; }
         
@@ -147,7 +147,7 @@ namespace gpx
     virtual Node *add(std::ostream *report = 0);
 
     ///
-    /// Add a node by name
+    /// Add a child node by name
     ///
     /// @param  name    the name of the node
     /// @param  type    the type of the node
@@ -160,7 +160,7 @@ namespace gpx
     ///
     /// Done building the node
     ///
-    /// @return the parent node (or 0 if not found)
+    /// @return the parent node (or 0 if not present)
     ///
     virtual Node *added() { return _parent; }
 
@@ -173,6 +173,17 @@ namespace gpx
     ///
     virtual bool validate(std::ostream *report = 0) const;
           
+    ///
+    /// Remove the child node from this node, if removed the
+    /// node can be deleted
+    ///
+    /// @param  child   the child node
+    /// @param  report  the optional report stream
+    ///
+    /// @return is it removed ?
+    ///
+    virtual bool remove(Node *child, std::ostream *report = 0);
+
     ///
     /// Count the number of occurences of this node in its parent
     ///
@@ -204,7 +215,17 @@ namespace gpx
     bool isExtension() const;
 
   private:
-    
+
+    ///
+    /// Remove the node as child
+    ///
+    /// @param  node    the child node to be removed
+    ///
+    /// @return is it removed ?
+    ///
+    virtual bool removeAsChild(Node *node);
+
+    // Members
     std::string        _name;
     Type               _type;
     std::string        _value;
