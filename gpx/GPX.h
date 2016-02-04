@@ -105,8 +105,6 @@ namespace gpx
     ///
     /// @return the list of wpt elements
     ///
-    /// @todo Use list as parameter to prevent coping
-    ///
     List<WPT> &wpts() { return _wpts;}
 
     ///

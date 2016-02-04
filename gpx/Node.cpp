@@ -80,7 +80,7 @@ namespace gpx
     {
       if (strcasecmp(name, (*iter)->getName().c_str()) == 0)
       {
-        return (*iter)->add();
+        return (*iter)->add(report);
       }
     }
 

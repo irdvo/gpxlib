@@ -98,8 +98,6 @@ namespace gpx
     ///
     /// @return the link element
     ///
-    /// @todo return link
-    ///
     List<Link> &links() {return _links;}
     
     ///
