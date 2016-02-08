@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?><gpx creator="Garmin Desktop App" version="1.1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/WaypointExtension/v1 http://www8.garmin.com/xmlschemas/WaypointExtensionv1.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www8.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/ActivityExtension/v1 http://www8.garmin.com/xmlschemas/ActivityExtensionv1.xsd http://www.garmin.com/xmlschemas/AdventuresExtensions/v1 http://www8.garmin.com/xmlschemas/AdventuresExtensionv1.xsd http://www.garmin.com/xmlschemas/PressureExtension/v1 http://www.garmin.com/xmlschemas/PressureExtensionv1.xsd" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wptx1="http://www.garmin.com/xmlschemas/WaypointExtension/v1" xmlns:gpxtrx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:trp="http://www.garmin.com/xmlschemas/TripExtensions/v1" xmlns:adv="http://www.garmin.com/xmlschemas/AdventuresExtensions/v1" xmlns:prs="http://www.garmin.com/xmlschemas/PressureExtension/v1">
+
+  <metadata>
+    <link href="http://www.garmin.com">
+      <text>Garmin International</text>
+    </link>
+    <time>2012-12-03T18:05:03Z</time>
+    <bounds maxlat="50.718614039942622" maxlon="6.465599527582526" minlat="50.702664786949754" minlon="6.442962186411023" />
+  </metadata>
+  <trk>
+    <name>Test</name>
+    <extensions>
+      <gpxx:TrackExtension>
+        <gpxx:DisplayColor>Red</gpxx:DisplayColor>
+      </gpxx:TrackExtension>
+    </extensions>
+    <trkseg>
+      <trkpt lat="50.716779660433531" lon="6.445616148412228">
+        <ele>166.44999999999999</ele>
+        <time>2012-12-03T09:08:42Z</time>
+      </trkpt>
+      <trkpt lat="50.716779576614499" lon="6.445615980774164">
+        <ele>166.44999999999999</ele>
+        <time>2012-12-03T09:08:43Z</time>
+      </trkpt>
+    </trkseg>
+    <trkseg>
+      <trkpt lat="50.716371797025204" lon="6.446052342653275">
+        <ele>170.77000000000001</ele>
+        <time>2012-12-03T13:13:38Z</time>
+      </trkpt>
+      <trkpt lat="50.716382693499327" lon="6.446012612432241">
+        <ele>170.28999999999999</ele>
+        <time>2012-12-03T13:13:49Z</time>
+      </trkpt>
+      <trkpt lat="50.716398116201162" lon="6.445961399003863">
+        <ele>170.77000000000001</ele>
+        <time>2012-12-03T13:14:06Z</time>
+      </trkpt>
+    </trkseg>
+  </trk>
+
+  <wpt lat="50.716740014031529" lon="6.445579016581178">
+    <ele>166.33448799999999</ele>
+    <time>2012-12-03T09:12:28Z</time>
+    <name>1107</name>
+    <sym>Flag, Green</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        <gpxx:Categories>
+          <gpxx:Category>Wegpunkte_03-DEZ-12.gpx</gpxx:Category>
+        </gpxx:Categories>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="50.71627096273005" lon="6.445984030142427">
+    <ele>166.125946</ele>
+    <time>2012-12-03T09:20:08Z</time>
+    <name>1108</name>
+    <sym>Flag, Blue</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        <gpxx:Categories>
+          <gpxx:Category>Wegpunkte_03-DEZ-12.gpx</gpxx:Category>
+        </gpxx:Categories>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+  
+  <rte>
+    <name>Test Route</name>
+    <link href="http://www.gpsies.com/map">
+      <type>trackOnWeb</type>
+    </link>
+    <link href="http://www.gpsies.com/charts">
+      <type>elevationChartUrlMap</type>
+    </link>
+    <rtept lat="51.07771000" lon="3.577060000">
+      <ele>9.0000000</ele>
+      <time>2010-01-01T00:00:00Z</time>
+    </rtept>
+    <rtept lat="51.07702000" lon="3.575600000">
+      <ele>8.0000000</ele>
+      <time>2010-01-01T00:00:45Z</time>
+    </rtept>
+    <rtept lat="51.07685000" lon="3.575800000">
+      <ele>8.0000000</ele>
+      <time>2010-01-01T00:00:54Z</time>
+    </rtept>
+    <rtept lat="51.07620000" lon="3.574690000">
+      <ele>8.0000000</ele>
+      <time>2010-01-01T00:01:32Z</time>
+    </rtept>
+  </rte>
+</gpx>

@@ -18,4 +18,7 @@ target_link_libraries (gpxi gpx ${EXPAT_LIBRARIES})
 add_executable (gpxcsvtrk gpxcsvtrk.cpp)
 target_link_libraries (gpxcsvtrk gpx ${EXPAT_LIBRARIES})
 
+add_executable (gpxtest gpxtest.cpp)
+target_link_libraries (gpxtest gpx ${EXPAT_LIBRARIES})
+
 
