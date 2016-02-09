@@ -125,19 +125,28 @@ namespace gpx
     ///
     virtual bool removeAsChild(Node *node)
     {
-      for (typename std::list<T*>::iterator iter = _list.begin(); iter != _list.end(); ++iter)
+      bool removed = false;
+
+      typename std::list<T*>::iterator iter = _list.begin();
+      while (iter !=  _list.end())
       {
-        if ((*iter) == node)
+        if ((node == 0) || ((*iter) == node))
         {
-          _list.erase(iter);
+          Node *child = (*iter);
 
-          delete node;
+          iter = _list.erase(iter);
 
-          return true;
+          delete child;
+
+          removed = true;
+        }
+        else
+        {
+          ++iter;
         }
       }
 
-      return false;
+      return removed;
     }
 
     

@@ -136,40 +136,50 @@ namespace gpx
   {
     bool removed = false;
 
-    if (child != 0)
+    list<Node*>::iterator iter;
+
+    iter = _attributes.begin();
+    while (iter != _attributes.end())
     {
-      list<Node*> &nodes = (child->getType() == ATTRIBUTE ? _attributes : _elements);
-
-      for (list<Node*>::iterator iter = nodes.begin(); iter != nodes.end(); ++iter)
+      if ((child == 0) || (child == (*iter)))
       {
-        if (child == (*iter))
-        {
-          nodes.erase(iter);
+        iter = _attributes.erase(iter);
 
-          removed = true;
-
-          break;
-        }
-      }
-
-      if (removed)
-      {
-        for (list<Node*>::iterator iter = _interfaces.begin(); iter != _interfaces.end(); ++iter)
-        {
-          if ((*iter)->removeAsChild(child))
-          {
-            // Child is deleted
-
-            break;
-          }
-        }
+        removed = true;
       }
       else
       {
-        if (report != 0)
-        {
-          *report << "Warning: " << child->getName() << " is not used in " << _name << "." << endl;
-        }
+        ++iter;
+      }
+    }
+
+    iter = _elements.begin();
+    while (iter != _elements.end())
+    {
+      if ((child == 0) || (child == (*iter)))
+      {
+        (*iter)->remove(0);
+
+        iter = _elements.erase(iter);
+
+        removed = true;
+      }
+      else
+      {
+        ++iter;
+      }
+    }
+
+    for (iter = _interfaces.begin(); iter != _interfaces.end(); ++iter)
+    {
+      (*iter)->removeAsChild(child);
+    }
+
+    if ((!removed) && (child != 0))
+    {
+      if (report != 0)
+      {
+        *report << "Warning: " << child->getName() << " is not used in " << _name << "." << endl;
       }
     }
 

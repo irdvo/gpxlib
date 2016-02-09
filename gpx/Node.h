@@ -175,9 +175,10 @@ namespace gpx
           
     ///
     /// Remove the child node from this node, if removed the
-    /// node can be deleted
+    /// node can be deleted. If child is 0, all childs are
+    /// removed
     ///
-    /// @param  child   the child node
+    /// @param  child   the child node or 0 for all childs
     /// @param  report  the optional report stream
     ///
     /// @return is it removed ?
