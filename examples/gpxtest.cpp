@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
 
@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
 
@@ -168,7 +168,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
 
@@ -181,7 +181,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
         cout << "Count of attributes and elements after adding already present nodes: ";
@@ -207,7 +207,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
         gpx::WPT *wpt2;
@@ -221,7 +221,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
         cout << "Count of attributes and elements after adding list elements: ";
@@ -246,7 +246,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
         gpx::Longitude *lon2;
@@ -260,7 +260,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
         cout << "Count of attributes and elements after adding attributes: ";
@@ -284,7 +284,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
         cout << "Add new element by name: ";
@@ -296,7 +296,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
         cout << "Count of attributes and elements after adding elements: ";
@@ -385,7 +385,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
         cout << "Delete missing element: ";
@@ -397,7 +397,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
         cout << "Count of attributes and elements after removing missing nodes: ";
@@ -420,7 +420,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
         cout << "Delete present element: ";
@@ -432,7 +432,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
         cout << "Count of attributes and elements after removing missing nodes: ";
@@ -455,7 +455,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
         cout << "Count of attributes and elements after reading node: ";
@@ -478,7 +478,7 @@ int main(int argc, char *argv[])
           }
           else
           {
-            cout << "Failed: " << warning << endl;
+            cout << "Failed: " << gpx::Report::text(warning) << endl;
           }
 
         cout << "Count of attributes and elements after deleting list element: ";

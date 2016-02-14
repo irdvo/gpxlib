@@ -1,6 +1,6 @@
 //==============================================================================
 //
-//         ReportCerr - the report on cerr class in the GPX library
+//          Report - the basic report class in the GPX library
 //
 //               Copyright (C) 2016  Dick van Oudheusden
 //  
@@ -24,38 +24,34 @@
 //
 //==============================================================================
 
-#include <iostream>
+#include "gpx/Report.h"
 
-#include "gpx/ReportCerr.h"
-#include "gpx/Node.h"
-
-using namespace std;
 
 namespace gpx
 {
-  ReportCerr::ReportCerr()
-  {
-  }
-  
-  ReportCerr::~ReportCerr()
+  Report::Report()
   {
   }
 
-  void ReportCerr::report(const Node *node, Report::Warning warning,  const std::string &extra)
+  Report::~Report()
   {
-    if (node != 0)
+  }
+
+  std::string Report::text(Warning warning)
+  {
+    switch(warning)
     {
-      cerr << (node->getType() == Node::ATTRIBUTE ? "Attribute " : "Element ") << node->getName() << " : ";
+      case Report::NO_WARNING               : return "Ok";
+      case Report::ADD_ALREADY_PRESENT_NODE : return "Trying to add an already present node, ignored";
+      case Report::ADD_UNKNOWN_NODE         : return "Unknown child node added";
+      case Report::MISSING_MANDATORY_NODE   : return "Mandatory node is missing";
+      case Report::REMOVE_UNKNOWN_CHILD     : return "Trying to remove an unknown child node, ignored";
+      case Report::INCORRECT_VALUE          : return "Node has an incorrect value";
+      case Report::DOUBLE_GPX               : return "GPX source contains a double gpx element";
+      case Report::MISSING_GPX              : return "GPX source contains no gpx element";
+      case Report::MISFORMED_GPX            : return "GPX source has a misformed layout";
+      default                               : return "Unknown warning";
     }
-
-    cerr << Report::text(warning);
-
-    if (!extra.empty())
-    {
-      cerr << ": " << extra;
-    }
-
-    cerr << "." << endl;
   }
 }
 

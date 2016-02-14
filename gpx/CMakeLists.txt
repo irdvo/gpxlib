@@ -34,6 +34,7 @@ set(SRC
     GPX.cpp
     Parser.cpp
     Writer.cpp
+    Report.cpp
     ReportCerr.cpp
     )
 

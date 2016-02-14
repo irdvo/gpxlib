@@ -60,17 +60,13 @@ namespace gpx
     /// Constructor
     ///
 
-    Report()
-    {
-    }
+    Report();
 
     ///
     /// Deconstructor
     ///
 
-    virtual ~Report()
-    {
-    }
+    virtual ~Report();
     
     ///
     /// Report a warning for a node
@@ -81,6 +77,16 @@ namespace gpx
     ///
 
     virtual void report(const Node *node, Warning warning, const std::string &extra) = 0;
+
+    ///
+    /// Convert a warning to a text
+    ///
+    /// @param  warning the warning
+    ///
+    /// @return the text
+    ///
+
+    static std::string text(Warning warning);
   };
 }
 
