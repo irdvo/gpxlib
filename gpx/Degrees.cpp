@@ -41,7 +41,7 @@ namespace gpx
   {
   }
   
-  bool Degrees::validate(std::ostream *report) const
+  bool Degrees::validate(Report *report) const
   {
     bool ok = Decimal::validate(report);
     
@@ -51,7 +51,7 @@ namespace gpx
     {
       if (report != 0)
       {
-        *report << "Degrees: " << getValue() << " invalid." << endl;
+        report->report(this, Report::INCORRECT_VALUE, this->getValue());
       }
       ok = false;
     }

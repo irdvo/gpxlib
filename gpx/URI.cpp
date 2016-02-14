@@ -39,7 +39,7 @@ namespace gpx
   {
   }
   
-  bool URI::validate(std::ostream *report) const
+  bool URI::validate(Report *report) const
   {
     /// @todo Validate function for URI
     return Node::validate(report);

@@ -29,6 +29,8 @@
 #include <iostream>
 
 #include "gpx/Parser.h"
+#include "gpx/ReportCerr.h"
+
 
 using namespace std;
 
@@ -46,7 +48,9 @@ int main(int argc, char *argv[])
 
     if (stream.is_open())
     {
-      gpx::Parser parser(&cerr);
+      gpx::ReportCerr report;
+
+      gpx::Parser parser(&report);
 
       gpx::GPX *root = parser.parse(stream);
 

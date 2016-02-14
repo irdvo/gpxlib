@@ -50,7 +50,7 @@ namespace gpx
     ///
     /// @param  report  the report stream for warnings and errors (or 0 for not used)
     ///
-    Parser(std::ostream *report);
+    Parser(Report *report);
 
     ///
     /// Deconstructor
@@ -189,7 +189,7 @@ namespace gpx
     int             _errorColumnNumber;
     Node           *_current;
     GPX            *_root;
-    std::ostream   *_report;
+    Report         *_report;
 
     // Disable copy constructors
     Parser(const Parser &);

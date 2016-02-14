@@ -39,7 +39,7 @@ namespace gpx
   {
   }
   
-  bool DateTime::validate(std::ostream *report) const
+  bool DateTime::validate(Report *report) const
   {
     /// @todo Validation of DateTime string
     

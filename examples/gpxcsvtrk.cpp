@@ -33,9 +33,9 @@
 #include "gpx/Node.h"
 #include "gpx/GPX.h"
 #include "gpx/Writer.h"
+#include "gpx/ReportCerr.h"
 
 using namespace std;
-
 
 void trim(string &str)
 {
@@ -94,7 +94,8 @@ int main(int argc, char *argv[])
     exit(1);
   }
 
-  ifstream input(argv[2]);
+  ifstream        input(argv[2]);
+  gpx::ReportCerr report;
 
   if (!input.is_open())
   {
@@ -107,15 +108,15 @@ int main(int argc, char *argv[])
 
   root->add("xmlns", gpx::Node::ATTRIBUTE)->setValue("http://www.topografix.com/GPX/1/1"); // Some tools need this
 
-  root->version().add(&cerr)->setValue("1.1");
+  root->version().add(&report)->setValue("1.1");
 
-  root->creator().add(&cerr)->setValue("gpxcsvtrk");
+  root->creator().add(&report)->setValue("gpxcsvtrk");
 
-  gpx::TRK *trk = dynamic_cast<gpx::TRK*>(root->trks().add(&cerr));
+  gpx::TRK *trk = dynamic_cast<gpx::TRK*>(root->trks().add(&report));
 
-  trk->name().add(&cerr)->setValue(argv[1]);
+  trk->name().add(&report)->setValue(argv[1]);
 
-  gpx::TRKSeg *trkseg = dynamic_cast<gpx::TRKSeg *>(trk->trksegs().add(&cerr));
+  gpx::TRKSeg *trkseg = dynamic_cast<gpx::TRKSeg *>(trk->trksegs().add(&report));
 
   string latitude;
   string longitude;
@@ -141,10 +142,10 @@ int main(int argc, char *argv[])
 
       if ((latitude.length() > 0) && (longitude.length() > 0))
       {
-        gpx::WPT *trkpt = dynamic_cast<gpx::WPT*>(trkseg->trkpts().add(&cerr));
+        gpx::WPT *trkpt = dynamic_cast<gpx::WPT*>(trkseg->trkpts().add(&report));
 
-        trkpt->lat().add(&cerr)->setValue(latitude);
-        trkpt->lon().add(&cerr)->setValue(longitude);
+        trkpt->lat().add(&report)->setValue(latitude);
+        trkpt->lon().add(&report)->setValue(longitude);
 
         latitude = "";
         longitude = "";

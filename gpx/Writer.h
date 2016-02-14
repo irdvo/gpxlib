@@ -77,7 +77,7 @@ namespace gpx
     static
     std::string translate(const std::string &value);
 
-    bool write(Node *node, std::ostream &stream, int level);
+    bool doWrite(std::ostream &stream, Node *node, int level);
 
     // Disable copy constructors
     Writer(const Writer &);

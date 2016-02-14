@@ -1,11 +1,11 @@
-#ifndef LINK_H
-#define LINK_H
+#ifndef REPORT_H
+#define REPORT_H
 
 //==============================================================================
 //
-//                Link - the Link class in the GPX library
+//                Report - the report interface
 //
-//               Copyright (C) 2013  Dick van Oudheusden
+//               Copyright (C) 2016 Dick van Oudheusden
 //  
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -27,79 +27,60 @@
 //
 //==============================================================================
 
-#include "gpx/Node.h"
-
-#include "gpx/String.h"
-#include "gpx/URI.h"
+#include <string>
 
 namespace gpx
 {
+  class Node;
+
   ///
-  /// @class Link
+  /// @interface Report
   ///
-  /// @brief The link to an external resource class.
+  /// @brief The report interface for reporting warnings
   ///
   
-  class Link : public Node
+  class Report
   {
     public:
+
+    enum Warning
+    {
+      NO_WARNING,
+      ADD_ALREADY_PRESENT_NODE,
+      ADD_UNKNOWN_NODE,
+      MISSING_MANDATORY_NODE,
+      REMOVE_UNKNOWN_CHILD,
+      INCORRECT_VALUE,
+      DOUBLE_GPX,
+      MISSING_GPX,
+      MISFORMED_GPX
+    };
 
     ///
     /// Constructor
     ///
-    /// @param  parent     the parent node
-    /// @param  name       the name of the attribute or element
-    /// @param  type       the node type (ATTRIBUTE or ELEMENT)
-    /// @param  mandatory  is the attribute or element mandatory ?
-    ///
-    Link(Node *parent, const char *name, Type type, bool mandatory = false);
+
+    Report()
+    {
+    }
 
     ///
     /// Deconstructor
     ///
-    virtual ~Link();
+
+    virtual ~Report()
+    {
+    }
     
     ///
-    /// Validate the Link object
+    /// Report a warning for a node
     ///
-    /// @param  report  the optional report stream
+    /// @param  node    the node for with the warning (can be 0)
+    /// @param  warning the warning
+    /// @param  extra   the extra information
     ///
-    /// @return is validation succesfull
-    ///
-    
-    virtual bool validate(std::ostream *report = 0) const;
-    
-    ///
-    /// Get href
-    ///
-    /// @return the href attribute
-    ///
-    URI  &href() { return _href; }
-  
-    ///
-    /// Get text
-    ///
-    /// @return the text element
-    ///
-    String  &text() { return _text; }
-  
-    ///
-    /// Get type
-    ///
-    /// @return the type element
-    ///
-    String  &type() { return _type; }
-  
-    private:
-    
-    // Members
-    URI    _href;
-    String _text;
-    String _type;
-    
-    // Disable copy constructors
-    Link(const Link &);
-    Link& operator=(const Link &);  
+
+    virtual void report(const Node *node, Warning warning, const std::string &extra) = 0;
   };
 }
 

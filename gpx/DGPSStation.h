@@ -65,7 +65,7 @@ namespace gpx
     /// @return is validation succesfull
     ///
     
-    virtual bool validate(std::ostream *report = 0) const;
+    virtual bool validate(Report *report = 0) const;
     
     private:
     

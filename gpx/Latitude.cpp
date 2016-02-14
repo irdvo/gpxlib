@@ -42,7 +42,7 @@ namespace gpx
   {
   }
     
-  bool Latitude::validate(std::ostream *report) const
+  bool Latitude::validate(Report *report) const
   {
     bool ok = Decimal::validate(report);
     
@@ -54,7 +54,7 @@ namespace gpx
       {
         if (report != 0)
         {
-          *report << "Latitude: " << getValue() << " invalid." << endl;
+          report->report(this, Report::INCORRECT_VALUE, this->getValue());
         }
         return false;
       }

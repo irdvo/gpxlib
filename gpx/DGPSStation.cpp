@@ -42,7 +42,7 @@ namespace gpx
   {
   }
     
-  bool DGPSStation::validate(ostream *report) const
+  bool DGPSStation::validate(Report *report) const
   {
     bool ok = Node::validate(report);
     
@@ -54,7 +54,7 @@ namespace gpx
       {
         if (report != 0)
         {
-          *report << "DGPSStation: " << getValue() << " invalid." << endl;
+          report->report(this, Report::INCORRECT_VALUE, this->getValue());
         }
         ok = false;
       }

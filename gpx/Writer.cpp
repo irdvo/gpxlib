@@ -58,7 +58,7 @@ namespace gpx
           stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
         }
 
-        write(node, stream, (prettyPrinted ? 0 : -1));
+        doWrite(stream, node, (prettyPrinted ? 0 : -1));
       }
     }
 
@@ -98,7 +98,7 @@ namespace gpx
     return output;
   }
 
-  bool Writer::write(Node *node, std::ostream &stream, int level)
+  bool Writer::doWrite(std::ostream &stream, Node *node, int level)
   {
     indent(stream, level);
 
@@ -124,7 +124,7 @@ namespace gpx
 
     for (list<Node*>::const_iterator iter = node->getElements().begin(); iter != node->getElements().end(); ++iter)
     {
-      write((*iter), stream, next);
+      doWrite(stream, (*iter), next);
     }
 
     // Value

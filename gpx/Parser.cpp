@@ -24,7 +24,7 @@
 //
 //==============================================================================
 
-#include <strings.h>
+#include <string>
 #include <cstring>
 
 #include "gpx/Parser.h"
@@ -35,7 +35,7 @@ using namespace std;
 namespace gpx
 {
   
-  Parser::Parser(std::ostream *report) :
+  Parser::Parser(Report *report) :
     _report(report),
     _parser(0),
     _current(0),
@@ -68,7 +68,7 @@ namespace gpx
       }
       else if (_report != 0)
       {
-        *_report << "Double element 'gpx'" << endl;
+        _report->report(_root, Report::DOUBLE_GPX, "");
       }
     }
     else if (_current != 0)
@@ -77,7 +77,7 @@ namespace gpx
     }
     else if (_report != 0)
     {
-      *_report << "Missing element 'gpx'" << endl;
+      _report->report(0, Report::MISSING_GPX, "");
     }
   }
 
@@ -91,7 +91,7 @@ namespace gpx
     }
     else if (_report != 0)
     {
-      *_report << "Missing element 'gpx'" << endl;
+      _report->report(0, Report::MISSING_GPX, "");
     }
   }
 
@@ -105,7 +105,7 @@ namespace gpx
     }
     else if (_report != 0)
     {
-      *_report << "Misformed gpx source" << endl;
+      _report->report(0, Report::MISFORMED_GPX, "");
     }
   }
 
@@ -117,7 +117,7 @@ namespace gpx
     }
     else if (_report != 0)
     {
-      *_report << "Misformed gpx source" << endl;
+      _report->report(0, Report::MISFORMED_GPX, "");
     }
   }
 

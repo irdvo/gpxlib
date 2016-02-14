@@ -50,6 +50,7 @@ namespace gpx
 
     switch(warning)
     {
+      case Report::NO_WARNING               : cerr << "Ok"; break;
       case Report::ADD_ALREADY_PRESENT_NODE : cerr << "Trying to add an already present node, ignored"; break;
       case Report::ADD_UNKNOWN_NODE         : cerr << "Unknown child node added"; break;
       case Report::MISSING_MANDATORY_NODE   : cerr << "Mandatory node is missing"; break;

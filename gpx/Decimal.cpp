@@ -39,7 +39,7 @@ namespace gpx
   {
   }
   
-  bool Decimal::validate(std::ostream *report) const
+  bool Decimal::validate(Report *report) const
   {
     bool ok = Node::validate(report);
     
@@ -82,7 +82,7 @@ namespace gpx
       {
         if (report != 0)
         {
-          *report << "Decimal:" << getName() << " is invalid." << endl;
+          report->report(this, Report::INCORRECT_VALUE, this->getValue());
         }
         ok = false;
       }

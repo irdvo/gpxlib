@@ -39,7 +39,7 @@ namespace gpx
   {
   }
   
-  bool Unsigned::validate(std::ostream *report) const
+  bool Unsigned::validate(Report *report) const
   {
     bool ok = Node::validate(report);
     
@@ -67,7 +67,7 @@ namespace gpx
       {
         if (report != 0)
         {
-          *report << "Unsigned:" << getName() << " is invalid." << endl;
+          report->report(this, Report::INCORRECT_VALUE, this->getValue());
         }
         ok = false;
       }

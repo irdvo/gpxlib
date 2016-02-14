@@ -32,6 +32,7 @@
 
 #include "gpx/Parser.h"
 #include "gpx/Writer.h"
+#include "gpx/ReportCerr.h"
 
 using namespace std;
 
@@ -65,10 +66,31 @@ void getCounters(gpx::Node *node, int &attributes, int &elements)
   {
     doCount(node, attributes, elements);
   }
-
   // cout << "Attributes:" << attributes << " Elements:" << elements << endl;
 }
 
+class ReportTest : public gpx::Report
+{
+public:
+  ReportTest() : _warning(gpx::Report::NO_WARNING) {}
+  ~ReportTest() {}
+
+  virtual void report(const gpx::Node *, gpx::Report::Warning warning, const string &)
+  {
+    _warning = warning;
+  }
+
+  gpx::Report::Warning warning()
+  {
+    gpx::Report::Warning temp = _warning;
+
+    _warning = gpx::Report::NO_WARNING;
+
+    return temp;
+  }
+
+  gpx::Report::Warning _warning;
+};
 
 
 int main(int argc, char *argv[])
@@ -77,7 +99,11 @@ int main(int argc, char *argv[])
 
   if (stream.is_open())
   {
-      gpx::Parser parser(&cerr);
+      ReportTest report;
+
+      gpx::Report::Warning warning;
+
+      gpx::Parser parser(&report);
 
       gpx::GPX *root = parser.parse(stream);
 
@@ -85,8 +111,10 @@ int main(int argc, char *argv[])
       {
         cerr << "Parsing of " << test_file << " failed due to " << parser.errorText() << " on line " << parser.errorLineNumber() << " and column " << parser.errorColumnNumber() << endl;
       }
-      else
+      else if (report.warning() != gpx::Report::NO_WARNING)
       {
+        cout << "Warnings during parsing" << endl;
+
         int attributes = 0;
         int elements   = 0;
 
@@ -104,221 +132,186 @@ int main(int argc, char *argv[])
           cout << "Failed." << endl;
         }
 
-        {
-          stringstream stream;
 
-          root->version().add(&stream);
-
-          cout << "Add already present attribute: ";
-          if (stream.str().find("Warning") != string::npos)
+        cout << "Add already present attribute: ";
+          root->version().add(&report);
+          warning = report.warning();
+          if (warning == gpx::Report::ADD_ALREADY_PRESENT_NODE)
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed: " << warning << endl;
           }
-        }
 
-        {
-          stringstream stream;
 
-          root->add("version", gpx::Node::ATTRIBUTE, &stream);
-
-          cout << "Add already present attribute by name: ";
-          if (stream.str().find("Warning") != string::npos)
+        cout << "Add already present attribute by name: ";
+          root->add("version", gpx::Node::ATTRIBUTE, &report);
+          warning = report.warning();
+          if (warning == gpx::Report::ADD_ALREADY_PRESENT_NODE)
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed: " << warning << endl;
           }
-        }
 
-        {
-          stringstream stream;
 
-          root->metadata().add(&stream);
-
-          cout << "Add already present element: ";
-          if (stream.str().find("Warning") != string::npos)
+        cout << "Add already present element: ";
+          root->metadata().add(&report);
+          warning = report.warning();
+          if (warning == gpx::Report::ADD_ALREADY_PRESENT_NODE)
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed: " << warning << endl;
           }
-        }
 
-        {
-          stringstream stream;
 
-          root->add("metadata", gpx::Node::ELEMENT, &stream);
-
-          cout << "Add already present element by name: ";
-          if (stream.str().find("Warning") != string::npos)
+        cout << "Add already present element by name: ";
+          root->add("metadata", gpx::Node::ELEMENT, &report);
+          warning = report.warning();
+          if (warning == gpx::Report::ADD_ALREADY_PRESENT_NODE)
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed: " << warning << endl;
           }
-        }
 
         cout << "Count of attributes and elements after adding already present nodes: ";
-        getCounters(root, attributes, elements);
-        if ((attributes == 41) || (elements == 67))
-        {
-          cout << "Ok." << endl;
-        }
-        else
-        {
-          cout << "Failed." << endl;
-        }
+          getCounters(root, attributes, elements);
+          if ((attributes == 41) || (elements == 67))
+          {
+            cout << "Ok." << endl;
+          }
+          else
+          {
+            cout << "Failed." << endl;
+          }
 
 
         gpx::WPT *wpt1;
-        {
-          stringstream stream;
 
-          wpt1 = dynamic_cast<gpx::WPT*>(root->wpts().add(&stream));
-
-          cout << "Add new list element: ";
-          if (stream.str().find("Warning") == string::npos)
+        cout << "Add new list element: ";
+          wpt1 = dynamic_cast<gpx::WPT*>(root->wpts().add(&report));
+          warning = report.warning();
+          if (warning == gpx::Report::NO_WARNING)
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed: " << warning << endl;
           }
-        }
 
         gpx::WPT *wpt2;
-        {
-          stringstream stream;
 
-          wpt2 = dynamic_cast<gpx::WPT*>(root->add("wpt", gpx::Node::ELEMENT, &stream));
-
-          cout << "Add new list element by name: ";
-          if (stream.str().find("Warning") == string::npos)
+        cout << "Add new list element by name: ";
+          wpt2 = dynamic_cast<gpx::WPT*>(root->add("wpt", gpx::Node::ELEMENT, &report));
+          warning = report.warning();
+          if (warning == gpx::Report::NO_WARNING)
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed: " << warning << endl;
           }
-        }
 
         cout << "Count of attributes and elements after adding list elements: ";
-        getCounters(root, attributes, elements);
-        if ((attributes == 41) || (elements == 69))
-        {
-          cout << "Ok." << endl;
-        }
-        else
-        {
-          cout << "Failed." << endl;
-        }
-
-
-
-        {
-          stringstream stream;
-
-          wpt1->lat().add(&stream);
-
-          cout << "Add new attribute: ";
-          if (stream.str().find("Warning") == string::npos)
+          getCounters(root, attributes, elements);
+          if ((attributes == 41) || (elements == 69))
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed." << endl;
           }
-        }
+
+
+
+        cout << "Add new attribute: ";
+          wpt1->lat().add(&report);
+          warning = report.warning();
+          if (warning == gpx::Report::NO_WARNING)
+          {
+            cout << "Ok." << endl;
+          }
+          else
+          {
+            cout << "Failed: " << warning << endl;
+          }
 
         gpx::Longitude *lon2;
 
-        {
-          stringstream stream;
-
-          lon2 = dynamic_cast<gpx::Longitude*>(wpt2->add("lon", gpx::Node::ATTRIBUTE, &stream));
-
-          cout << "Add new attribute by name: ";
-          if (stream.str().find("Warning") == string::npos)
+        cout << "Add new attribute by name: ";
+          lon2 = dynamic_cast<gpx::Longitude*>(wpt2->add("lon", gpx::Node::ATTRIBUTE, &report));
+          warning = report.warning();
+          if (warning == gpx::Report::NO_WARNING)
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed: " << warning << endl;
           }
-        }
 
         cout << "Count of attributes and elements after adding attributes: ";
-        getCounters(root, attributes, elements);
-        if ((attributes == 43) || (elements == 69))
-        {
-          cout << "Ok." << endl;
-        }
-        else
-        {
-          cout << "Failed." << endl;
-        }
-
-
-        {
-          stringstream stream;
-
-          root->metadata().author().add(&stream);
-
-          cout << "Add new element: ";
-          if (stream.str().find("Warning") == string::npos)
+          getCounters(root, attributes, elements);
+          if ((attributes == 43) || (elements == 69))
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed." << endl;
           }
-        }
 
-        {
-          stringstream stream;
 
-          root->metadata().add("keywords", gpx::Node::ELEMENT, &stream);
-
-          cout << "Add new element by name: ";
-          if (stream.str().find("Warning") == string::npos)
+        cout << "Add new element: ";
+          root->metadata().author().add(&report);
+          warning = report.warning();
+          if (warning == gpx::Report::NO_WARNING)
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed: " << warning << endl;
           }
-        }
+
+        cout << "Add new element by name: ";
+          root->metadata().add("keywords", gpx::Node::ELEMENT, &report);
+          warning = report.warning();
+          if (warning == gpx::Report::NO_WARNING)
+          {
+            cout << "Ok." << endl;
+          }
+          else
+          {
+            cout << "Failed: " << warning << endl;
+          }
 
         cout << "Count of attributes and elements after adding elements: ";
-        getCounters(root, attributes, elements);
-        if ((attributes == 43) || (elements == 71))
-        {
-          cout << "Ok." << endl;
-        }
-        else
-        {
-          cout << "Failed." << endl;
-        }
+          getCounters(root, attributes, elements);
+          if ((attributes == 43) || (elements == 71))
+          {
+            cout << "Ok." << endl;
+          }
+          else
+          {
+            cout << "Failed." << endl;
+          }
 
 
-        {
-          cout << "Initial attribute value: ";
+        cout << "Initial attribute value: ";
           if (lon2->getValue() == "")
           {
             cout << "Ok." << endl;
@@ -328,9 +321,8 @@ int main(int argc, char *argv[])
             cout << "Failed: " << lon2->getValue() << endl;
           }
 
+        cout << "Setting attribute value: ";
           lon2->setValue("50.8343");
-
-          cout << "Setting attribute value: ";
           if (wpt2->lon().getValue() == "50.8343")
           {
             cout << "Ok." << endl;
@@ -339,10 +331,8 @@ int main(int argc, char *argv[])
           {
             cout << "Failed: " << wpt2->lon().getValue() << endl;
           }
-        }
 
-        {
-          cout << "Initial element value: ";
+        cout << "Initial element value: ";
           if (root->metadata().keywords().getValue() == "")
           {
             cout << "Ok." << endl;
@@ -352,9 +342,8 @@ int main(int argc, char *argv[])
             cout << "Failed: " << root->metadata().keywords().getValue() << endl;
           }
 
+        cout << "Setting element value: ";
           root->metadata().keywords().setValue("Official");
-
-          cout << "Setting element value: ";
           if (root->metadata().keywords().getValue() == "Official")
           {
             cout << "Ok." << endl;
@@ -363,22 +352,20 @@ int main(int argc, char *argv[])
           {
             cout << "Failed: " << root->metadata().keywords().getValue() << endl;
           }
-        }
 
         cout << "Count of attributes and elements after setting values: ";
-        getCounters(root, attributes, elements);
-        if ((attributes == 43) || (elements == 71))
-        {
-          cout << "Ok." << endl;
-        }
-        else
-        {
-          cout << "Failed." << endl;
-        }
+          getCounters(root, attributes, elements);
+          if ((attributes == 43) || (elements == 71))
+          {
+            cout << "Ok." << endl;
+          }
+          else
+          {
+            cout << "Failed." << endl;
+          }
 
 
-        {
-          cout << "Count elements of list element: ";
+        cout << "Count elements of list element: ";
           if (root->wpts().list().size() == 4)
           {
             cout << "Ok." << endl;
@@ -387,115 +374,91 @@ int main(int argc, char *argv[])
           {
             cout << "Failed: " << root->wpts().list().size() << endl;
           }
-        }
 
 
-        {
-          stringstream stream;
-
-          cout << "Delete missing attribute: ";
-          wpt2->remove(&wpt2->lat(), &stream);
-
-          if (stream.str().find("Warning") != string::npos)
+        cout << "Delete missing attribute: ";
+          wpt2->remove(&wpt2->lat(), &report);
+          warning = report.warning();
+          if (warning == gpx::Report::REMOVE_UNKNOWN_CHILD)
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed: " << warning << endl;
           }
-        }
 
-        {
-          stringstream stream;
-
-          cout << "Delete missing element: ";
-          wpt2->remove(&wpt2->name(), &stream);
-
-          if (stream.str().find("Warning") != string::npos)
+        cout << "Delete missing element: ";
+          wpt2->remove(&wpt2->name(), &report);
+          warning = report.warning();
+          if (warning == gpx::Report::REMOVE_UNKNOWN_CHILD)
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed: " << warning << endl;
           }
-        }
 
         cout << "Count of attributes and elements after removing missing nodes: ";
-        getCounters(root, attributes, elements);
-        if ((attributes == 43) || (elements == 71))
-        {
-          cout << "Ok." << endl;
-        }
-        else
-        {
-          cout << "Failed." << endl;
-        }
-
-
-        {
-          stringstream stream;
-
-          cout << "Delete present attribute: ";
-          wpt2->remove(&wpt2->lon(), &stream);
-
-          if (stream.str().find("Warning") == string::npos)
+          getCounters(root, attributes, elements);
+          if ((attributes == 43) || (elements == 71))
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed." << endl;
           }
-        }
 
-        {
-          stringstream stream;
-
-          cout << "Delete present element: ";
-          root->remove(&root->metadata(), &stream);
-
-          if (stream.str().find("Warning") == string::npos)
+        cout << "Delete present attribute: ";
+          wpt2->remove(&wpt2->lon(), &report);
+          warning = report.warning();
+          if (warning == gpx::Report::NO_WARNING)
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed: " << warning << endl;
           }
-        }
+
+        cout << "Delete present element: ";
+          root->remove(&root->metadata(), &report);
+          warning = report.warning();
+          if (warning == gpx::Report::NO_WARNING)
+          {
+            cout << "Ok." << endl;
+          }
+          else
+          {
+            cout << "Failed: " << warning << endl;
+          }
 
         cout << "Count of attributes and elements after removing missing nodes: ";
-        getCounters(root, attributes, elements);
-        if ((attributes == 37) || (elements == 66))
-        {
-          cout << "Ok." << endl;
-        }
-        else
-        {
-          cout << "Failed." << endl;
-        }
-
-        /// ToDo: Delete present list element
-
-
-        {
-          stringstream stream;
-
-          cout << "Add deleted element: ";
-          root->metadata().add(&stream);
-
-          if (stream.str().find("Warning") == string::npos)
+          getCounters(root, attributes, elements);
+          if ((attributes == 37) || (elements == 66))
           {
             cout << "Ok." << endl;
           }
           else
           {
-            cout << "Failed: " << stream.str() << endl;
+            cout << "Failed." << endl;
           }
 
-          cout << "Count of attributes and elements after readding node: ";
+        cout << "Add deleted element: ";
+          root->metadata().add(&report);
+          warning = report.warning();
+          if (warning == gpx::Report::NO_WARNING)
+          {
+            cout << "Ok." << endl;
+          }
+          else
+          {
+            cout << "Failed: " << warning << endl;
+          }
+
+        cout << "Count of attributes and elements after reading node: ";
           getCounters(root, attributes, elements);
           if ((attributes == 37) || (elements == 67))
           {
@@ -505,7 +468,33 @@ int main(int argc, char *argv[])
           {
             cout << "Failed." << endl;
           }
-        }
+
+        cout << "Delete present list element: ";
+          root->remove(wpt2, &report);
+          warning = report.warning();
+          if (warning == gpx::Report::NO_WARNING)
+          {
+            cout << "Ok." << endl;
+          }
+          else
+          {
+            cout << "Failed: " << warning << endl;
+          }
+
+        cout << "Count of attributes and elements after deleting list element: ";
+          getCounters(root, attributes, elements);
+          if ((attributes == 37) || (elements == 66))
+          {
+            cout << "Ok." << endl;
+          }
+          else
+          {
+            cout << "Failed." << endl;
+          }
+
+          // gpx::Writer writer;
+
+          // writer.write(cout, root, true);
       }
 
       stream.close();

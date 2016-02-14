@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.0)
 
-find_package(EXPAT)
+find_package(EXPAT REQUIRED)
 
 include_directories (. .. ${EXPAT_INCLUDE_DIRS})
 
@@ -34,6 +34,7 @@ set(SRC
     GPX.cpp
     Parser.cpp
     Writer.cpp
+    ReportCerr.cpp
     )
 
 

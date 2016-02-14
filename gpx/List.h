@@ -27,8 +27,6 @@
 //
 //==============================================================================
 
-#include <iostream>
-
 #include <list>
 
 #include "gpx/Node.h"
@@ -93,7 +91,7 @@ namespace gpx
     ///
     /// @return the node
     ///
-    virtual Node *add(std::ostream *report)
+    virtual Node *add(Report *report)
     {
       T *node = new T(getParent(), getName().c_str(), getType(), isMandatory());
 

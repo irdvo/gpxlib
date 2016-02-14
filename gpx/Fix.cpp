@@ -39,7 +39,7 @@ namespace gpx
   {
   }
   
-  bool Fix::validate(std::ostream *report) const
+  bool Fix::validate(Report *report) const
   {
     bool ok = Node::validate(report);
     
@@ -53,7 +53,7 @@ namespace gpx
       {
         if (report != 0)
         {
-          *report << "Fix: " << getValue() << " invalid." << endl;
+          report->report(this, Report::INCORRECT_VALUE, this->getValue());
         }
         ok = false;
       }

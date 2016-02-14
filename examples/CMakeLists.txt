@@ -1,6 +1,6 @@
 include_directories (. ..)
 
-find_package(EXPAT)
+find_package(EXPAT REQUIRED)
 
 add_executable (gpxls gpxls.cpp)
 target_link_libraries (gpxls gpx ${EXPAT_LIBRARIES})

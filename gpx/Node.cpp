@@ -47,7 +47,7 @@ namespace gpx
   {
   }
 
-  Node *Node::add(std::ostream *report)
+  Node *Node::add(Report *report)
   {
     if (_parent != 0)
     {
@@ -55,7 +55,7 @@ namespace gpx
       {
         if (report != 0)
         {
-          *report << "Warning: " << _name << " is already present, skipped." << std::endl;
+          report->report(this, Report::ADD_ALREADY_PRESENT_NODE, "");
         }
       }
       else
@@ -74,7 +74,7 @@ namespace gpx
     return this;
   }
 
-  Node *Node::add(const char *name, Type type, std::ostream *report)
+  Node *Node::add(const char *name, Type type, Report *report)
   {
     for (list<Node*>::iterator iter = _interfaces.begin(); iter != _interfaces.end(); ++iter)
     {
@@ -86,7 +86,7 @@ namespace gpx
 
     if ((report != 0) && (!isExtension()))
     {
-      *report << "Warning: Unknown attribute " << name << " for " << _name << ", added." << endl;
+      report->report(this, Report::ADD_UNKNOWN_NODE, name);
     }
 
     Node *node = new Node(this, name, type, false);
@@ -103,7 +103,7 @@ namespace gpx
     return node;
   }
   
-  bool Node::validate(std::ostream *report) const
+  bool Node::validate(Report *report) const
   {
     bool ok = true;
 
@@ -111,9 +111,9 @@ namespace gpx
     {
       if (((*iter)->isMandatory()) && (!(*iter)->used()))
       {
-        if (*report != 0)
+        if (report != 0)
         {
-          *report << "Missing: " << _name << endl;
+          report->report(this, Report::MISSING_MANDATORY_NODE, "");
         }
         ok = false;
       }
@@ -132,7 +132,7 @@ namespace gpx
     return ok;
   }
 
-  bool Node::remove(Node *child, std::ostream *report)
+  bool Node::remove(Node *child, Report *report)
   {
     bool removed = false;
 
@@ -143,6 +143,8 @@ namespace gpx
     {
       if ((child == 0) || (child == (*iter)))
       {
+        (*iter)->setValue("");
+
         iter = _attributes.erase(iter);
 
         removed = true;
@@ -158,6 +160,8 @@ namespace gpx
     {
       if ((child == 0) || (child == (*iter)))
       {
+        (*iter)->setValue("");
+
         (*iter)->remove(0);
 
         iter = _elements.erase(iter);
@@ -179,7 +183,7 @@ namespace gpx
     {
       if (report != 0)
       {
-        *report << "Warning: " << child->getName() << " is not used in " << _name << "." << endl;
+        report->report(this, Report::REMOVE_UNKNOWN_CHILD, child->getName());
       }
     }
 
@@ -247,7 +251,7 @@ namespace gpx
     return (!_elements.empty());
   }
 
-  bool Node::removeAsChild(Node *node)
+  bool Node::removeAsChild(Node *)
   {
     return false;
   }

@@ -41,7 +41,7 @@ namespace gpx
   {
   }
   
-  bool Longitude::validate(std::ostream *report) const
+  bool Longitude::validate(Report *report) const
   {
     bool ok = Decimal::validate();
     
@@ -53,7 +53,7 @@ namespace gpx
       {
         if (report != 0)
         {
-          *report << "Longitude: " << getValue() << " invalid." << endl;
+          report->report(this, Report::INCORRECT_VALUE, this->getValue());
         }
         return false;
       }

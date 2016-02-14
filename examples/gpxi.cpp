@@ -33,11 +33,14 @@
 #include "gpx/GPX.h"
 #include "gpx/Parser.h"
 #include "gpx/Writer.h"
+#include "gpx/ReportCerr.h"
 
 using namespace std;
 
 void createGPX(ostream &stream)
 {
+  gpx::ReportCerr report;
+
   gpx::GPX *root = new gpx::GPX();
 
   gpx::Node *current = root;
@@ -93,7 +96,7 @@ void createGPX(ostream &stream)
       {
         if (menu == choice)
         {
-          current = (*iter)->add(&cerr);
+          current = (*iter)->add(&report);
           break;
         }
 
@@ -110,7 +113,9 @@ void createGPX(ostream &stream)
 
 void iterateGPX(istream &stream)
 {
-  gpx::Parser parser(&cerr);
+  gpx::ReportCerr report;
+
+  gpx::Parser parser(&report);
 
   gpx::GPX *root = parser.parse(stream);
 

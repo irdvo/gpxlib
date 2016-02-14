@@ -28,8 +28,9 @@
 //==============================================================================
 
 #include <string>
-#include <iostream>
 #include <list>
+
+#include "gpx/Report.h"
 
 namespace gpx
 {
@@ -137,14 +138,14 @@ namespace gpx
     // Methods
     
     ///
-    /// Add this node
+    /// Add this child node
     ///
     /// @param  report  the optional report stream
     ///
     /// @return the node (or 0 if not found)
     ///
 
-    virtual Node *add(std::ostream *report = 0);
+    virtual Node *add(Report *report = 0);
 
     ///
     /// Add a child node by name
@@ -155,7 +156,7 @@ namespace gpx
     ///
     /// @return the node (or 0 if not found)
     ///
-    virtual Node *add(const char *name, Type type, std::ostream *report = 0);
+    virtual Node *add(const char *name, Type type, Report *report = 0);
 
     ///
     /// Done building the node
@@ -171,7 +172,7 @@ namespace gpx
     ///
     /// @return is validation succesfull
     ///
-    virtual bool validate(std::ostream *report = 0) const;
+    virtual bool validate(Report *report = 0) const;
           
     ///
     /// Remove the child node from this node, if removed the
@@ -183,7 +184,7 @@ namespace gpx
     ///
     /// @return is it removed ?
     ///
-    virtual bool remove(Node *child, std::ostream *report = 0);
+    virtual bool remove(Node *child, Report *report = 0);
 
     ///
     /// Count the number of occurences of this node in its parent
