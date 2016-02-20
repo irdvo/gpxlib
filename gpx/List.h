@@ -91,7 +91,7 @@ namespace gpx
     ///
     /// @return the node
     ///
-    virtual Node *add(Report *report)
+    virtual Node *add(Report *report = 0)
     {
       T *node = new T(getParent(), getName().c_str(), getType(), isMandatory());
 
