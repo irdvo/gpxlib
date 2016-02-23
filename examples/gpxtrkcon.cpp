@@ -37,25 +37,6 @@
 using namespace std;
 
 
-void copyNode(gpx::Node *source, gpx::Node *destination, gpx::Report *report = 0)
-{
-  destination->setValue(source->getValue());
-
-  for (std::list<gpx::Node*>::iterator node = source->getAttributes().begin(); node != source->getAttributes().end(); ++node)
-  {
-    gpx::Node *attribute = destination->add((*node)->getName().c_str(), gpx::Node::ATTRIBUTE, report);
-
-    copyNode((*node), attribute);
-  }
-
-  for (std::list<gpx::Node*>::iterator node = source->getElements().begin(); node != source->getElements().end(); ++node)
-  {
-    gpx::Node *element = destination->add((*node)->getName().c_str(), gpx::Node::ELEMENT, report);
-
-    copyNode((*node), element);
-  }
-}
-
 int countTrkpts(gpx::Node *node)
 {
   int count = (strcasecmp(node->getName().c_str(), "trkpt") == 0 ? 1 : 0);
@@ -114,7 +95,7 @@ int main(int argc, char *argv[])
         {
           gpx::TRKSeg *destination = dynamic_cast<gpx::TRKSeg*>(firstTrk->trksegs().add());
 
-          copyNode((*source), destination, &report);
+          destination->copy((*source), &report);
         }
       }
 

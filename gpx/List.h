@@ -93,21 +93,50 @@ namespace gpx
     ///
     virtual Node *add(Report *report = 0)
     {
+      return insert(0, report);
+    }
+
+    ///
+    /// Insert this child node before a node
+    ///
+    /// @param  before  the node for which this node must be inserted (0 for append)
+    /// @param  report  the optional report stream
+    ///
+    /// @return the node (or 0 if not found)
+    ///
+
+    virtual Node *insert(Node *before, Report *report = 0)
+    {
       T *node = new T(getParent(), getName().c_str(), getType(), isMandatory());
 
       if (node->getParent() != 0)
       {
-        if (node->getType() == ATTRIBUTE)
+        node->insert(before, (node->getType() == ATTRIBUTE ? node->getParent()->getAttributes() : node->getParent()->getElements()), report);
+      }
+
+      // Insert in private list
+      if (before != 0)
+      {
+        typename std::list<T*>::iterator iter = _list.begin();
+        for (; iter != _list.end(); ++iter)
         {
-          node->getParent()->getAttributes().push_back(node);
+          if ((*iter) == node)
+          {
+            _list.insert(iter, node);
+            break;
+          }
         }
-        else if (node->getType() == ELEMENT)
+
+        if (iter == _list.end())
         {
-          node->getParent()->getElements().push_back(node);
+          before = 0;
         }
       }
 
-      _list.push_back(node);
+      if (before == 0)
+      {
+        _list.push_back(node);
+      }
 
       return node;
     }

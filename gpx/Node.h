@@ -144,7 +144,6 @@ namespace gpx
     ///
     /// @return the node (or 0 if not found)
     ///
-
     virtual Node *add(Report *report = 0);
 
     ///
@@ -164,6 +163,39 @@ namespace gpx
     /// @return the parent node (or 0 if not present)
     ///
     virtual Node *added() { return _parent; }
+
+    ///
+    /// Insert this child node before a node
+    ///
+    /// @param  before  the node for which this node must be inserted (0 for append)
+    /// @param  report  the optional report stream
+    ///
+    /// @return the node (or 0 if not found)
+    ///
+
+    virtual Node *insert(Node *before, Report *report = 0);
+
+    ///
+    /// Insert a child node by name before a node
+    ///
+    /// @param  before  the node for which this node must be inserted (0 for append)
+    /// @param  name    the name of the node
+    /// @param  type    the type of the node
+    /// @param  report  the optional report stream
+    ///
+    /// @return the node (or 0 if not found)
+    ///
+    virtual Node *insert(Node *before, const char *name, Type type, Report *report = 0);
+
+    ///
+    /// Copy the contents of the source node in this node
+    ///
+    /// @param  source  the source node
+    /// @param  report  the optional report stream
+    ///
+    /// @return is validation succesfull
+    ///
+    virtual void copy(Node *source, Report *report = 0);
 
     ///
     /// Validate the object
@@ -215,6 +247,17 @@ namespace gpx
     ///
     
     bool isExtension() const;
+
+  public:
+
+    ///
+    /// Insert this node in the nodes list before a node (internal)
+    ///
+    /// @param  before    the node for which this node must be inserted (0 for append)
+    /// @param  nodese    the list with nodes in which this node must be inserted
+    /// @param  report    the optional report stream
+    ///
+    void insert(Node *before, std::list<Node*> &nodes, Report *report = 0);
 
   private:
 

@@ -41,16 +41,17 @@ namespace gpx
   {
     switch(warning)
     {
-      case Report::NO_WARNING               : return "Ok";
-      case Report::ADD_ALREADY_PRESENT_NODE : return "Trying to add an already present node, ignored";
-      case Report::ADD_UNKNOWN_NODE         : return "Unknown child node added";
-      case Report::MISSING_MANDATORY_NODE   : return "Mandatory node is missing";
-      case Report::REMOVE_UNKNOWN_CHILD     : return "Trying to remove an unknown child node, ignored";
-      case Report::INCORRECT_VALUE          : return "Node has an incorrect value";
-      case Report::DOUBLE_GPX               : return "GPX source contains a double gpx element";
-      case Report::MISSING_GPX              : return "GPX source contains no gpx element";
-      case Report::MISFORMED_GPX            : return "GPX source has a misformed layout";
-      default                               : return "Unknown warning";
+      case Report::NO_WARNING                   : return "Ok";
+      case Report::ADD_ALREADY_PRESENT_NODE     : return "Trying to add an already present node, ignored";
+      case Report::ADD_UNKNOWN_NODE             : return "Unknown child node added";
+      case Report::MISSING_MANDATORY_NODE       : return "Mandatory node is missing";
+      case Report::REMOVE_UNKNOWN_CHILD         : return "Trying to remove an unknown child node, ignored";
+      case Report::INCORRECT_VALUE              : return "Node has an incorrect value";
+      case Report::DOUBLE_GPX                   : return "GPX source contains a double gpx element";
+      case Report::MISSING_GPX                  : return "GPX source contains no gpx element";
+      case Report::MISFORMED_GPX                : return "GPX source has a misformed layout";
+      case Report::INSERT_BEFORE_NODE_NOT_FOUND : return "Insert before node not found, added";
+      default                                   : return "Unknown warning";
     }
   }
 }

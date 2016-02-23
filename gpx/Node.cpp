@@ -49,6 +49,16 @@ namespace gpx
 
   Node *Node::add(Report *report)
   {
+    return insert(0, report);
+  }
+
+  Node *Node::add(const char *name, Type type, Report *report)
+  {
+    return insert(0, name, type, report);
+  }
+
+  Node *Node::insert(Node *before, Report *report)
+  {
     if (_parent != 0)
     {
       if (used())
@@ -60,27 +70,20 @@ namespace gpx
       }
       else
       {
-        if (_type == ATTRIBUTE)
-        {
-          _parent->getAttributes().push_back(this);
-        }
-        else if (_type == ELEMENT)
-        {
-          _parent->getElements().push_back(this);
-        }
+        insert(before, (_type == ATTRIBUTE ? _parent->getAttributes() : _parent->getElements()), report);
       }
     }
 
     return this;
   }
 
-  Node *Node::add(const char *name, Type type, Report *report)
+  Node *Node::insert(Node *before, const char *name, Type type, Report *report)
   {
     for (list<Node*>::iterator iter = _interfaces.begin(); iter != _interfaces.end(); ++iter)
     {
       if (strcasecmp(name, (*iter)->getName().c_str()) == 0)
       {
-        return (*iter)->add(report);
+        return (*iter)->insert(before, report);
       }
     }
 
@@ -91,17 +94,31 @@ namespace gpx
 
     Node *node = new Node(this, name, type, false);
 
-    if (type == ATTRIBUTE)
-    {
-      _attributes.push_back(node);
-    }
-    else if (type == ELEMENT)
-    {
-      _elements.push_back(node);
-    }
+    node->insert(before, report);
 
     return node;
   }
+
+
+  void Node::copy(Node *source, Report *report)
+  {
+    setValue(source->getValue());
+
+    for (std::list<gpx::Node*>::iterator node = source->getAttributes().begin(); node != source->getAttributes().end(); ++node)
+    {
+      gpx::Node *attribute = add((*node)->getName().c_str(), gpx::Node::ATTRIBUTE, report);
+
+      (*node)->copy(attribute, report);
+    }
+
+    for (std::list<gpx::Node*>::iterator node = source->getElements().begin(); node != source->getElements().end(); ++node)
+    {
+      gpx::Node *element = add((*node)->getName().c_str(), gpx::Node::ELEMENT, report);
+
+      (*node)->copy(element, report);
+    }
+  }
+
   
   bool Node::validate(Report *report) const
   {
@@ -251,9 +268,40 @@ namespace gpx
     return (!_elements.empty());
   }
 
+  void Node::insert(Node *before, list<Node*> &nodes, Report *report)
+  {
+    if (before != 0)
+    {
+      list<Node*>::iterator node = nodes.begin();
+
+      for (; node != nodes.end(); ++node)
+      {
+        if ((*node) == before)
+        {
+          nodes.insert(node, this);
+          break;
+        }
+      }
+
+      if (node == nodes.end())
+      {
+        report->report(this, Report::INSERT_BEFORE_NODE_NOT_FOUND, "");
+
+        before = 0;
+      }
+    }
+
+    if (before == 0)
+    {
+      nodes.push_back(this);
+    }
+  }
+
   bool Node::removeAsChild(Node *)
   {
     return false;
   }
+
+
 }
 

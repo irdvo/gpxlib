@@ -53,7 +53,8 @@ namespace gpx
       INCORRECT_VALUE,
       DOUBLE_GPX,
       MISSING_GPX,
-      MISFORMED_GPX
+      MISFORMED_GPX,
+      INSERT_BEFORE_NODE_NOT_FOUND
     };
 
     ///
