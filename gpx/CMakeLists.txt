@@ -41,5 +41,12 @@ set(SRC
 
 # SHARED or STATIC
 add_library(gpx
-            STATIC
+            SHARED
             ${SRC})
+
+set_target_properties(gpx PROPERTIES VERSION   1)
+set_target_properties(gpx PROPERTIES SOVERSION 1)
+
+install(TARGETS gpx LIBRARY DESTINATION lib)
+
+
