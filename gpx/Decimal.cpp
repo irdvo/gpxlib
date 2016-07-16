@@ -45,40 +45,9 @@ namespace gpx
     
     if (ok)
     {
-      int length = getValue().length();
-      int i      = 0;
-      
-      while ((i < length) && (isspace(getValue().at(i))))
-      {
-        i++;
-      }
-      
-      if ((i < length) && ((getValue().at(i) == '+') || (getValue().at(i) == '-')))
-      {
-        i++;
-      }
-      
-      while ((i < length) && (isdigit(getValue().at(i))))
-      {
-        i++;
-      }
-      
-      if ((i < length) && (getValue().at(i) == '.'))
-      {
-        i++;
-      }
-      
-      while ((i < length) && (isdigit(getValue().at(i))))
-      {
-        i++;
-      }
+      float value = 0.0;
 
-      while ((i < length) && (isspace(getValue().at(i))))
-      {
-        i++;
-      }
-      
-      if (i != length)
+      if (!convert(value))
       {
         if (report != 0)
         {
@@ -89,6 +58,60 @@ namespace gpx
     }
 
     return ok;
+  }
+
+  bool Decimal::convert(float &value) const
+  {
+    int   length   = getValue().length();
+    int   i        = 0;
+    bool  negative = false;
+    float fraction = 0.1;
+
+    value = 0.0;
+
+    while ((i < length) && (isspace(getValue().at(i))))
+    {
+      i++;
+    }
+
+    if ((i < length) && ((getValue().at(i) == '+') || (getValue().at(i) == '-')))
+    {
+      negative = (getValue().at(i) == '-');
+
+      i++;
+    }
+
+    while ((i < length) && (isdigit(getValue().at(i))))
+    {
+      value = value * 10.0 + (float)(getValue().at(i) - '0');
+
+      i++;
+    }
+
+    if ((i < length) && (getValue().at(i) == '.'))
+    {
+      i++;
+    }
+
+    while ((i < length) && (isdigit(getValue().at(i))))
+    {
+      value    += fraction * (float)(getValue().at(i) - '0');
+      fraction *= 0.1;
+
+      i++;
+    }
+
+    while ((i < length) && (isspace(getValue().at(i))))
+    {
+      i++;
+    }
+
+    if (negative)
+    {
+      value = -value;
+    }
+
+    return (i == length);
   }
 }
 

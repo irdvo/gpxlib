@@ -41,8 +41,11 @@ namespace gpx
   
   bool URI::validate(Report *report) const
   {
+    bool ok = Node::validate(report);
+
     /// @todo Validate function for URI
-    return Node::validate(report);
+
+    return ok;
   }
 }
 

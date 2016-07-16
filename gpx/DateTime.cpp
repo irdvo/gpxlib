@@ -41,9 +41,11 @@ namespace gpx
   
   bool DateTime::validate(Report *report) const
   {
+    bool ok = Node::validate(report);
+
     /// @todo Validation of DateTime string
     
-    return Node::validate(report);
+    return ok;
   }
 }
 

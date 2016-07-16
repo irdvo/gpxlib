@@ -48,15 +48,18 @@ namespace gpx
     
     if (ok)
     {
-      double val = atof(getValue().c_str());
-        
-      if ((val < -90.0) || (val > 90.0))
+      float value = 0.0;
+
+      if (convert(value))
       {
-        if (report != 0)
+        if ((value < -90.0) || (value > 90.0))
         {
-          report->report(this, Report::INCORRECT_VALUE, this->getValue());
+          if (report != 0)
+          {
+            report->report(this, Report::INCORRECT_VALUE, this->getValue());
+          }
+          ok = false;
         }
-        return false;
       }
     }
     

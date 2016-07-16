@@ -67,7 +67,19 @@ namespace gpx
     
     virtual bool validate(Report *report = 0) const;
     
-    private:
+  protected:
+
+    ///
+    /// Convert to a float value of the Decimal object
+    ///
+    /// @param  value  the float value
+    ///
+    /// @return is the value correct
+    ///
+
+    bool convert(float &value) const;
+
+  private:
     
     // Members
     float          _value;

@@ -44,17 +44,24 @@ namespace gpx
   bool Degrees::validate(Report *report) const
   {
     bool ok = Decimal::validate(report);
-    
-    float val = atof(getValue().c_str());
-      
-    if ((val < 0.0) || (val > 360.0))
+
+    if (ok)
     {
-      if (report != 0)
+      float value;
+
+      if (convert(value))
       {
-        report->report(this, Report::INCORRECT_VALUE, this->getValue());
+        if ((value < 0.0) || (value > 360.0))
+        {
+          if (report != 0)
+          {
+            report->report(this, Report::INCORRECT_VALUE, this->getValue());
+          }
+          ok = false;
+        }
       }
-      ok = false;
     }
+    
     return ok;
   }
 }

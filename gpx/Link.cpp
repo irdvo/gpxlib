@@ -47,11 +47,13 @@ namespace gpx
   {
   }
 
-  bool Link::validate(std::ostream *report) const
+  bool Link::validate(Report *report) const
   {
+    bool ok = Node::validate(report);
+
     /// ToDo: Link::validate
 
-    return true;
+    return ok;
   }
 }
 

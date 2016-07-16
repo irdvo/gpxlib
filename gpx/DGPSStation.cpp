@@ -48,9 +48,37 @@ namespace gpx
     
     if (ok)
     {
-      int val = atoi(getValue().c_str());
-      
-      if ((val < 0) || (val > 1023))
+      int length = getValue().length();
+      int i      = 0;
+      int value  = 0;
+
+      while ((i < length) && (isspace(getValue().at(i))))
+      {
+        i++;
+      }
+
+      while ((i < length) && (isdigit(getValue().at(i))))
+      {
+        value = value * 10 + (int)(getValue().at(i) - '0');
+
+        i++;
+      }
+
+      while ((i < length) && (isspace(getValue().at(i))))
+      {
+        i++;
+      }
+
+      if (i != length)
+      {
+        if (report != 0)
+        {
+          report->report(this, Report::INCORRECT_VALUE, this->getValue());
+        }
+
+        ok = false;
+      }
+      else if (value > 1023) // Negative values are excluded
       {
         if (report != 0)
         {
