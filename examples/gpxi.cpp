@@ -60,6 +60,7 @@ void createGPX(ostream &stream)
       cout << left << setw(4) << menu++ << ((*iter)->getType() == gpx::Node::ATTRIBUTE ? "attribute:" : "element:") << (*iter)->getName() << endl;
     }
 
+    cout << left << setw(4) << menu++ << "validate" << endl;
     cout << left << setw(4) << menu << "value" << endl;
     cout << left << setw(4) << 0 << (current == root ? "exit" : "back") << endl;
     cout << endl;
@@ -78,6 +79,17 @@ void createGPX(ostream &stream)
       getline(cin, value);
 
       current->setValue(value);
+    }
+    else if (choice == menu-1)
+    {
+      if (current->validate(&report))
+      {
+        cout << endl << "Validation succesfull" << endl;
+      }
+      else
+      {
+        cout << endl << "Validation failed" << endl;
+      }
     }
     else if (choice == 0) // Go to the parent in the gpx document
     {
@@ -147,6 +159,7 @@ void iterateGPX(istream &stream)
         cout << left << setw(4) << menu++ << "element:" << (*iter)->getName() << " (" << (*iter)->getValue() << ")" << endl;
       }
 
+      cout << left << setw(4) << menu << "validate" << endl;
       cout << left << setw(4) << 0 << (current == root ? "exit" : "back") << endl;
       cout << endl;
 
@@ -165,6 +178,17 @@ void iterateGPX(istream &stream)
           current = current->getParent();
 
           choice = -1;
+        }
+      }
+      else if (choice == menu) // Validation of the current node
+      {
+        if (current->validate(&report))
+        {
+          cout << endl << "Validation succesfull" << endl;
+        }
+        else
+        {
+          cout << endl << "Validation failed" << endl;
         }
       }
       else // Add the menu choice to the gpx document
