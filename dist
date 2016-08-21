@@ -1,0 +1,26 @@
+#/bin/sh
+
+package=gpxlib
+version=0.1.0
+
+dest=${package}-${version}
+
+mkdir ${dest}
+mkdir ${dest}/gpx
+mkdir ${dest}/examples
+
+cp COPYING.LESSER README.md CMakeLists.txt ${dest}
+cp       gpx/*.cpp             ${dest}/gpx
+cp       gpx/*.h               ${dest}/gpx
+cp    examples/*.cpp           ${dest}/examples
+cp    examples/*.h             ${dest}/examples
+cp    examples/test.gpx        ${dest}/examples
+
+#tar cvzf ${package}-${version}.tar.gz ${dest} 
+
+
+#todos  ${dest}/AUTHORS 
+
+zip -r ${package}-${version}.zip ${dest}
+
+rm -rf ${dest}
