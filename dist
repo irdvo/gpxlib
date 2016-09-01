@@ -12,8 +12,10 @@ mkdir ${dest}/examples
 cp COPYING.LESSER README.md CMakeLists.txt ${dest}
 cp       gpx/*.cpp             ${dest}/gpx
 cp       gpx/*.h               ${dest}/gpx
+cp       gpx/CMakeList.txt     ${dest}/gpx
 cp    examples/*.cpp           ${dest}/examples
 cp    examples/*.h             ${dest}/examples
+cp    examples/CMakeList.txt   ${dest}/examples
 cp    examples/test.gpx        ${dest}/examples
 
 #tar cvzf ${package}-${version}.tar.gz ${dest} 

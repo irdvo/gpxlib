@@ -43,7 +43,7 @@ namespace gpx
   
   bool Longitude::validate(Report *report) const
   {
-    bool ok = Decimal::validate();
+    bool ok = Decimal::validate(report);
     
     if (ok)
     {

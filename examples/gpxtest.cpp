@@ -92,6 +92,33 @@ public:
   gpx::Report::Warning _warning;
 };
 
+void check(const string &text, bool result, ReportTest *report = 0, gpx::Report::Warning expecting = gpx::Report::NO_WARNING)
+{
+  cout << text << ": " << endl << "  ";
+
+  gpx::Report::Warning warning = (report == 0 ? gpx::Report::NO_WARNING : report->warning());
+
+  if ((result) && (warning == expecting))
+  {
+    cout << "Ok.";
+  }
+  else
+  {
+    cout << "Failed";
+
+    if (report == 0)
+    {
+      cout << ".";
+    }
+    else
+    {
+      cout << ": " << gpx::Report::text(warning);
+    }
+  }
+
+  cout << endl;
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -118,379 +145,132 @@ int main(int argc, char *argv[])
         int attributes = 0;
         int elements   = 0;
 
-        getCounters(root, attributes, elements);
 
         cout << endl << "Tests:" << endl << endl;
 
-        cout << "Initial count of attributes and elements: ";
-        if ((attributes == 41) || (elements == 67))
-        {
-          cout << "Ok." << endl;
-        }
-        else
-        {
-          cout << "Failed." << endl;
-        }
+        getCounters(root, attributes, elements);
+        check("Initial count of attributes and elements", ((attributes == 41) || (elements == 67)));
 
+        check("Validate the tree", root->validate(&report), &report);
 
-        cout << "Add already present attribute: ";
-          root->version().add(&report);
-          warning = report.warning();
-          if (warning == gpx::Report::ADD_ALREADY_PRESENT_NODE)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        root->version().add(&report);
+        check("Add already present attribute", true, &report, gpx::Report::ADD_ALREADY_PRESENT_NODE);
 
+        root->add("version", gpx::Node::ATTRIBUTE, &report);
+        check("Add already present attribute by name", true, &report, gpx::Report::ADD_ALREADY_PRESENT_NODE);
 
-        cout << "Add already present attribute by name: ";
-          root->add("version", gpx::Node::ATTRIBUTE, &report);
-          warning = report.warning();
-          if (warning == gpx::Report::ADD_ALREADY_PRESENT_NODE)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        root->metadata().add(&report);
+        check("Add already present element", true, &report, gpx::Report::ADD_ALREADY_PRESENT_NODE);
 
+        root->add("metadata", gpx::Node::ELEMENT, &report);
+        check("Add already present element by name", true, &report, gpx::Report::ADD_ALREADY_PRESENT_NODE);
 
-        cout << "Add already present element: ";
-          root->metadata().add(&report);
-          warning = report.warning();
-          if (warning == gpx::Report::ADD_ALREADY_PRESENT_NODE)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
-
-
-        cout << "Add already present element by name: ";
-          root->add("metadata", gpx::Node::ELEMENT, &report);
-          warning = report.warning();
-          if (warning == gpx::Report::ADD_ALREADY_PRESENT_NODE)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
-
-        cout << "Count of attributes and elements after adding already present nodes: ";
-          getCounters(root, attributes, elements);
-          if ((attributes == 41) || (elements == 67))
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed." << endl;
-          }
-
+        getCounters(root, attributes, elements);
+        check("Count of attributes and elements after adding already present nodes", ((attributes == 41) || (elements == 67)));
 
         gpx::WPT *wpt1;
 
-        cout << "Add new list element: ";
-          wpt1 = dynamic_cast<gpx::WPT*>(root->wpts().add(&report));
-          warning = report.warning();
-          if (warning == gpx::Report::NO_WARNING)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        wpt1 = dynamic_cast<gpx::WPT*>(root->wpts().add(&report));
+        check("Add new list element", true, &report, gpx::Report::NO_WARNING);
+
+        check("Validate new list element", !wpt1->validate());
 
         gpx::WPT *wpt2;
 
-        cout << "Add new list element by name: ";
-          wpt2 = dynamic_cast<gpx::WPT*>(root->add("wpt", gpx::Node::ELEMENT, &report));
-          warning = report.warning();
-          if (warning == gpx::Report::NO_WARNING)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        wpt2 = dynamic_cast<gpx::WPT*>(root->add("wpt", gpx::Node::ELEMENT, &report));
+        check("Add new list element by name", true, &report, gpx::Report::NO_WARNING);
 
-        cout << "Count of attributes and elements after adding list elements: ";
-          getCounters(root, attributes, elements);
-          if ((attributes == 41) || (elements == 69))
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed." << endl;
-          }
+        getCounters(root, attributes, elements);
+        check("Count of attributes and elements after adding list elements", ((attributes == 41) || (elements == 69)));
 
+        wpt1->lat().add(&report);
+        check("Add new attribute", true, &report, gpx::Report::NO_WARNING);
 
+        wpt1->lat().setValue("abc");
+        check("Validate invalid attribute value", !wpt1->lat().validate(&report), &report, gpx::Report::INCORRECT_VALUE);
 
-        cout << "Add new attribute: ";
-          wpt1->lat().add(&report);
-          warning = report.warning();
-          if (warning == gpx::Report::NO_WARNING)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        wpt1->lat().setValue("91.0");
+        check("Validate out-of-range attribute value", !wpt1->lat().validate(&report), &report, gpx::Report::INCORRECT_VALUE);
+
+        wpt1->lat().setValue("-91.0");
+        check("Validate out-of-range attribute value", !wpt1->lat().validate(&report), &report, gpx::Report::INCORRECT_VALUE);
+
+        wpt1->lat().setValue("51.9");
+        check("Validate correct attribute value", wpt1->lat().validate(&report));
 
         gpx::Longitude *lon2;
 
-        cout << "Add new attribute by name: ";
-          lon2 = dynamic_cast<gpx::Longitude*>(wpt2->add("lon", gpx::Node::ATTRIBUTE, &report));
-          warning = report.warning();
-          if (warning == gpx::Report::NO_WARNING)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        lon2 = dynamic_cast<gpx::Longitude*>(wpt2->add("lon", gpx::Node::ATTRIBUTE, &report));
+        check("Add new attribute by name", true, &report, gpx::Report::NO_WARNING);
 
-        cout << "Count of attributes and elements after adding attributes: ";
-          getCounters(root, attributes, elements);
-          if ((attributes == 43) || (elements == 69))
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed." << endl;
-          }
+        check("Initial attribute value", (wpt2->lon().getValue() == ""));
 
+        wpt2->lon().setValue("abc");
+        check("Validate invalid attribute value", !wpt2->lon().validate(&report), &report, gpx::Report::INCORRECT_VALUE);
 
-        cout << "Add new element: ";
-          root->metadata().author().add(&report);
-          warning = report.warning();
-          if (warning == gpx::Report::NO_WARNING)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        wpt2->lon().setValue("181.0");
+        check("Validate out-of-range attribute value", !wpt2->lon().validate(&report), &report, gpx::Report::INCORRECT_VALUE);
 
-        cout << "Add new element by name: ";
-          root->metadata().add("keywords", gpx::Node::ELEMENT, &report);
-          warning = report.warning();
-          if (warning == gpx::Report::NO_WARNING)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        wpt2->lon().setValue("-181.0");
+        check("Validate out-of-range attribute value", !wpt2->lon().validate(&report), &report, gpx::Report::INCORRECT_VALUE);
 
-        cout << "Count of attributes and elements after adding elements: ";
-          getCounters(root, attributes, elements);
-          if ((attributes == 43) || (elements == 71))
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed." << endl;
-          }
+        wpt2->lon().setValue("51.9");
+        check("Validate correct attribute value", wpt2->lon().validate(&report));
 
+        getCounters(root, attributes, elements);
+        check("Count of attributes and elements after adding attributes", ((attributes == 43) || (elements == 69)));
 
-        cout << "Initial attribute value: ";
-          if (lon2->getValue() == "")
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << lon2->getValue() << endl;
-          }
+        root->metadata().author().add(&report);
+        check("Add new element", true, &report, gpx::Report::NO_WARNING);
 
-        cout << "Setting attribute value: ";
-          lon2->setValue("50.8343");
-          if (wpt2->lon().getValue() == "50.8343")
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << wpt2->lon().getValue() << endl;
-          }
+        root->metadata().add("keywords", gpx::Node::ELEMENT, &report);
+        check("Add new element by name", true, &report, gpx::Report::NO_WARNING);
 
-        cout << "Initial element value: ";
-          if (root->metadata().keywords().getValue() == "")
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << root->metadata().keywords().getValue() << endl;
-          }
+        getCounters(root, attributes, elements);
+        check("Count of attributes and elements after adding elements", ((attributes == 43) || (elements == 71)));
 
-        cout << "Setting element value: ";
-          root->metadata().keywords().setValue("Official");
-          if (root->metadata().keywords().getValue() == "Official")
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << root->metadata().keywords().getValue() << endl;
-          }
+        lon2->setValue("50.8343");
+        check("Setting attribute value", (wpt2->lon().getValue() == "50.8343"));
 
-        cout << "Count of attributes and elements after setting values: ";
-          getCounters(root, attributes, elements);
-          if ((attributes == 43) || (elements == 71))
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed." << endl;
-          }
+        check("Initial element value", (root->metadata().keywords().getValue() == ""));
 
+        root->metadata().keywords().setValue("Official");
+        check("Setting element value", (root->metadata().keywords().getValue() == "Official"));
 
-        cout << "Count elements of list element: ";
-          if (root->wpts().list().size() == 4)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << root->wpts().list().size() << endl;
-          }
+        getCounters(root, attributes, elements);
+        check("Count of attributes and elements after setting values",  ((attributes == 43) || (elements == 71)));
 
+        check("Count elements of list element", (root->wpts().list().size() == 4));
 
-        cout << "Delete missing attribute: ";
-          wpt2->remove(&wpt2->lat(), &report);
-          warning = report.warning();
-          if (warning == gpx::Report::REMOVE_UNKNOWN_CHILD)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        wpt2->remove(&wpt2->lat(), &report);
+        check("Delete missing attribute", true, &report, gpx::Report::REMOVE_UNKNOWN_CHILD);
 
-        cout << "Delete missing element: ";
-          wpt2->remove(&wpt2->name(), &report);
-          warning = report.warning();
-          if (warning == gpx::Report::REMOVE_UNKNOWN_CHILD)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        wpt2->remove(&wpt2->name(), &report);
+        check("Delete missing element", true, &report, gpx::Report::REMOVE_UNKNOWN_CHILD);
 
-        cout << "Count of attributes and elements after removing missing nodes: ";
-          getCounters(root, attributes, elements);
-          if ((attributes == 43) || (elements == 71))
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed." << endl;
-          }
+        getCounters(root, attributes, elements);
+        check("Count of attributes and elements after removing missing nodes", ((attributes == 43) || (elements == 71)));
 
-        cout << "Delete present attribute: ";
-          wpt2->remove(&wpt2->lon(), &report);
-          warning = report.warning();
-          if (warning == gpx::Report::NO_WARNING)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        wpt2->remove(&wpt2->lon(), &report);
+        check("Delete present attribute", true, &report, gpx::Report::NO_WARNING);
 
-        cout << "Delete present element: ";
-          root->remove(&root->metadata(), &report);
-          warning = report.warning();
-          if (warning == gpx::Report::NO_WARNING)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        root->remove(&root->metadata(), &report);
+        check("Delete present element", true, &report, gpx::Report::NO_WARNING);
 
-        cout << "Count of attributes and elements after removing missing nodes: ";
-          getCounters(root, attributes, elements);
-          if ((attributes == 37) || (elements == 66))
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed." << endl;
-          }
+        getCounters(root, attributes, elements);
+        check("Count of attributes and elements after removing missing nodes", ((attributes == 37) || (elements == 66)));
 
-        cout << "Add deleted element: ";
-          root->metadata().add(&report);
-          warning = report.warning();
-          if (warning == gpx::Report::NO_WARNING)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        root->metadata().add(&report);
+        check("Add deleted element", true, &report, gpx::Report::NO_WARNING);
 
-        cout << "Count of attributes and elements after reading node: ";
-          getCounters(root, attributes, elements);
-          if ((attributes == 37) || (elements == 67))
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed." << endl;
-          }
+        getCounters(root, attributes, elements);
+        check("Count of attributes and elements after reading node", ((attributes == 37) || (elements == 67)));
 
-        cout << "Delete present list element: ";
-          root->remove(wpt2, &report);
-          warning = report.warning();
-          if (warning == gpx::Report::NO_WARNING)
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed: " << gpx::Report::text(warning) << endl;
-          }
+        root->remove(wpt2, &report);
+        check("Delete present list element", true, &report, gpx::Report::NO_WARNING);
 
-        cout << "Count of attributes and elements after deleting list element: ";
-          getCounters(root, attributes, elements);
-          if ((attributes == 37) || (elements == 66))
-          {
-            cout << "Ok." << endl;
-          }
-          else
-          {
-            cout << "Failed." << endl;
-          }
+        getCounters(root, attributes, elements);
+        check("Count of attributes and elements after deleting list element", ((attributes == 37) || (elements == 66)));
 
           // gpx::Writer writer;
 
