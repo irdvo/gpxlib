@@ -51,7 +51,7 @@ namespace gpx
   {
     bool ok = Node::validate(report);
 
-    /// ToDo: Link::validate
+    /// @todo: Link::validate
 
     return ok;
   }
