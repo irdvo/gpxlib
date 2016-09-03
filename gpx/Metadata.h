@@ -29,7 +29,7 @@
 
 #include "gpx/Node.h"
 
-#include "gpx/String.h"
+#include "gpx/String_.h"
 #include "gpx/Person.h"
 #include "gpx/Copyright.h"
 #include "gpx/Link.h"

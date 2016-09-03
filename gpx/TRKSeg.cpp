@@ -24,8 +24,6 @@
 //
 //==============================================================================
 
-#include <strings.h>
-
 #include "gpx/TRKSeg.h"
 
 using namespace std;

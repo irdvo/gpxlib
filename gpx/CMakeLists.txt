@@ -47,6 +47,7 @@ add_library(gpx
 set_target_properties(gpx PROPERTIES VERSION   1)
 set_target_properties(gpx PROPERTIES SOVERSION 1)
 
-install(TARGETS gpx LIBRARY DESTINATION lib)
-
+install(TARGETS gpx RUNTIME DESTINATION bin
+                    LIBRARY DESTINATION lib
+                    ARCHIVE DESTINATION lib)
 

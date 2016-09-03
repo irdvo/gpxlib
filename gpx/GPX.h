@@ -29,7 +29,7 @@
 
 #include "gpx/Node.h" 
 
-#include "gpx/String.h"
+#include "gpx/String_.h"
 #include "gpx/Metadata.h" 
 #include "gpx/Extensions.h"
 #include "gpx/List.h"

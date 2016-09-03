@@ -24,8 +24,6 @@
 //
 //==============================================================================
 
-#include <strings.h>
-
 #include "gpx/PTSeg.h"
 
 using namespace std;

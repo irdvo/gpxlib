@@ -24,7 +24,7 @@
 //
 //==============================================================================
 
-#include "gpx/String.h"
+#include "gpx/String_.h"
 
 using namespace std;
 

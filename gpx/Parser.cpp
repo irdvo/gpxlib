@@ -157,12 +157,12 @@ namespace gpx
 
   bool Parser::parse(const char *text, bool isFinal)
   {
-    parse(text, strlen(text), isFinal);
+    return parse(text, strlen(text), isFinal);
   }
 
   bool Parser::parse(const std::string &data, bool isFinal)
   {
-    parse(data.c_str(), data.length(), isFinal);
+    return parse(data.c_str(), data.length(), isFinal);
   }
 
   // Parse a stream
