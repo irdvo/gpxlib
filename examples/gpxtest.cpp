@@ -68,7 +68,7 @@ void getCounters(gpx::Node *node, int &attributes, int &elements)
 class ReportTest : public gpx::Report
 {
 public:
-  ReportTest() : _warning(gpx::Report::NO_WARNING) {}
+  ReportTest() : _warning(gpx::Report::SUCCESS) {}
   ~ReportTest() {}
 
   virtual void report(const gpx::Node *, gpx::Report::Warning warning, const string &)
@@ -80,7 +80,7 @@ public:
   {
     gpx::Report::Warning temp = _warning;
 
-    _warning = gpx::Report::NO_WARNING;
+    _warning = gpx::Report::SUCCESS;
 
     return temp;
   }
@@ -91,13 +91,13 @@ public:
 int check_count  = 0;
 int check_failed = 0;
 
-void check(const string &text, bool result, ReportTest *report = 0, gpx::Report::Warning expecting = gpx::Report::NO_WARNING)
+void check(const string &text, bool result, ReportTest *report = 0, gpx::Report::Warning expecting = gpx::Report::SUCCESS)
 {
   check_count++;
 
   cout << text << ": " ;
 
-  gpx::Report::Warning warning = (report == 0 ? gpx::Report::NO_WARNING : report->warning());
+  gpx::Report::Warning warning = (report == 0 ? gpx::Report::SUCCESS : report->warning());
 
   if ((result) && (warning == expecting))
   {
@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
       {
         cerr << "Parsing of " << test_file << " failed due to " << parser.errorText() << " on line " << parser.errorLineNumber() << " and column " << parser.errorColumnNumber() << endl;
       }
-      else if (report.warning() != gpx::Report::NO_WARNING)
+      else if (report.warning() != gpx::Report::SUCCESS)
       {
         cout << "Warnings during parsing" << endl;
 
@@ -172,20 +172,20 @@ int main(int argc, char *argv[])
         gpx::WPT *wpt1;
 
         wpt1 = dynamic_cast<gpx::WPT*>(root->wpts().add(&report));
-        check("Add new wpt list element", true, &report, gpx::Report::NO_WARNING);
+        check("Add new wpt list element", true, &report, gpx::Report::SUCCESS);
 
         check("Validate new wpt list element", !wpt1->validate());
 
         gpx::WPT *wpt2;
 
         wpt2 = dynamic_cast<gpx::WPT*>(root->add("wpt", gpx::Node::ELEMENT, &report));
-        check("Add new wpt list element by name", true, &report, gpx::Report::NO_WARNING);
+        check("Add new wpt list element by name", true, &report, gpx::Report::SUCCESS);
 
         getCounters(root, attributes, elements);
         check("Count of attributes and elements after adding list elements", ((attributes == 41) && (elements == 69)));
 
         wpt1->lat().add(&report);
-        check("Add new lat attribute", true, &report, gpx::Report::NO_WARNING);
+        check("Add new lat attribute", true, &report, gpx::Report::SUCCESS);
 
         wpt1->lat().setValue("abc");
         check("Validate invalid lat attribute (abc) value", !wpt1->lat().validate(&report), &report, gpx::Report::INCORRECT_VALUE);
@@ -202,7 +202,7 @@ int main(int argc, char *argv[])
         gpx::Longitude *lon2;
 
         lon2 = dynamic_cast<gpx::Longitude*>(wpt2->add("lon", gpx::Node::ATTRIBUTE, &report));
-        check("Add new lon attribute by name", true, &report, gpx::Report::NO_WARNING);
+        check("Add new lon attribute by name", true, &report, gpx::Report::SUCCESS);
 
         check("Initial lon attribute value", (wpt2->lon().getValue() == ""));
 
@@ -219,7 +219,7 @@ int main(int argc, char *argv[])
         check("Validate correct lon attribute  (51.9) value", wpt2->lon().validate(&report));
 
         wpt2->magvar().add(&report);
-        check("Add new magvar element", true, &report, gpx::Report::NO_WARNING);
+        check("Add new magvar element", true, &report, gpx::Report::SUCCESS);
 
         wpt2->magvar().setValue("abc");
         check("Validate invalid magvar element (abc) value", !wpt2->magvar().validate(&report), &report, gpx::Report::INCORRECT_VALUE);
@@ -234,10 +234,10 @@ int main(int argc, char *argv[])
         check("Validate correct magvar element (51.9) value", wpt2->magvar().validate(&report));
 
         wpt2->remove(&wpt2->magvar(), &report);
-        check("Remove magvar element", true, &report, gpx::Report::NO_WARNING);
+        check("Remove magvar element", true, &report, gpx::Report::SUCCESS);
 
         wpt2->dgpsid().add(&report);
-        check("Add new dgpsid element", true, &report, gpx::Report::NO_WARNING);
+        check("Add new dgpsid element", true, &report, gpx::Report::SUCCESS);
 
         wpt2->dgpsid().setValue("-0.1");
         check("Validate invalid dgpsid element (-0.1) value", !wpt2->dgpsid().validate(&report), &report, gpx::Report::INCORRECT_VALUE);
@@ -249,10 +249,10 @@ int main(int argc, char *argv[])
         check("Validate correct dgpsid element (78) value", wpt2->dgpsid().validate(&report));
 
         wpt2->remove(&wpt2->dgpsid(), &report);
-        check("Remove dgpsid element", true, &report, gpx::Report::NO_WARNING);
+        check("Remove dgpsid element", true, &report, gpx::Report::SUCCESS);
 
         wpt2->sat().add(&report);
-        check("Add new sat element", true, &report, gpx::Report::NO_WARNING);
+        check("Add new sat element", true, &report, gpx::Report::SUCCESS);
 
         wpt2->sat().setValue("-0.1");
         check("Validate invalid sat element (-0.1) value", !wpt2->sat().validate(&report), &report, gpx::Report::INCORRECT_VALUE);
@@ -261,10 +261,10 @@ int main(int argc, char *argv[])
         check("Validate correct sat element (78) value", wpt2->sat().validate(&report));
 
         wpt2->remove(&wpt2->sat(), &report);
-        check("Remove sat element", true, &report, gpx::Report::NO_WARNING);
+        check("Remove sat element", true, &report, gpx::Report::SUCCESS);
 
         wpt2->fix().add(&report);
-        check("Add new fix element", true, &report, gpx::Report::NO_WARNING);
+        check("Add new fix element", true, &report, gpx::Report::SUCCESS);
 
         wpt2->fix().setValue("abc");
         check("Validate invalid fix element (abc) value", !wpt2->fix().validate(&report), &report, gpx::Report::INCORRECT_VALUE);
@@ -285,16 +285,16 @@ int main(int argc, char *argv[])
         check("Validate correct fix element (none) value", wpt2->fix().validate(&report));
 
         wpt2->remove(&wpt2->fix(), &report);
-        check("Remove fix element", true, &report, gpx::Report::NO_WARNING);
+        check("Remove fix element", true, &report, gpx::Report::SUCCESS);
 
         getCounters(root, attributes, elements);
         check("Count of attributes and elements after adding attributes", ((attributes == 43) && (elements == 69)));
 
         root->metadata().author().add(&report);
-        check("Add new author element", true, &report, gpx::Report::NO_WARNING);
+        check("Add new author element", true, &report, gpx::Report::SUCCESS);
 
         root->metadata().add("keywords", gpx::Node::ELEMENT, &report);
-        check("Add new keywords element by name", true, &report, gpx::Report::NO_WARNING);
+        check("Add new keywords element by name", true, &report, gpx::Report::SUCCESS);
 
         getCounters(root, attributes, elements);
         check("Count of attributes and elements after adding elements", ((attributes == 43) && (elements == 71)));
@@ -322,25 +322,25 @@ int main(int argc, char *argv[])
         check("Count of attributes and elements after removing missing nodes", ((attributes == 43) && (elements == 71)));
 
         wpt2->remove(&wpt2->lon(), &report);
-        check("Delete present lon attribute", true, &report, gpx::Report::NO_WARNING);
+        check("Delete present lon attribute", true, &report, gpx::Report::SUCCESS);
 
         root->remove(&root->metadata(), &report);
-        check("Delete present metadata element", true, &report, gpx::Report::NO_WARNING);
+        check("Delete present metadata element", true, &report, gpx::Report::SUCCESS);
 
         getCounters(root, attributes, elements);
-        check("Count of attributes and elements after removing missing nodes", ((attributes == 37) && (elements == 69)));
+        check("Count of attributes and elements after removing missing nodes", ((attributes == 37) && (elements == 64)));
 
         root->metadata().add(&report);
-        check("Add deleted metadata element", true, &report, gpx::Report::NO_WARNING);
+        check("Add deleted metadata element", true, &report, gpx::Report::SUCCESS);
 
         getCounters(root, attributes, elements);
-        check("Count of attributes and elements after reading node", ((attributes == 37) && (elements == 68)));
+        check("Count of attributes and elements after reading node", ((attributes == 37) && (elements == 65)));
 
         root->remove(wpt2, &report);
-        check("Delete present wpt list element", true, &report, gpx::Report::NO_WARNING);
+        check("Delete present wpt list element", true, &report, gpx::Report::SUCCESS);
 
         getCounters(root, attributes, elements);
-        check("Count of attributes and elements after deleting list element", ((attributes == 37) && (elements == 67)));
+        check("Count of attributes and elements after deleting list element", ((attributes == 37) && (elements == 64)));
 
         // gpx::Writer writer;
 

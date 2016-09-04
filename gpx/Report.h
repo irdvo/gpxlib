@@ -45,7 +45,7 @@ namespace gpx
 
     enum Warning
     {
-      NO_WARNING,
+      SUCCESS,
       ADD_ALREADY_PRESENT_NODE,
       ADD_UNKNOWN_NODE,
       MISSING_MANDATORY_NODE,

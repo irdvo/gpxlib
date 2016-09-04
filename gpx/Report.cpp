@@ -41,7 +41,7 @@ namespace gpx
   {
     switch(warning)
     {
-      case Report::NO_WARNING                   : return "Ok";
+      case Report::SUCCESS                      : return "Ok";
       case Report::ADD_ALREADY_PRESENT_NODE     : return "Trying to add an already present node, ignored";
       case Report::ADD_UNKNOWN_NODE             : return "Unknown child node added";
       case Report::MISSING_MANDATORY_NODE       : return "Mandatory node is missing";
