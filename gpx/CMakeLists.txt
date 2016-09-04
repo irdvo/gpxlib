@@ -40,9 +40,15 @@ set(SRC
 
 
 # SHARED or STATIC
+if(WIN32)
+add_library(gpx
+            STATIC
+            ${SRC})
+else()
 add_library(gpx
             SHARED
             ${SRC})
+endif()
 
 set_target_properties(gpx PROPERTIES VERSION   1)
 set_target_properties(gpx PROPERTIES SOVERSION 1)

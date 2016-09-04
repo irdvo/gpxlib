@@ -1,6 +1,8 @@
-include_directories (. ..)
-
 find_package(EXPAT REQUIRED)
+
+include_directories (. .. ${EXPAT_INCLUDE_DIRS})
+
+# SET(CMAKE_BUILD_TYPE Debug)
 
 add_executable (gpxls gpxls.cpp)
 target_link_libraries (gpxls gpx ${EXPAT_LIBRARIES})
@@ -11,7 +13,6 @@ target_link_libraries (gpxwpt gpx ${EXPAT_LIBRARIES})
 add_executable (gpxtrk gpxtrk.cpp)
 target_link_libraries (gpxtrk gpx ${EXPAT_LIBRARIES})
 
-# SET(CMAKE_BUILD_TYPE Debug)
 add_executable (gpxi gpxi.cpp)
 target_link_libraries (gpxi gpx ${EXPAT_LIBRARIES})
 

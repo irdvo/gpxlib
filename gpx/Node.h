@@ -30,7 +30,18 @@
 #include <string>
 #include <list>
 
+#ifdef WIN32
+#ifndef strcasecmp
+#define strcasecmp _stricmp
+#endif
+#endif
+
+#ifdef __linux__
+#include <strings.h>
+#endif
+
 #include "gpx/Report.h"
+
 
 namespace gpx
 {
