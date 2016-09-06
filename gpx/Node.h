@@ -34,6 +34,7 @@
 #ifndef strcasecmp
 #define strcasecmp _stricmp
 #endif
+#pragma warning(disable:4355)
 #endif
 
 #ifdef __linux__

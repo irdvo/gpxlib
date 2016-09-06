@@ -45,7 +45,7 @@ namespace gpx
     
     if (ok)
     {
-      float value = 0.0;
+      float value = 0.0F;
 
       if (!convert(value))
       {
@@ -65,9 +65,9 @@ namespace gpx
     int   length   = getValue().length();
     int   i        = 0;
     bool  negative = false;
-    float fraction = 0.1;
+    float fraction = 0.1F;
 
-    value = 0.0;
+    value = 0.0F;
 
     while ((i < length) && (isspace(getValue().at(i))))
     {
@@ -83,7 +83,7 @@ namespace gpx
 
     while ((i < length) && (isdigit(getValue().at(i))))
     {
-      value = value * 10.0 + (float)(getValue().at(i) - '0');
+      value = value * 10.0F + (float)(getValue().at(i) - '0');
 
       i++;
     }
@@ -96,7 +96,7 @@ namespace gpx
     while ((i < length) && (isdigit(getValue().at(i))))
     {
       value    += fraction * (float)(getValue().at(i) - '0');
-      fraction *= 0.1;
+      fraction *= 0.1F;
 
       i++;
     }

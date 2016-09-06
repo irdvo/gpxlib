@@ -138,7 +138,7 @@ namespace gpx
       }
     }
 
-    ok = XML_Parse(_parser, data, length, isFinal);
+    ok = (XML_Parse(_parser, data, length, isFinal) != XML_STATUS_ERROR);
 
     if (!ok)
     {
@@ -179,7 +179,7 @@ namespace gpx
       {
         stream.read(buffer, sizeof(buffer));
 
-        ok = parse(buffer, stream.gcount(), (stream.gcount() < sizeof(buffer)));
+        ok = parse(buffer, (int) stream.gcount(), (stream.gcount() < sizeof(buffer)));
       }
     }
 

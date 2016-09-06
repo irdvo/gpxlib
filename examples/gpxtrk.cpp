@@ -34,7 +34,7 @@
 
 using namespace std;
 
-void show(gpx::Node &node, int width)
+void show(gpx::Node &node, unsigned width)
 {
   string value(width, ' ');
 
@@ -52,7 +52,7 @@ void show(gpx::Node &node, int width)
   cout << value << ' ';
 }
 
-void show(const string str, int width)
+void show(const string str, unsigned width)
 {
   string value = str;;
 

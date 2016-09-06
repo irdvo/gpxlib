@@ -129,8 +129,6 @@ int main(int argc, char *argv[])
   {
       ReportTest report;
 
-      gpx::Report::Warning warning;
-
       gpx::Parser parser(&report);
 
       gpx::GPX *root = parser.parse(stream);
