@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 {
   if (argc < 2)
   {
-    cerr << "Usage: gpxtrkcon file" << endl;
+    cerr << "Usage: gpxtrkcon FILE" << endl;
     cerr << "  Add all the track segments of the second till last track to the first track," << endl;
     cerr << "  resulting in one track with all the track segments of all original tracks" << endl;
     cerr << "  and outputs this gpx to stdout." << endl;

@@ -38,7 +38,8 @@ int main(int argc, char *argv[])
 {
   if (argc < 2)
   {
-    cerr << "Usage: gpxls file ..." << endl;
+    cerr << "Usage: gpxls FILE ..." << endl;
+    cerr << "  List the contents of a gpx file." << endl;
     exit(1);
   }
 

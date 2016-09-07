@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
   if (argc < 2)
   {
     cerr << "Usage: gpxwpt file ..." << endl;
+    cerr << "  Show the waypoint information in a gpx file." << endl;
     exit(1);
   }
 

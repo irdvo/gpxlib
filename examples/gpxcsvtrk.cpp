@@ -89,8 +89,8 @@ int main(int argc, char *argv[])
 {
   if ((argc < 3) || (argc > 4))
   {
-    cout << "Usage: gpxcsvtrk NAME FILE.csv [FILE.gpx]" << endl;
-    cout << "Convert the lat,lon points in the comma-separated file to a gpx trk file" << endl << endl;
+    cerr << "Usage: gpxcsvtrk NAME FILE.csv [FILE.gpx]" << endl;
+    cerr << "  Convert the lat,lon points in the comma-separated file to a gpx track file" << endl << endl;
     exit(1);
   }
 

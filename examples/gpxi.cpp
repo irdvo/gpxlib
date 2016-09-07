@@ -225,7 +225,8 @@ int main(int argc, char *argv[])
 {
   if (argc > 2)
   {
-    cerr << "Usage: gpxi [file]" << endl;
+    cerr << "Usage: gpxi [FILE]" << endl;
+    cerr << "  Interactively create or browse a gpx file." << endl;
     exit(1);
   }
 

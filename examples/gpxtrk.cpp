@@ -72,7 +72,8 @@ int main(int argc, char *argv[])
 {
   if (argc < 2)
   {
-    cerr << "Usage: gpxtrk file ..." << endl;
+    cerr << "Usage: gpxtrk FILE ..." << endl;
+    cerr << "  Show the track information in a gpx file." << endl;
     exit(1);
   }
 

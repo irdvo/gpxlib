@@ -1,6 +1,6 @@
 //==============================================================================
 //
-//                gpxwpt - the gpxwpt example
+//                gpxtest - the gpx self-test tool
 //
 //               Copyright (C) 2013  Dick van Oudheusden
 //--
