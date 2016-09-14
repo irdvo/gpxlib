@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 2.8.0)
 
-find_package(EXPAT REQUIRED)
+if(WIN32)
+  set(EXPAT_FOUND TRUE)
+  set(EXPAT_INCLUDE_DIRS "/Program Files (x86)/Expat 2.2.0/Source/lib")
+else()
+  find_package(EXPAT REQUIRED)
+endif()
 
 include_directories (. .. ${EXPAT_INCLUDE_DIRS})
 
@@ -41,13 +46,13 @@ set(SRC
 
 # SHARED or STATIC
 if(WIN32)
-add_library(gpx
-            STATIC
-            ${SRC})
+  add_library(gpx
+              STATIC
+              ${SRC})
 else()
-add_library(gpx
-            SHARED
-            ${SRC})
+  add_library(gpx
+              SHARED
+              ${SRC})
 endif()
 
 set_target_properties(gpx PROPERTIES VERSION   1)
