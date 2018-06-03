@@ -212,6 +212,13 @@ namespace gpx
     ///
     List<Link> &links() {return _links;}
 
+    ///
+    /// Get extensions
+    ///
+    /// @return the extensions element
+    ///
+    Extensions  &extensions() { return _extensions; }
+
     // Methods
     
     private:
@@ -237,6 +244,7 @@ namespace gpx
     Decimal       _ageofdgpsdata;
     DGPSStation   _dgpsid;
     List<Link>    _links;
+    Extensions    _extensions;
     
     // Disable copy constructors
     WPT(const WPT &);

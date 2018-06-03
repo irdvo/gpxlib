@@ -52,7 +52,8 @@ namespace gpx
     _pdop(this, "pdop", Node::ELEMENT, false),
     _ageofdgpsdata(this, "ageofdgpsdata", Node::ELEMENT, false),
     _dgpsid(this, "dgpsid", Node::ELEMENT, false),
-    _links(this, "link", Node::ELEMENT, false)
+    _links(this, "link", Node::ELEMENT, false),
+    _extensions(this, "extensions", Node::ELEMENT, false)
   {
     getInterfaces().push_back(&_lat);
     getInterfaces().push_back(&_lon);
@@ -75,6 +76,7 @@ namespace gpx
     getInterfaces().push_back(&_ageofdgpsdata);
     getInterfaces().push_back(&_dgpsid);
     getInterfaces().push_back(&_links);
+    getInterfaces().push_back(&_extensions);
   }
   
   WPT::~WPT()
