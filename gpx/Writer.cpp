@@ -140,7 +140,7 @@ namespace gpx
 
     if (level >= 0)
     {
-      cout << endl;
+      stream << endl;
     }
 
     return stream.good();
