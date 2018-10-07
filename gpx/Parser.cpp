@@ -113,7 +113,7 @@ namespace gpx
   {
     if (_current != 0)
     {
-      _current->setValue(value);
+      _current->appendValue(value);
     }
     else if (_report != 0)
     {
@@ -245,7 +245,7 @@ namespace gpx
     Parser *self = static_cast<Parser*>(userData);
     
     string data(s, len);
-    
+
     self->value(data);
   }
 
