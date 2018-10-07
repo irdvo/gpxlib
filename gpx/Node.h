@@ -117,7 +117,14 @@ namespace gpx
     /// @param value   the value of the attribute or element
     ///
     virtual void setValue(std::string value) { _value = value; }
-    
+
+    ///
+    /// Append to the value of the element
+    ///
+    /// @param value   the value to append to the attribute or element
+    ///
+    virtual void appendValue(const std::string& value) { _value.append(value); }
+
     ///
     /// Get the parent node of this node
     ///
