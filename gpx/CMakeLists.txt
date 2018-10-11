@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 2.8.0)
 
-if(WIN32)
-  set(EXPAT_FOUND TRUE)
-  set(EXPAT_INCLUDE_DIRS "/Program Files (x86)/Expat 2.2.0/Source/lib")
-else()
+#if(WIN32)
+#  set(EXPAT_FOUND TRUE)
+#  set(EXPAT_INCLUDE_DIRS "/Program Files (x86)/Expat 2.2.0/Source/lib")
+#else()
   find_package(EXPAT REQUIRED)
-endif()
+#endif()
 
 include_directories (. .. ${EXPAT_INCLUDE_DIRS})
 
@@ -43,17 +43,7 @@ set(SRC
     ReportCerr.cpp
     )
 
-
-# SHARED or STATIC
-if(WIN32)
-  add_library(gpx
-              STATIC
-              ${SRC})
-else()
-  add_library(gpx
-              SHARED
-              ${SRC})
-endif()
+add_library(gpx ${SRC})
 
 set_target_properties(gpx PROPERTIES VERSION   1)
 set_target_properties(gpx PROPERTIES SOVERSION 1)
