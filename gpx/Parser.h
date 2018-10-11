@@ -41,7 +41,7 @@ namespace gpx
   /// @brief The xml parser class.
   ///
   
-  class Parser
+  class DLL_API Parser
   {
   public:
 

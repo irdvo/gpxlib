@@ -30,7 +30,7 @@
 #include <list>
 
 #include "gpx/Node.h"
-
+#include "gpx/export.h"
 
 namespace gpx
 {
@@ -41,7 +41,7 @@ namespace gpx
   ///
   
   template<class T>
-  class List : public Node
+  class DLL_API List : public Node
   {
     public:
 

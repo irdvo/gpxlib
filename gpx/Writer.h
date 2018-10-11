@@ -40,7 +40,7 @@ namespace gpx
   /// @brief The xml writer class.
   ///
   
-  class Writer
+  class DLL_API Writer
   {
   public:
 

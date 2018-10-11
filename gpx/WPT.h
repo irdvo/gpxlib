@@ -27,6 +27,7 @@
 //
 //==============================================================================
 
+#include "gpx/export.h"
 #include "gpx/Node.h"
 
 #include "gpx/String_.h"
@@ -51,7 +52,7 @@ namespace gpx
   /// @brief The waypoint class.
   ///
   
-  class WPT : public Node
+  class DLL_API WPT : public Node
   {
     public:
 

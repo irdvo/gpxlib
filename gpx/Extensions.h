@@ -27,6 +27,7 @@
 //
 //==============================================================================
 
+#include "gpx/export.h"
 #include "gpx/String_.h"
 
 
@@ -38,7 +39,7 @@ namespace gpx
   /// @brief The extensions class.
   ///
   
-  class Extensions : public String
+  class DLL_API Extensions : public String
   {
     public:
 
