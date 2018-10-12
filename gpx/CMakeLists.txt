@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 2.8.0)
 
-project(gpx)
-
 find_package(EXPAT REQUIRED)
 
 include_directories (. .. ${EXPAT_INCLUDE_DIRS})
@@ -48,13 +46,13 @@ if(BUILD_SHARED_LIBS)
     endif()
 endif()
 
-add_library(gpx ${SRC})
-target_link_libraries(gpx ${EXPAT_LIBRARIES})
+add_library(${PROJECT_NAME} ${SRC})
+target_link_libraries(${PROJECT_NAME} ${EXPAT_LIBRARIES})
 
-set_target_properties(gpx PROPERTIES VERSION   1)
-set_target_properties(gpx PROPERTIES SOVERSION 1)
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${BUILD_VERSION})
+set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION ${BUILD_VERSION})
 
-install(TARGETS gpx RUNTIME DESTINATION bin
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin
                     LIBRARY DESTINATION lib
                     ARCHIVE DESTINATION lib)
 
