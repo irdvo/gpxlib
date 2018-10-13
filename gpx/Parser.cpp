@@ -36,19 +36,19 @@ namespace gpx
 {
   
   Parser::Parser(Report *report) :
-    _report(report),
-    _parser(0),
-    _current(0),
-    _root(0),
+    _parser(nullptr),
     _errorText(),
     _errorLineNumber(0),
-    _errorColumnNumber(0)
+    _errorColumnNumber(0),
+    _current(nullptr),
+    _root(nullptr),
+    _report(report)
   {
   }
 
   Parser::~Parser()
   {
-    if (_parser != 0)
+    if (_parser != nullptr)
     {
       stopExpat();
     }
@@ -62,22 +62,22 @@ namespace gpx
 
     if (strcasecmp(name, "gpx") == 0)
     {
-      if (_root == 0)
+      if (_root == nullptr)
       {
         _current = _root = new GPX();
       }
-      else if (_report != 0)
+      else if (_report != nullptr)
       {
         _report->report(_root, Report::DOUBLE_GPX, "");
       }
     }
-    else if (_current != 0)
+    else if (_current != nullptr)
     {
       _current = _current->add(name, Node::ELEMENT, _report);
     }
-    else if (_report != 0)
+    else if (_report != nullptr)
     {
-      _report->report(0, Report::MISSING_GPX, "");
+      _report->report(nullptr, Report::MISSING_GPX, "");
     }
   }
 
@@ -85,13 +85,13 @@ namespace gpx
   {
     // cout << "BuildAttribute:" << name << " for " << (_current != 0 ? _current->name().c_str() : "null") << endl;
 
-    if (_current != 0)
+    if (_current != nullptr)
     {
       _current = _current->add(name, Node::ATTRIBUTE, _report);
     }
-    else if (_report != 0)
+    else if (_report != nullptr)
     {
-      _report->report(0, Report::MISSING_GPX, "");
+      _report->report(nullptr, Report::MISSING_GPX, "");
     }
   }
 
@@ -99,46 +99,46 @@ namespace gpx
   {
     // cout << "Built for " << (_current != 0 ? _current->name().c_str() : "null") << endl;
 
-    if (_current != 0)
+    if (_current != nullptr)
     {
       _current = _current->added();
     }
-    else if (_report != 0)
+    else if (_report != nullptr)
     {
-      _report->report(0, Report::MISFORMED_GPX, "");
+      _report->report(nullptr, Report::MISFORMED_GPX, "");
     }
   }
 
   void Parser::value(std::string value)
   {
-    if (_current != 0)
+    if (_current != nullptr)
     {
       _current->appendValue(value);
     }
-    else if (_report != 0)
+    else if (_report != nullptr)
     {
-      _report->report(0, Report::MISFORMED_GPX, "");
+      _report->report(nullptr, Report::MISFORMED_GPX, "");
     }
   }
 
 
   // Parsing
 
-  bool Parser::parse(const char *data, int length, bool isFinal)
+  bool Parser::parse(const char *data, size_t length, bool isFinal)
   {
     bool ok = false;
 
-    if (_parser == 0)
+    if (_parser == nullptr)
     {
       startExpat();
 
-      if (_parser == 0)
+      if (_parser == nullptr)
       {
         return false;
       }
     }
 
-    ok = (XML_Parse(_parser, data, length, isFinal) != XML_STATUS_ERROR);
+    ok = (XML_Parse(_parser, data, int(length), isFinal) != XML_STATUS_ERROR);
 
     if (!ok)
     {
@@ -179,7 +179,7 @@ namespace gpx
       {
         stream.read(buffer, sizeof(buffer));
 
-        ok = parse(buffer, (int) stream.gcount(), (stream.gcount() < sizeof(buffer)));
+        ok = parse(buffer, size_t(stream.gcount()), (size_t(stream.gcount()) < sizeof(buffer)));
       }
     }
 
@@ -191,7 +191,7 @@ namespace gpx
 
   void Parser::startExpat()
   {
-    _parser = XML_ParserCreate(NULL);
+    _parser = XML_ParserCreate(nullptr);
     
     XML_SetUserData(_parser, this);
   
@@ -209,7 +209,7 @@ namespace gpx
   {
     XML_ParserFree(_parser);
     
-    _parser = 0;
+    _parser = nullptr;
   }
 
   void Parser::xmlDeclHandler(void *userData, const XML_Char *version, const XML_Char *encoding, int standalone)
@@ -220,10 +220,10 @@ namespace gpx
   void Parser::startElementHandler(void *userData, const XML_Char *name, const XML_Char **atts)
   {
     Parser *self = static_cast<Parser*>(userData);
-    
+
     self->makeElement(name);
     
-    for (int i = 0; atts[i] != NULL; i+=2)
+    for (int i = 0; atts[i] != nullptr; i+=2)
     {
       self->makeAttribute(atts[i]);
       
@@ -236,7 +236,7 @@ namespace gpx
   void Parser::endElementHandler(void *userData, const XML_Char *name)
   {
     Parser *self = static_cast<Parser*>(userData);
-    
+
     self->made();
   }
 
@@ -244,8 +244,8 @@ namespace gpx
   {
     Parser *self = static_cast<Parser*>(userData);
     
-    string data(s, len);
-
+    string data(s, size_t(len));
+    
     self->value(data);
   }
 

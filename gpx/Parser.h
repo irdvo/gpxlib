@@ -130,7 +130,7 @@ namespace gpx
     ///
     /// @return success
     ///
-    bool parse(const char *data, int length, bool isFinal);
+    bool parse(const char *data, size_t length, bool isFinal);
 
     ///
     /// Parse text

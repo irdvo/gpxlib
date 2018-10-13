@@ -33,7 +33,7 @@ namespace gpx
 {
 
   GPX::GPX() :
-    Node(0, "gpx", Node::ELEMENT, true),
+    Node(nullptr, "gpx", Node::ELEMENT, true),
     _version(this, "version", Node::ATTRIBUTE, true),
     _creator(this, "creator", Node::ATTRIBUTE, true),
     _metadata(this, "metadata", Node::ELEMENT, false),

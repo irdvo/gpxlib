@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 
       gpx::GPX *root = parser.parse(stream);
 
-      if (root == 0)
+      if (root == nullptr)
       {
         cerr << "Parsing of " << argv[i] << " failed due to " << parser.errorText() << " on line " << parser.errorLineNumber() << " and column " << parser.errorColumnNumber() << endl;
       }
@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
         {
           gpx::TRK *trk = (*node);
 
-          if (trk != 0)
+          if (trk != nullptr)
           {
             cout << "Track:" << trknr++ << endl;
             cout << "  Name        : " << trk->name()  .getValue() << endl;
@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
             {
               gpx::TRKSeg *seg = (*iter2);
 
-              if (seg != 0)
+              if (seg != nullptr)
               {
                 cout << "  Segment     : " << segnr++ << endl;
                 cout << "    ";
@@ -130,6 +130,7 @@ int main(int argc, char *argv[])
                 show("Time", 20);
                 show("Name", 8);
                 show("Comment", 10);
+                show("Extensions", 10);
                 cout << endl;
 
                 list<gpx::WPT*> &trkpts = seg->trkpts().list();
@@ -138,7 +139,7 @@ int main(int argc, char *argv[])
                 {
                   gpx::WPT *trkpt = (*iter3);
 
-                  if (trkpt != 0)
+                  if (trkpt != nullptr)
                   {
                     cout << "    ";
                     show(trkpt->lat(),  11);
@@ -147,6 +148,7 @@ int main(int argc, char *argv[])
                     show(trkpt->time(), 20);
                     show(trkpt->getName(),  8);
                     show(trkpt->cmt(),  10);
+                    show(trkpt->extensions().getValue(), 10);
                     cout << endl;
                   }
                 }

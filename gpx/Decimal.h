@@ -65,19 +65,19 @@ namespace gpx
     /// @return is validation succesfull
     ///
     
-    virtual bool validate(Report *report = 0) const;
+    virtual bool validate(Report *report = nullptr) const;
     
   protected:
 
     ///
-    /// Convert to a float value of the Decimal object
+    /// Convert to a double value of the Decimal object
     ///
-    /// @param  value  the float value
+    /// @param  value  the double value
     ///
     /// @return is the value correct
     ///
 
-    bool convert(float &value) const;
+    bool convert(double &value) const;
 
   private:
     

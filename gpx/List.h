@@ -91,7 +91,7 @@ namespace gpx
     ///
     /// @return the node
     ///
-    virtual Node *add(Report *report = 0)
+    virtual Node *add(Report *report = nullptr)
     {
       return insert(0, report);
     }
@@ -105,7 +105,7 @@ namespace gpx
     /// @return the node (or 0 if not found)
     ///
 
-    virtual Node *insert(Node *before, Report *report = 0)
+    virtual Node *insert(Node *before, Report *report = nullptr)
     {
       T *node = new T(getParent(), getName().c_str(), getType(), isMandatory());
 
@@ -115,7 +115,7 @@ namespace gpx
       }
 
       // Insert in private list
-      if (before != 0)
+      if (before != nullptr)
       {
         typename std::list<T*>::iterator iter = _list.begin();
         for (; iter != _list.end(); ++iter)
@@ -129,11 +129,11 @@ namespace gpx
 
         if (iter == _list.end())
         {
-          before = 0;
+          before = nullptr;
         }
       }
 
-      if (before == 0)
+      if (before == nullptr)
       {
         _list.push_back(node);
       }
@@ -157,7 +157,7 @@ namespace gpx
       typename std::list<T*>::iterator iter = _list.begin();
       while (iter !=  _list.end())
       {
-        if ((node == 0) || ((*iter) == node))
+        if ((node == nullptr) || ((*iter) == node))
         {
           Node *child = (*iter);
 

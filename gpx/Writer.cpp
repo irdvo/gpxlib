@@ -48,11 +48,11 @@ namespace gpx
 
     if (ok)
     {
-      if (node != 0)
+      if (node != nullptr)
       {
         GPX *root = dynamic_cast<GPX*>(node);
 
-        if (root != 0)
+        if (root != nullptr)
         {
           // Root node
           stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
@@ -128,7 +128,7 @@ namespace gpx
     }
 
     // Value
-    stream << translate(node->getValue());
+    stream << translate(node->getTrimmedValue());
 
     // Close tag
     if ((node->hasElements()) && (level >= 0))

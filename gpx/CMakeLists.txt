@@ -36,6 +36,7 @@ set(SRC
     Writer.cpp
     Report.cpp
     ReportCerr.cpp
+    Algorithm.cpp
     )
 
 option(BUILD_SHARED_LIBS "Build shared library" ON)

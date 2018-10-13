@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 
       gpx::GPX *root = parser.parse(stream);
 
-      if (root == 0)
+      if (root == nullptr)
       {
         cerr << "Parsing of " << argv[i] << " failed due to " << parser.errorText() << " on line " << parser.errorLineNumber() << " and column " << parser.errorColumnNumber() << endl;
       }
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
         {
           gpx::WPT *wpt = (*node);
 
-          if (wpt != 0)
+          if (wpt != nullptr)
           {
             cout << "Position: " << wpt->lat().getValue() << ',' << wpt->lon().getValue() << endl;
             cout << "  Elevation: " << wpt->ele().getValue() << endl;

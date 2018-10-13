@@ -47,13 +47,13 @@ namespace gpx
 
     if (ok)
     {
-      float value;
+      double value;
 
       if (convert(value))
       {
         if ((value < 0.0) || (value > 360.0))
         {
-          if (report != 0)
+          if (report != nullptr)
           {
             report->report(this, Report::INCORRECT_VALUE, this->getValue());
           }

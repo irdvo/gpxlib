@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 
       gpx::GPX *root = parser.parse(stream);
 
-      if (root == 0)
+      if (root == nullptr)
       {
         cerr << "Parsing of " << argv[i] << " failed due to " << parser.errorText() << " on line " << parser.errorLineNumber() << " and column " << parser.errorColumnNumber() << endl;
       }

@@ -45,11 +45,11 @@ namespace gpx
     
     if (ok)
     {
-      float value = 0.0F;
+      double value = 0.0;
 
       if (!convert(value))
       {
-        if (report != 0)
+        if (report != nullptr)
         {
           report->report(this, Report::INCORRECT_VALUE, this->getValue());
         }
@@ -60,14 +60,14 @@ namespace gpx
     return ok;
   }
 
-  bool Decimal::convert(float &value) const
+  bool Decimal::convert(double &value) const
   {
-    int   length   = getValue().length();
-    int   i        = 0;
-    bool  negative = false;
-    float fraction = 0.1F;
+    size_t length   = getValue().length();
+    size_t i        = 0;
+    bool   negative = false;
+    double fraction = 0.1;
 
-    value = 0.0F;
+    value = 0.0;
 
     while ((i < length) && (isspace(getValue().at(i))))
     {
@@ -83,7 +83,7 @@ namespace gpx
 
     while ((i < length) && (isdigit(getValue().at(i))))
     {
-      value = value * 10.0F + (float)(getValue().at(i) - '0');
+      value = value * 10.0F + double(getValue().at(i) - '0');
 
       i++;
     }
@@ -95,7 +95,7 @@ namespace gpx
 
     while ((i < length) && (isdigit(getValue().at(i))))
     {
-      value    += fraction * (float)(getValue().at(i) - '0');
+      value    += fraction * double(getValue().at(i) - '0');
       fraction *= 0.1F;
 
       i++;

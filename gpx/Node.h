@@ -107,6 +107,13 @@ namespace gpx
     virtual const std::string &getValue() const { return _value; }
 
     ///
+    /// Return the trimmed value
+    ///
+    /// @return the trimmed value of the attribute or element
+    ///
+    std::string getTrimmedValue() const;
+
+    ///
     /// Is mandatory
     ///
     /// @return is the attribute or element mandatory
@@ -165,7 +172,7 @@ namespace gpx
     ///
     /// @return the node (or 0 if not found)
     ///
-    virtual Node *add(Report *report = 0);
+    virtual Node *add(Report *report = nullptr);
 
     ///
     /// Add a child node by name
@@ -176,7 +183,7 @@ namespace gpx
     ///
     /// @return the node (or 0 if not found)
     ///
-    virtual Node *add(const char *name, Type type, Report *report = 0);
+    virtual Node *add(const char *name, Type type, Report *report = nullptr);
 
     ///
     /// Done building the node
@@ -194,7 +201,7 @@ namespace gpx
     /// @return the node (or 0 if not found)
     ///
 
-    virtual Node *insert(Node *before, Report *report = 0);
+    virtual Node *insert(Node *before, Report *report = nullptr);
 
     ///
     /// Insert a child node by name before a node
@@ -206,7 +213,7 @@ namespace gpx
     ///
     /// @return the node (or 0 if not found)
     ///
-    virtual Node *insert(Node *before, const char *name, Type type, Report *report = 0);
+    virtual Node *insert(Node *before, const char *name, Type type, Report *report = nullptr);
 
     ///
     /// Copy the contents of the source node in this node
@@ -216,7 +223,7 @@ namespace gpx
     ///
     /// @return is validation succesfull
     ///
-    virtual void copy(Node *source, Report *report = 0);
+    virtual void copy(Node *source, Report *report = nullptr);
 
     ///
     /// Validate the object
@@ -225,7 +232,7 @@ namespace gpx
     ///
     /// @return is validation succesfull
     ///
-    virtual bool validate(Report *report = 0) const;
+    virtual bool validate(Report *report = nullptr) const;
           
     ///
     /// Remove the child node from this node, if removed the
@@ -237,7 +244,7 @@ namespace gpx
     ///
     /// @return is it removed ?
     ///
-    virtual bool remove(Node *child, Report *report = 0);
+    virtual bool remove(Node *child, Report *report = nullptr);
 
     ///
     /// Count the number of occurences of this node in its parent
@@ -278,7 +285,7 @@ namespace gpx
     /// @param  nodese    the list with nodes in which this node must be inserted
     /// @param  report    the optional report stream
     ///
-    void insert(Node *before, std::list<Node*> &nodes, Report *report = 0);
+    void insert(Node *before, std::list<Node*> &nodes, Report *report = nullptr);
 
   private:
 
@@ -292,6 +299,7 @@ namespace gpx
     virtual bool removeAsChild(Node *node);
 
     // Members
+    Node              *_parent;
     std::string        _name;
     Type               _type;
     std::string        _value;
@@ -299,7 +307,6 @@ namespace gpx
     std::list<Node*>   _attributes;
     std::list<Node*>   _elements;
     bool               _mandatory;
-    Node              *_parent;
     
     // Do not implement
     Node(const Node &);

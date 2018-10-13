@@ -43,7 +43,7 @@ namespace gpx
 
   void ReportCerr::report(const Node *node, Report::Warning warning,  const std::string &extra)
   {
-    if (node != 0)
+    if (node != nullptr)
     {
       cerr << (node->getType() == Node::ATTRIBUTE ? "Attribute " : "Element ") << node->getName() << " : ";
     }

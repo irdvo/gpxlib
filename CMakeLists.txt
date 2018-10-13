@@ -39,11 +39,11 @@ ADD_CUSTOM_TARGET(uninstall
 add_subdirectory(gpx)
 option(BUILD_EXAMPLES "Build examples" ON)
 if(BUILD_EXAMPLES)
-	add_subdirectory(examples)
+  add_subdirectory(examples)
 endif(BUILD_EXAMPLES)
 option(BUILD_TESTS "Build tests" ON)
 if(BUILD_TESTS)
-	add_subdirectory(test)
+  add_subdirectory(test)
 endif()
 
 install(DIRECTORY gpx/ DESTINATION include/gpx FILES_MATCHING PATTERN "*.h" PATTERN "CMakeFiles" EXCLUDE)

@@ -36,10 +36,11 @@ namespace gpx
     _parent(parent),
     _name(name),
     _type(type),
-    _mandatory(mandatory),
+    _value(),
     _interfaces(),
     _attributes(),
-    _elements()
+    _elements(),
+    _mandatory(mandatory)
   {
   }
 
@@ -47,23 +48,35 @@ namespace gpx
   {
   }
 
+  string Node::getTrimmedValue() const
+  {
+    const char *spaces = " \t\n\r\f\v";
+
+    string trimmed = getValue();
+
+    trimmed.erase(0, trimmed.find_first_not_of(spaces));
+    trimmed.erase(trimmed.find_last_not_of(spaces)+1);
+
+    return trimmed;
+  }
+
   Node *Node::add(Report *report)
   {
-    return insert(0, report);
+    return insert(nullptr, report);
   }
 
   Node *Node::add(const char *name, Type type, Report *report)
   {
-    return insert(0, name, type, report);
+    return insert(nullptr, name, type, report);
   }
 
   Node *Node::insert(Node *before, Report *report)
   {
-    if (_parent != 0)
+    if (_parent != nullptr)
     {
       if (used())
       {
-        if (report != 0)
+        if (report != nullptr)
         {
           report->report(this, Report::ADD_ALREADY_PRESENT_NODE, "");
         }
@@ -87,7 +100,7 @@ namespace gpx
       }
     }
 
-    if ((report != 0) && (!isExtension()))
+    if ((report != nullptr) && (!isExtension()))
     {
       report->report(this, Report::ADD_UNKNOWN_NODE, name);
     }
@@ -128,7 +141,7 @@ namespace gpx
     {
       if (((*iter)->isMandatory()) && (!(*iter)->used()))
       {
-        if (report != 0)
+        if (report != nullptr)
         {
           report->report(this, Report::MISSING_MANDATORY_NODE, "");
         }
@@ -158,7 +171,7 @@ namespace gpx
     iter = _attributes.begin();
     while (iter != _attributes.end())
     {
-      if ((child == 0) || (child == (*iter)))
+      if ((child == nullptr) || (child == (*iter)))
       {
         (*iter)->setValue("");
 
@@ -175,11 +188,11 @@ namespace gpx
     iter = _elements.begin();
     while (iter != _elements.end())
     {
-      if ((child == 0) || (child == (*iter)))
+      if ((child == nullptr) || (child == (*iter)))
       {
         (*iter)->setValue("");
 
-        (*iter)->remove(0);
+        (*iter)->remove(nullptr);
 
         iter = _elements.erase(iter);
 
@@ -196,9 +209,9 @@ namespace gpx
       (*iter)->removeAsChild(child);
     }
 
-    if ((!removed) && (child != 0))
+    if ((!removed) && (child != nullptr))
     {
-      if (report != 0)
+      if (report != nullptr)
       {
         report->report(this, Report::REMOVE_UNKNOWN_CHILD, child->getName());
       }
@@ -211,7 +224,7 @@ namespace gpx
   {
     int count = 0;
 
-    if (_parent != 0)
+    if (_parent != nullptr)
     {
       list<Node*> &nodes = (_type == ATTRIBUTE ? _parent->getAttributes() : _parent->getElements());
 
@@ -229,7 +242,7 @@ namespace gpx
 
   bool Node::used() const
   {
-    if (_parent != 0)
+    if (_parent != nullptr)
     {
       list<Node*> &nodes = (_type == ATTRIBUTE ? _parent->getAttributes() : _parent->getElements());
 
@@ -250,7 +263,7 @@ namespace gpx
   {
     const Node *node = this;
     
-    while (node != 0)
+    while (node != nullptr)
     {
       if (strcasecmp(node->getName().c_str(), "extensions") == 0)
       {
@@ -270,7 +283,7 @@ namespace gpx
 
   void Node::insert(Node *before, list<Node*> &nodes, Report *report)
   {
-    if (before != 0)
+    if (before != nullptr)
     {
       list<Node*>::iterator node = nodes.begin();
 
@@ -287,11 +300,11 @@ namespace gpx
       {
         report->report(this, Report::INSERT_BEFORE_NODE_NOT_FOUND, "");
 
-        before = 0;
+        before = nullptr;
       }
     }
 
-    if (before == 0)
+    if (before == nullptr)
     {
       nodes.push_back(this);
     }

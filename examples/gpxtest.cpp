@@ -57,7 +57,7 @@ void getCounters(gpx::Node *node, int &attributes, int &elements)
   attributes = 0;
   elements   = 0;
 
-  if (node != 0)
+  if (node != nullptr)
   {
     doCount(node, attributes, elements);
   }
@@ -88,8 +88,8 @@ public:
   gpx::Report::Warning _warning;
 };
 
-int check_count  = 0;
-int check_failed = 0;
+static int check_count  = 0;
+static int check_failed = 0;
 
 void check(const string &text, bool result, ReportTest *report = 0, gpx::Report::Warning expecting = gpx::Report::SUCCESS)
 {
@@ -97,7 +97,7 @@ void check(const string &text, bool result, ReportTest *report = 0, gpx::Report:
 
   cout << text << ": " ;
 
-  gpx::Report::Warning warning = (report == 0 ? gpx::Report::SUCCESS : report->warning());
+  gpx::Report::Warning warning = (report == nullptr ? gpx::Report::SUCCESS : report->warning());
 
   if ((result) && (warning == expecting))
   {
@@ -107,7 +107,7 @@ void check(const string &text, bool result, ReportTest *report = 0, gpx::Report:
   {
     cout << "Failed";
 
-    if (report != 0)
+    if (report != nullptr)
     {
       cout << '(' << gpx::Report::text(warning) << ")";
     }
@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
 
       gpx::GPX *root = parser.parse(stream);
 
-      if (root == 0)
+      if (root == nullptr)
       {
         cerr << "Parsing of " << test_file << " failed due to " << parser.errorText() << " on line " << parser.errorLineNumber() << " and column " << parser.errorColumnNumber() << endl;
       }

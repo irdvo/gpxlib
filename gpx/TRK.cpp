@@ -39,8 +39,8 @@ namespace gpx
     _number(this, "number", Node::ELEMENT, false),
     _type(this, "type",   Node::ELEMENT, false),
     _extensions(this, "extensions", Node::ELEMENT, false),
-    _trksegs(this, "trkseg", Node::ELEMENT, false),
-    _links(this, "link", Node::ELEMENT, false)
+    _links(this, "link", Node::ELEMENT, false),
+    _trksegs(this, "trkseg", Node::ELEMENT, false)
   {
     getInterfaces().push_back(&_name);
     getInterfaces().push_back(&_cmt);

@@ -64,7 +64,7 @@ namespace gpx
     ///
     /// @return is validation succesfull
     ///
-    virtual bool validate(Report *report = 0) const;
+    virtual bool validate(Report *report = nullptr) const;
     
     private:
     

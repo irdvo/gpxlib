@@ -45,8 +45,8 @@ namespace gpx
     
     if (ok)
     {
-      int length = getValue().length();
-      int i      = 0;
+      size_t length = getValue().length();
+      size_t i      = 0;
       
       while ((i < length) && (isspace(getValue().at(i))))
       {
@@ -65,7 +65,7 @@ namespace gpx
       
       if (i != length)
       {
-        if (report != 0)
+        if (report != nullptr)
         {
           report->report(this, Report::INCORRECT_VALUE, this->getValue());
         }

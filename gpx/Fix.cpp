@@ -51,7 +51,7 @@ namespace gpx
           (getValue().compare("pps") != 0) &&
           (getValue().compare("none") != 0))
       {
-        if (report != 0)
+        if (report != nullptr)
         {
           report->report(this, Report::INCORRECT_VALUE, this->getValue());
         }

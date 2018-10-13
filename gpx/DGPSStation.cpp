@@ -48,9 +48,9 @@ namespace gpx
     
     if (ok)
     {
-      int length = getValue().length();
-      int i      = 0;
-      int value  = 0;
+      size_t length = getValue().length();
+      size_t i      = 0;
+      int    value  = 0;
 
       while ((i < length) && (isspace(getValue().at(i))))
       {
@@ -59,7 +59,7 @@ namespace gpx
 
       while ((i < length) && (isdigit(getValue().at(i))))
       {
-        value = value * 10 + (int)(getValue().at(i) - '0');
+        value = value * 10 + int(getValue().at(i) - '0');
 
         i++;
       }
@@ -71,7 +71,7 @@ namespace gpx
 
       if (i != length)
       {
-        if (report != 0)
+        if (report != nullptr)
         {
           report->report(this, Report::INCORRECT_VALUE, this->getValue());
         }
@@ -80,7 +80,7 @@ namespace gpx
       }
       else if (value > 1023) // Negative values are excluded
       {
-        if (report != 0)
+        if (report != nullptr)
         {
           report->report(this, Report::INCORRECT_VALUE, this->getValue());
         }
