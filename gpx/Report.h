@@ -27,6 +27,7 @@
 //
 //==============================================================================
 
+#include "gpx/export.h"
 #include <string>
 
 namespace gpx
@@ -39,7 +40,7 @@ namespace gpx
   /// @brief The report interface for reporting warnings
   ///
   
-  class Report
+  class DLL_API Report
   {
     public:
 

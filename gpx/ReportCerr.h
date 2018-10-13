@@ -27,6 +27,7 @@
 //
 //==============================================================================
 
+#include "gpx/export.h"
 #include "gpx/Report.h"
 
 namespace gpx
@@ -37,7 +38,7 @@ namespace gpx
   /// @brief The report on cerr class for reporting warnings
   ///
   
-  class ReportCerr : public Report
+  class DLL_API ReportCerr : public Report
   {
     public:
 

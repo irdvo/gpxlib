@@ -27,6 +27,7 @@
 //
 //==============================================================================
 
+#include "gpx/export.h"
 #include "gpx/Node.h" 
 
 #include "gpx/String_.h"
@@ -65,7 +66,7 @@ namespace gpx
   /// @brief The root node of a GPX document
   ///
 
-  class GPX : public Node
+  class DLL_API GPX : public Node
   {
   public:
 

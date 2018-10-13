@@ -27,6 +27,7 @@
 //
 //==============================================================================
 
+#include "gpx/export.h"
 #include "gpx/Node.h"
 
 #include "gpx/String_.h"
@@ -46,7 +47,7 @@ namespace gpx
   /// @brief The metadata from another schema's class.
   ///
   
-  class Metadata : public Node
+  class DLL_API Metadata : public Node
   {
     public:
 

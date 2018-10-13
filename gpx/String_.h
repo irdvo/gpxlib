@@ -27,8 +27,8 @@
 //
 //==============================================================================
 
+#include "gpx/export.h"
 #include "gpx/Node.h"
-
 
 namespace gpx
 {
@@ -38,7 +38,7 @@ namespace gpx
   /// @brief The string class.
   ///
   
-  class String : public Node
+  class DLL_API String : public Node
   {
     public:
 

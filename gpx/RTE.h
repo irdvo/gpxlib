@@ -27,6 +27,7 @@
 //
 //==============================================================================
 
+#include "gpx/export.h"
 #include "gpx/Node.h"
 
 #include "gpx/String_.h"
@@ -45,7 +46,7 @@ namespace gpx
   /// @brief The route class.
   ///
   
-  class RTE : public Node
+  class DLL_API RTE : public Node
   {
     public:
 
