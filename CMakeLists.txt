@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.8.0)
 
+set(CMAKE_CXX_STANDARD 14)
+
 project(gpx)
 
 SET(BUILD_VERSION "v0.0.1")
