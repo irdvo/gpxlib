@@ -83,3 +83,74 @@ TEST_CASE("gpxlib tests")
 
   CHECK_EQ(gpx::crosstrack(53.3206, -1.7297, 53.1887, 0.1334, 53.2611, -0.7972), doctest::Approx(-307.55).epsilon(0.001));
 }
+
+TEST_CASE("copy nodes")
+{
+  const std::string xml =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+      "<gpx>\n"
+      " <trk>\n"
+      "  <name>Test</name>\n"
+      "  <trkseg>\n"
+      "   <trkpt lat=\"50.7\" lon=\"6.4\">\n"
+      "   </trkpt>\n"
+      "  </trkseg>\n"
+      " </trk>\n"
+      "</gpx>\n";
+
+
+  ReportCheck report;
+
+  gpx::Parser parser(&report);
+
+  CHECK(parser.parse(xml, true));
+
+  CHECK_EQ(report.warning(), gpx::Report::SUCCESS);
+
+  gpx::GPX *root = parser.root();
+
+  CHECK_NE(root, nullptr);
+
+  std::list<gpx::TRK*> &trks = root->trks().list();
+
+  CHECK(!trks.empty());
+
+  gpx::TRK* trk = *(trks.begin());
+
+  CHECK(trk);
+
+  std::list<gpx::TRKSeg*> trksegs = trk->trksegs().list();
+
+  CHECK(!trksegs.empty());
+
+  gpx::TRKSeg* trkseg = *(trksegs.begin());
+
+  CHECK(trkseg);
+
+  std::list<gpx::WPT*> wpts = trkseg->trkpts().list();
+
+  CHECK(!wpts.empty());
+
+  gpx::WPT* wpt = *(wpts.begin());
+
+
+  CHECK_EQ(wpt->lat().getValue(), "50.7");
+  CHECK_EQ(wpt->lon().getValue(), "6.4");
+
+
+  std::unique_ptr<gpx::WPT> node(new gpx::WPT(nullptr, "trkpt", gpx::Node::ELEMENT, false));
+
+  CHECK(node);
+
+  node->copy(wpt, &report);
+
+  CHECK_EQ(report.warning(), gpx::Report::SUCCESS);
+
+
+  CHECK_EQ(node->lat().getValue(), "50.7");
+  CHECK_EQ(node->lon().getValue(), "6.4");
+
+
+  CHECK_EQ(wpt->lat().getValue(), "50.7");
+  CHECK_EQ(wpt->lon().getValue(), "6.4");
+}
