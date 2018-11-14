@@ -46,6 +46,10 @@ namespace gpx
 
   Node::~Node()
   {
+
+    for(std::list<Node*>::iterator it = _unknownElements.begin(); it != _unknownElements.end(); ++it)
+      delete *it;
+
   }
 
   string Node::getTrimmedValue() const
@@ -105,9 +109,14 @@ namespace gpx
       report->report(this, Report::ADD_UNKNOWN_NODE, name);
     }
 
-    Node *node = new Node(this, name, type, false);
 
+
+    Node *node = new Node(this, name, type, false);
+    
     node->insert(before, report);
+
+    _unknownElements.push_back(node);
+
 
     return node;
   }
@@ -121,14 +130,14 @@ namespace gpx
     {
       gpx::Node *attribute = add((*node)->getName().c_str(), gpx::Node::ATTRIBUTE, report);
 
-      (*node)->copy(attribute, report);
+      attribute->copy(*node, report);
     }
 
     for (std::list<gpx::Node*>::iterator node = source->getElements().begin(); node != source->getElements().end(); ++node)
     {
       gpx::Node *element = add((*node)->getName().c_str(), gpx::Node::ELEMENT, report);
 
-      (*node)->copy(element, report);
+      element->copy(*node, report);
     }
   }
 
@@ -314,7 +323,6 @@ namespace gpx
   {
     return false;
   }
-
 
 }
 
