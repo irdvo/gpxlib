@@ -68,6 +68,15 @@ void show(const string str, unsigned width)
   cout << value << ' ';
 }
 
+void show_extensions(list<gpx::Node*> extensions)
+{
+    for(list<gpx::Node*>::const_iterator iter=extensions.begin();
+        iter!=extensions.end();
+        ++iter){
+        cout << (*iter)->getName() << ":" << (*iter)->getValue() << ", ";
+    }
+}
+
 int main(int argc, char *argv[])
 {
   if (argc < 2)
@@ -148,7 +157,7 @@ int main(int argc, char *argv[])
                     show(trkpt->time(), 20);
                     show(trkpt->getName(),  8);
                     show(trkpt->cmt(),  10);
-                    show(trkpt->extensions().getValue(), 10);
+                    show_extensions(trkpt->extensions().getElements());
                     cout << endl;
                   }
                 }
