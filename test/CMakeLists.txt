@@ -8,4 +8,4 @@ include_directories (. .. ${EXPAT_INCLUDE_DIRS})
 
 add_executable (gpxcheck gpxcheck.cpp)
 target_link_libraries (gpxcheck gpx ${EXPAT_LIBRARIES})
-
+set_target_properties(gpxcheck PROPERTIES CXX_STANDARD 11)

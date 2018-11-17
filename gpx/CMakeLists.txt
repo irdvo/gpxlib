@@ -52,6 +52,8 @@ target_link_libraries(${PROJECT_NAME} ${EXPAT_LIBRARIES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${BUILD_VERSION})
 set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION ${BUILD_VERSION})
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 11)
+
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin
                     LIBRARY DESTINATION lib

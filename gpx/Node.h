@@ -306,6 +306,7 @@ namespace gpx
     std::list<Node*>   _interfaces;
     std::list<Node*>   _attributes;
     std::list<Node*>   _elements;
+    std::list<Node*>   _unknownElements;
     bool               _mandatory;
     
     // Do not implement
