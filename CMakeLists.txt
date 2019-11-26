@@ -36,6 +36,11 @@ CONFIGURE_FILE(
 ADD_CUSTOM_TARGET(uninstall
     "${CMAKE_COMMAND}" -P "${CMAKE_BINARY_DIR}/cmake_uninstall.cmake")
 
+CONFIGURE_FILE(
+  "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}lib.pc.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}lib.pc"
+  IMMEDIATE @ONLY)
+
 add_subdirectory(gpx)
 option(BUILD_EXAMPLES "Build examples" ON)
 if(BUILD_EXAMPLES)
@@ -48,6 +53,4 @@ endif()
 
 install(DIRECTORY gpx/ DESTINATION include/gpx FILES_MATCHING PATTERN "*.h" PATTERN "CMakeFiles" EXCLUDE)
 
-# uninstall:
-# xargs rm <install_manifest.txt
-
+install(FILES "${CMAKE_BINARY_DIR}/${PROJECT_NAME}lib.pc" DESTINATION lib/pkgconfig)

@@ -1,0 +1,13 @@
+Name: gpxlib
+Description: A c++ library for reading and writing GPX-files.
+Version: 0.1
+Requires.private: expat
+
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Libs: -L${libdir} -lgpx
+Libs.private: -lexpat
+Cflags: -I${includedir}
