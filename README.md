@@ -30,7 +30,7 @@ Building dynamic library:
 
 ## Tests
 
-In the directory gpxlib/test there is test program (gpxtest).
+In the directory gpxlib/test there is a test program (gpxtest).
 
 
 ## Examples
