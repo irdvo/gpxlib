@@ -27,6 +27,7 @@
 //
 //==============================================================================
 
+#include "gpx/export.h"
 
 namespace gpx
 {
@@ -37,7 +38,7 @@ namespace gpx
   ///
   /// @return the value in radians
   ///
-  double deg2rad(double deg);
+  DLL_API double deg2rad(double deg);
 
   ///
   /// Convert radians in degrees
@@ -46,7 +47,7 @@ namespace gpx
   ///
   /// @return the value in degrees
   ///
-  double rad2deg(double rad);
+  DLL_API double rad2deg(double rad);
 
   ///
   /// Calculate the distance between two lat-lon points
@@ -58,7 +59,7 @@ namespace gpx
   ///
   /// @return the distance between the two points in metres
   ///
-  double distance(double lat1, double lon1, double lat2, double lon2);
+  DLL_API double distance(double lat1, double lon1, double lat2, double lon2);
 
   ///
   /// Calculate the bearing between two lat-lon points
@@ -70,7 +71,7 @@ namespace gpx
   ///
   /// @return the distance between the two points in metres
   ///
-  double bearing(double lat1, double lon1, double lat2, double lon2);
+  DLL_API double bearing(double lat1, double lon1, double lat2, double lon2);
 
   ///
   /// Calculate the crosstrack distance between the lat-lon1 - lat-lon2 line and point lat-lon3
@@ -84,7 +85,7 @@ namespace gpx
   ///
   /// @return the crosstrack distance between the line and the point in metres
   ///
-  double crosstrack(double lat1, double lon1, double lat2, double lon2, double lat3, double lon3);
+  DLL_API double crosstrack(double lat1, double lon1, double lat2, double lon2, double lat3, double lon3);
 }
 
 #endif

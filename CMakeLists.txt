@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.0)
+cmake_minimum_required(VERSION 2.9.0)
 
 project(gpx)
 
@@ -14,7 +14,7 @@ IF(EXISTS "${CMAKE_SOURCE_DIR}/.git")
     IF(GIT)
         EXECUTE_PROCESS(
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-            COMMAND ${GIT} describe --tags
+            COMMAND ${GIT} describe --tags --always
             OUTPUT_VARIABLE GIT_VERSION  OUTPUT_STRIP_TRAILING_WHITESPACE
         )
 	    if(NOT GIT_VERSION)
